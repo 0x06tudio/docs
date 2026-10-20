@@ -1,0 +1,128 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/20 \\
+    \textbf{Uso:} & Esterno \\
+    \textbf{Partecipanti (Presenti):} &  Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio\\
+    \textbf{Destinatari:} & Zucchetti Spa; Proff. Vardanega, Cardin \\
+\end{tabularx}
+
+\vspace{1cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/10/20 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Informazioni generali}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Modalità / Luogo:} & Online / Google Meet \\
+    \textbf{Data svolgimento:} & 2026/10/20 \\
+    \textbf{Ora inizio:} & 14:30 \\
+    \textbf{Ora fine:} & 15:30 \\
+    \textbf{Durata totale:} & 1 ora \\
+    \textbf{Scopo della riunione:} & Richiesta chiarimenti riguardo il capitolato C9 \\
+    \textbf{Partecipanti esterni:} & Gregorio Piccoli (Zucchetti Spa)
+\end{tabularx}
+
+\newpage
+
+
+\section{Ordine del giorno}
+Durante la riunione sono stati affrontati i seguenti punti:
+\begin{enumerate}
+    \item Come gestire la context window ridotta degli LLM quando va sottoposto ad analisi un progetto di grandi dimensioni
+    \item Quale harness utilizzare
+    \item Come garantire un'adeguata copertura dei test automatici
+    \item Copertura minima da garantire nella verifica dei casi d'uso
+    \item Formati di input da preferire
+    \item Proposta di un plug-in deterministico per la gestione dello stato e della dashboard
+    \item Modelli locali consigliati
+\end{enumerate}
+
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1:}
+Ai fini del progetto, è sufficiente anche effettuare il testing su un progetto di dimensioni ridotte, tuttavia progetti più ampi non dovrebbero creare problemi dato che questi mettono a disposizione numerosi file Markdown "di appoggio" per le IA.
+Un'alternativa è quella di creare noi stessi un "progetto giocattolo" ai fini del testing.
+\subsection{Punto 2:}
+Claude Code è adeguato; consigliato OpenCode.
+\subsection{Punto 3:}
+Questione rimandata a una successiva fase del progetto; è stata proposta l'idea di costruire una skill ad-hoc.
+\subsection{Punto 4:}
+Considerata la natura informale delle descrizioni testuali dei casi d'uso, risulta difficile costruire dei test formali deterministici. Pertanto non è richiesta una copertura minima, e la verifica deve essere necessariamente informale.
+\subsection{Punto 5:}
+Preferibili i formati testuali (Markdown), lasciata al gruppo la libertà di sperimentazione con la lettura di diagrammi direttamente in formato PNG.
+\subsection{Punto 6:}
+Considerata appropriata la proposta di mappare ID casi d'uso con requisiti, potenzialmente anche con un database. Il plug-in potrà orchestrare poi delle chiamate all'LLM; è stato mostrato OpenSpec come esempio.
+\subsection{Punto 7:}
+Forniti riferimenti autorevoli per verificare l'usabilità di modelli locali sulle proprie macchine.
+\newpage
+
+
+\section{Approvazione Esterna}
+
+Il presente verbale è stato condiviso con il referente aziendale in data YYYY/MM/DD ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
+
+\vspace{3cm}
+Firma del rappresentante:
+
+
+\end{document}
