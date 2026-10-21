@@ -1,0 +1,127 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2025/2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/16 \\
+    %\textbf{Ora:} & 14:00 - 15:30 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio \\
+    \textbf{Destinatari:} & 0x06tudio \\
+\end{tabularx}
+
+\vspace{1cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    % 1.0.0 & DD/MM/YYYY & Approvazione finale del verbale & Nome Cognome \\ \hline
+    0.1.0 & 2026/10/20 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Informazioni generali}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Data svolgimento:} & 2026/10/16 \\
+    \textbf{Ora inizio:} & 15:00 \\
+    \textbf{Ora fine:} & 17:00 \\
+    \textbf{Durata totale:} & 2 ore \\
+    \textbf{Scopo della riunione:} & ... \\
+\end{tabularx}
+
+\newpage
+
+
+\section{Ordine del giorno}
+Durante la riunione sono stati affrontati i seguenti punti:
+\begin{enumerate}
+    \item .
+    \item .
+    \item .
+\end{enumerate}
+
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: .}
+...
+\subsection{Punto 2: .}
+...
+\subsection{Punto 3: .}
+...
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} \\ \hline
+    T01.01 & Approfondimento tecnico su gestione token JWT \\ \hline
+    T01.02 & Stesura diagrammi UML casi d'uso \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} \\ \hline
+    T01.01 & Approfondimento tecnico su gestione token JWT & Nome Cognome \\ \hline
+    T01.02 & Stesura diagrammi UML casi d'uso & Nome Cognome \\ \hline
+\end{tabularx}
+
+\end{document}
