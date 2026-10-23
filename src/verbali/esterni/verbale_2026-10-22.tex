@@ -1,0 +1,135 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/22 \\
+    \textbf{Uso:} & Esterno \\
+    \textbf{Partecipanti (Presenti):} &  Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio\\
+    \textbf{Destinatari:} & Vimar SpA; Proff. Vardanega, Cardin \\
+\end{tabularx}
+
+\vspace{1cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/10/23 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Informazioni generali}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Modalità / Luogo:} & Online / Microsoft Teams \\
+    \textbf{Data svolgimento:} & 2026/10/22 \\
+    \textbf{Ora inizio:} & 16:00 \\
+    \textbf{Ora fine:} & 17:00 \\
+    \textbf{Durata totale:} & 1 ora \\
+    \textbf{Scopo della riunione:} & Domande riguardanti AURA (capitolato C1) \\
+    \textbf{Partecipanti esterni:} & Mariano Sciacco, Domenico Bevilacqua (Vimar SpA)
+\end{tabularx}
+
+\newpage
+
+
+\section{Ordine del giorno}
+Durante la riunione i referenti esterni hanno preparato risposte a domande inviate da diversi gruppi riguardanti questi temi:
+\begin{enumerate}
+    \item Domande riguardo architettura e linguaggi da utilizzare
+    \item Domande sui protocolli di sicurezza da adottare
+    \item Domande sullo sviluppo e il testing
+    \item Domande riguardanti l'organizzazione del lavoro
+\end{enumerate}
+
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Architettura e linguaggi:}
+\begin{itemize}
+    \item Libertà sul linguaggio da usare per l'MCP, consigliato Python + FastMCP. \vspace{-0.1cm}
+    \item Il client MCP da sviluppare serve principalmente per i test di integrazione e la gestione degli errori. \vspace{-0.1cm}
+    \item Va sviluppata una soluzione principalmente back-end che funzioni su un servizio AI commerciale qualsiasi. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Protocolli e sicurezza:}
+\begin{itemize}
+    \item Sarà necessario un account MyVimar con accesso all'impianto: l'MCP dovrà associare ogni utente alla sua autorizzazione OAuth2. \vspace{-0.1cm}
+    \item Per bloccare richieste sbagliate si possono configurare permessi di accesso (sola lettura o lettura e scrittura) diversi a dispositivi diversi. \vspace{-0.1cm}
+    \item Per lo stato dei dispositivi e le notifiche è accettabile il polling. Altre soluzioni esplorabili sono trigger via webhook. \vspace{-0.1cm}
+    \item L'assistente deve saper gestire varie richieste: interazioni non elencate nel capitolato sono \textit{nice-to-have}. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Sviluppo e test:}
+\begin{itemize}
+    \item Il kit di impianto si condivide via cloud: è sufficiente che un membro del gruppo lo tenga acceso e dal suo account amministratore MyVimar può permettere l'accesso agli altri.\vspace{-0.1cm}
+    \item Per sviluppare in parallelo si può generare un mock server in locale. \vspace{-0.1cm}
+    \item Nei test automatici si può usare un mock del servizio AI per avere test ripetibili e deterministici. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Organizzazione:}
+\begin{itemize}
+    \item Per il PoC è consigliato avere un MCP funzionante su pochi casi base. Per l'MVP i requisiti nice-to-have sono preferibili agli opzionali. \vspace{-0.1cm}
+    \item SAL su Teams e disponibilità di approfondimenti mirati con il team previa richiesta con adeguato anticipo. \vspace{-0.1cm}
+\end{itemize}
+
+\newpage
+
+
+\section{Approvazione Esterna}
+
+Il presente verbale è stato condiviso con il referente aziendale in data YYYY/MM/DD ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
+
+\vspace{3cm}
+Firma del rappresentante:
+
+
+\end{document}
