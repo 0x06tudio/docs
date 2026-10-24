@@ -1,0 +1,156 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Scelta del Capitolato}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+% --- INTESTAZIONE / FRONTESPIZIO RAPIDO ---
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Documento di Scelta del Capitolato}}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- INFORMAZIONI SUL DOCUMENTO ---
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 1.0.0 \\
+    \textbf{Data:} & ***** \\
+    \textbf{Uso:} & Esterno\\
+    \textbf{Redattori:} & Davide Colabove \\
+    \textbf{Verificatori:} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin
+Chirilov, Andrea Maggio \\
+    \textbf{Destinatari:} & Proff. Vardanega, Cardin \\
+\end{tabularx}
+
+\vspace{1cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    %% 1.0.0 & 2026/10/27 & Approvazione finale del documento & [Nome] (Verificatore) \\ \hline
+    0.1.0 & 2026/10/24 & Stesura bozza iniziale, inserimento valutazioni capitolati in shortlist & Davide Colabove\\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------
+% 1. ELENCO E RESOCONTO INCONTRI ESPLORATIVI
+% ---------------------------------------------------------
+\section{Elenco e resoconto incontri esplorativi con il proponente}
+
+Durante la prima fase di analisi, il gruppo ha ritenuto necessario fissare dei colloqui esplorativi con le aziende proponenti dei capitolati che hanno suscitato maggiore interesse. Di seguito l'elenco degli incontri effettuati. I resoconti dettagliati di ogni colloquio, con le relative domande e risposte (Q\&A), sono documentati nei rispettivi \textbf{Verbali Esterni}.
+
+\begin{itemize}
+    \item \textbf{Incontro con Zucchetti (C9):} 2026/10/20. Riferimento: \textit{VE\_2026\_10\_20.pdf}.
+    \item \textbf{Incontro con Vimar (C1):} 2026/10/22. Riferimento verbale: \textit{VE\_2026\_10\_22.pdf}
+    \item \textbf{Incontro con Var Group (C6):} 2026/10/26. Riferimento verbale: \textit{VE\_2026\_10\_26.pdf}
+\end{itemize}
+
+% ---------------------------------------------------------
+% 2. MOTIVAZIONI DELLA SCELTA E VALUTAZIONE
+% ---------------------------------------------------------
+\section{Motivazioni della scelta, valutando ogni capitolato}
+
+Il gruppo ha inizialmente preso in esame tutti i 10 capitolati proposti per l'Anno Accademico in corso. Dopo una prima scrematura basata su criteri di interesse per il dominio applicativo, aderenza alle tecnologie note o di interesse per il gruppo (come Cloud, AI, architetture a microservizi) e chiarezza degli obiettivi, siamo giunti a una \textbf{Shortlist di 3 capitolati} (C1, C6, C9).
+
+\subsection{Analisi approfondita della Shortlist}
+
+Per i tre capitolati finalisti, abbiamo condotto un'analisi dettagliata dei PRO e dei CONTRO, preparando domande specifiche affrontate poi durante le call conoscitive con i referenti aziendali.
+
+\subsubsection*{Capitolato C1: Vimar -- AURA}
+\textbf{Descrizione:} Sviluppo di un server MCP (Model Context Protocol) per interfacciare la Smart Home Vimar con LLM commerciali.
+\begin{itemize}
+    \item \textbf{PRO:}
+    \begin{itemize}
+        \item \textbf{Analisi dei Requisiti ben definita:} Sono presenti 38 scenari di interazione (17 base e 21 avanzati) già pronti e tabellati.
+        \item \textbf{UI facoltativa, 100\% Backend, Cloud ed AI:} Focus su architettura container, protocollo MCP, API REST e integrazione LLM.
+        \item \textbf{Azienda vicina e strutturata:} Sede a Padova, fornitura di una valigetta hardware fisica, account AWS e supporto tecnico su richiesta.
+    \end{itemize}
+    \item \textbf{CONTRO / Punti di attenzione:}
+    \begin{itemize}
+        \item \textbf{Scopo dell'MCP Client:} Essendo la CLI/TUI opzionale, non è immediatamente chiaro se l'MCP client da sviluppare debba avere un'interfaccia o serva solo per i test E2E.
+        \item \textbf{Flussi complessi:} Gestione del flusso OAuth2 in chat (login MyVimar) e delle notifiche Push (Subscription) proattive verso l'utente, ostiche nei normali chatbot commerciali.
+        \item \textbf{Test Coverage (80\%):} Dubbi su come calcolare l'80\% di copertura E2E sui casi d'uso e su come mockare l'LLM esterno nei test automatici.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Capitolato C6: Var Group -- Sistema IA di Caching e Dashboard FinOps}
+\textbf{Descrizione:} Estensione del progetto Open Source LiteLLM per ottimizzare costi (FinOps) e tempi (Caching semantico) delle chiamate API LLM.
+\begin{itemize}
+    \item \textbf{PRO:}
+    \begin{itemize}
+        \item \textbf{Aderenza alle metodologie SWE:} Approccio rigoroso richiesto fin dall'inizio (Design Thinking, ADR, UML, coverage $>=$ 70\%).
+        \item \textbf{Alta rilevanza di mercato:} Ottimizzare costi e tempi delle API LLM è una delle sfide enterprise attuali più critiche.
+        \item \textbf{Risorse e supporto eccellenti:} Stack tecnologico moderno (Python, FastAPI, Vector DB) e formazione mirata già calendarizzata.
+    \end{itemize}
+    \item \textbf{CONTRO / Punti di attenzione:}
+    \begin{itemize}
+        \item \textbf{Integrazione con LiteLLM:} LiteLLM è un progetto open source complesso; la scelta tra fork interno o proxy esterno richiede analisi architetturale profonda.
+        \item \textbf{Multi-tenancy e Privacy:} Complessità nel gestire il partizionamento della cache semantica tra team diversi per evitare Data Leakage.
+        \item \textbf{Logiche avanzate:} Gestione del forecasting di spesa (medie matematiche vs modelli statistici) e sfide nel calcolo dell'embedding su contesti multi-turno lunghi.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Capitolato C9: Zucchetti -- SpecCheck}
+\textbf{Descrizione:} Sviluppo di skills per OpenCode volte alla verifica e tracciabilità end-to-end tra casi d'uso, requisiti e codice sorgente.
+\begin{itemize}
+    \item \textbf{PRO:}
+    \begin{itemize}
+        \item \textbf{Tema all'avanguardia:} Agentic Coding, LLM Reasoning e verifica automatizzata sono argomenti tecnologicamente molto stimolanti.
+        \item \textbf{Sinergia con l'esame SWE:} Possibilità di testare il tool direttamente sulla documentazione (Casi d'Uso, Requisiti) prodotta dal gruppo per il progetto stesso.
+        \item \textbf{DevOps limitata:} No infrastruttura cloud o database da configurare; il focus è interamente su logica, AI e terminale.
+    \end{itemize}
+    \item \textbf{CONTRO / Punti di attenzione (Chiariti in call):}
+    \begin{itemize}
+        \item \textbf{Formati obbligatori e Immagini:} Le immagini (PNG/JPG) sono confermate nei requisiti ma riconosciute come proni ad allucinazioni. Focus principale su Markdown e Mermaid.
+        \item \textbf{Dimensioni Codebase (Context Window):} Rischio di superare i limiti di token nell'analisi del codice. (Da gestire tramite tecniche specifiche o plugin orchestratore).
+        \item \textbf{Gestione del Non-Determinismo:} Necessità di sviluppare test automatici stabili pur dipendendo dalle risposte non sempre deterministiche di un LLM. L'azienda conferma l'uso di un Plugin deterministico "orchestratore" per la gestione dello stato e della dashboard.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Valutazione degli altri capitolati proposti}
+\textit{}
+
+\subsection{Scelta Finale}
+\textit{}
+
+\end{document}
