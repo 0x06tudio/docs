@@ -64,7 +64,7 @@ Chirilov, Andrea Maggio \\
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
-    %% 1.0.0 & 2026/10/27 & Approvazione finale del documento & [Nome] (Verificatore) \\ \hline
+    0.2.0 & 2026/10/25 & Stesura "Valutazione degli altri capitolati proposti" & Davide Colabove \\ \hline
     0.1.0 & 2026/10/24 & Stesura bozza iniziale, inserimento valutazioni capitolati in shortlist & Davide Colabove\\ \hline
 \end{tabularx}
 
@@ -148,7 +148,24 @@ Per i tre capitolati finalisti, abbiamo condotto un'analisi dettagliata dei PRO 
 \end{itemize}
 
 \subsection{Valutazione degli altri capitolati proposti}
-\textit{}
+Di seguito vengono riportate le motivazioni che hanno portato allo scarto degli altri capitolati, a fronte di un'attenta analisi dei relativi documenti di presentazione.
+
+\begin{itemize}
+    \item \textbf{Sanmarco Informatica (Progetto AIRA):} Il progetto si concentra sull'automazione B2B tramite OCR e AI multimodale. La forte dipendenza da uno stack enterprise basato su Java/Spring Boot e il dominio applicativo molto specifico (integrazioni ERP/CRM) lo hanno reso meno affine agli interessi tecnologici del gruppo, maggiormente orientati verso sfide architetturali differenti.
+    
+    \item \textbf{Uranion (FossDot):} Nonostante lo stack tecnologico stimolante e a basso livello (Rust embedded, sviluppo bare-metal), il progetto richiede la gestione, l'assemblaggio e il collaudo di hardware fisico (schede, array di microfoni). Si è ritenuto che l'introduzione di componentistica hardware aumentasse i rischi logistici e la complessità della fase di testing, oltre alla notevole curva di apprendimento del linguaggio rendendolo meno idoneo per le tempistiche stringenti del corso.
+    
+    \item \textbf{Eggon (NEXUM):} La realizzazione di un "AI Concierge" in ambito HR (gestione ferie e permessi) è risultata strettamente vincolata allo sviluppo di una Web App. Si è valutato che il dominio di business fosse meno avvincente rispetto alle tematiche di DevOps, FinOps o orchestrazione LLM offerte da altre proposte.
+    
+    \item \textbf{M31 (Piattaforma per la gestione dei veicoli e servizi post-vendita):} Il capitolato propone un'architettura a microservizi molto vasta (NodeJS, Go, Kubernetes, NATS). Pur essendo didatticamente valido, si è considerato il perimetro eccessivamente dispersivo e meno focalizzato sull'integrazione di intelligenza artificiale rispetto ai capitolati inseriti nella shortlist.
+    
+    \item \textbf{Miriade (RareCare):} Il progetto tocca un dominio applicativo critico (dati sanitari di minori e malattie rare), imponendo giustamente vincoli molto severi in termini di compliance GDPR e privacy. Inoltre, la forte componente richiesta per lo sviluppo frontend cross-platform (Flutter/React Native) non si allinea con le inclinazioni tecniche dei membri del team.
+    
+    \item \textbf{Ergon (SmartDashboard):} L'elevato focus su processi di data warehousing (con l'uso di DuckDB) e visualizzazione dati tramite cruscotti grafici si discosta in modo netto dai principali obiettivi tecnologici che il gruppo desidera approfondire.
+    
+    \item \textbf{Halue (Sonar):} La realizzazione di una documentazione vivente per store e-commerce presenta un altissimo livello di vendor lock-in. Il progetto risulta intrinsecamente vincolato e dipendente in modo rigido dall'ecosistema Shopify e dall'infrastruttura Vercel, precludendo la possibilità di progettare un'architettura riutilizzabile in vari contesti.
+\end{itemize}
+
 
 \subsection{Scelta Finale}
 \textit{}
