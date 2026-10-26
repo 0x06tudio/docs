@@ -48,10 +48,10 @@
 
 \begin{tabularx}{\textwidth}{l X}
     \textbf{Versione:} & 0.1.0 \\
-    \textbf{Data:} & 2026/10/20 \\
+    \textbf{Data:} & 2026/10/22 \\
     \textbf{Uso:} & Esterno \\
     \textbf{Partecipanti (Presenti):} &  Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio\\
-    \textbf{Destinatari:} & Zucchetti Spa; Proff. Vardanega, Cardin \\
+    \textbf{Destinatari:} & Vimar SpA; Proff. Vardanega, Cardin \\
 \end{tabularx}
 
 \vspace{1cm}
@@ -60,7 +60,8 @@
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
-    0.1.0 & 2026/10/20 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
+    0.1.1 & 2026/10/24 & Aggiunta sezione risorse e strumenti & Pietro Brocadello \\ \hline
+    0.1.0 & 2026/10/23 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
 \end{tabularx}
 
 \newpage
@@ -70,28 +71,26 @@
 
 \section{Informazioni generali}
 \begin{tabularx}{\textwidth}{l X}
-    \textbf{Modalità / Luogo:} & Online / Google Meet \\
-    \textbf{Data svolgimento:} & 2026/10/20 \\
-    \textbf{Ora inizio:} & 14:30 \\
-    \textbf{Ora fine:} & 15:30 \\
+    \textbf{Modalità / Luogo:} & Online / Microsoft Teams \\
+    \textbf{Data svolgimento:} & 2026/10/22 \\
+    \textbf{Ora inizio:} & 16:00 \\
+    \textbf{Ora fine:} & 17:00 \\
     \textbf{Durata totale:} & 1 ora \\
-    \textbf{Scopo della riunione:} & Richiesta chiarimenti riguardo il capitolato C9 \\
-    \textbf{Partecipanti esterni:} & Gregorio Piccoli (Zucchetti Spa)
+    \textbf{Scopo della riunione:} & Domande riguardanti AURA (capitolato C1) \\
+    \textbf{Partecipanti esterni:} & Mariano Sciacco, Domenico Bevilacqua (Vimar SpA)
 \end{tabularx}
 
 \newpage
 
 
 \section{Ordine del giorno}
-Durante la riunione sono stati affrontati i seguenti punti:
+Durante la riunione i referenti esterni hanno preparato risposte a domande inviate da diversi gruppi riguardanti questi temi:
 \begin{enumerate}
-    \item Come gestire la context window ridotta degli LLM quando va sottoposto ad analisi un progetto di grandi dimensioni
-    \item Quale harness utilizzare
-    \item Come garantire un'adeguata copertura dei test automatici
-    \item Copertura minima da garantire nella verifica dei casi d'uso
-    \item Formati di input da preferire
-    \item Proposta di un plug-in deterministico per la gestione dello stato e della dashboard
-    \item Modelli locali consigliati
+    \item Domande riguardo architettura e linguaggi da utilizzare
+    \item Domande sui protocolli di sicurezza da adottare
+    \item Domande sullo sviluppo e il testing
+    \item Domande riguardanti l'organizzazione del lavoro
+    \item Domande riguardanti la disponibilità di risorse per il progetto
 \end{enumerate}
 
 \newpage
@@ -99,21 +98,34 @@ Durante la riunione sono stati affrontati i seguenti punti:
 
 \section{Resoconto della discussione}
 
-\subsection{Punto 1:}
-Ai fini del progetto, è sufficiente anche effettuare il testing su un progetto di dimensioni ridotte, tuttavia progetti più ampi non dovrebbero creare problemi dato che questi mettono a disposizione numerosi file Markdown "di appoggio" per le IA.
-Un'alternativa è quella di creare noi stessi un "progetto giocattolo" ai fini del testing.
-\subsection{Punto 2:}
-Claude Code è adeguato; consigliato OpenCode.
-\subsection{Punto 3:}
-Questione rimandata a una successiva fase del progetto; è stata proposta l'idea di costruire una skill ad-hoc.
-\subsection{Punto 4:}
-Considerata la natura informale delle descrizioni testuali dei casi d'uso, risulta difficile costruire dei test formali deterministici. Pertanto non è richiesta una copertura minima, e la verifica deve essere necessariamente informale.
-\subsection{Punto 5:}
-Preferibili i formati testuali (Markdown), lasciata al gruppo la libertà di sperimentazione con la lettura di diagrammi direttamente in formato PNG.
-\subsection{Punto 6:}
-Considerata appropriata la proposta di mappare ID casi d'uso con requisiti, potenzialmente anche con un database. Il plug-in potrà orchestrare poi delle chiamate all'LLM; è stato mostrato OpenSpec come esempio.
-\subsection{Punto 7:}
-Forniti riferimenti autorevoli per verificare l'usabilità di modelli locali sulle proprie macchine.
+\subsection{Architettura e linguaggi:}
+\begin{itemize}
+    \item Libertà sul linguaggio da usare per l'MCP, consigliato Python + FastMCP. \vspace{-0.1cm}
+    \item Il client MCP da sviluppare serve principalmente per i test di integrazione e la gestione degli errori. \vspace{-0.1cm}
+    \item Va sviluppata una soluzione principalmente back-end che funzioni su un servizio AI commerciale qualsiasi. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Protocolli e sicurezza:}
+\begin{itemize}
+    \item Sarà necessario un account MyVimar con accesso all'impianto: l'MCP dovrà associare ogni utente alla sua autorizzazione OAuth2. \vspace{-0.1cm}
+    \item Per bloccare richieste sbagliate si possono configurare permessi di accesso (sola lettura o lettura e scrittura) diversi a dispositivi diversi. \vspace{-0.1cm}
+    \item Per lo stato dei dispositivi e le notifiche è accettabile il polling. Altre soluzioni esplorabili sono trigger via webhook. \vspace{-0.1cm}
+    \item L'assistente deve saper gestire varie richieste: interazioni non elencate nel capitolato sono \textit{nice-to-have}. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Sviluppo e test:}
+\begin{itemize}
+    \item Il kit di impianto si condivide via cloud: è sufficiente che un membro del gruppo lo tenga acceso e dal suo account amministratore MyVimar può permettere l'accesso agli altri.\vspace{-0.1cm}
+    \item Per sviluppare in parallelo si può generare un mock server in locale. \vspace{-0.1cm}
+    \item Nei test automatici si può usare un mock del servizio AI per avere test ripetibili e deterministici. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Organizzazione:}
+\begin{itemize}
+    \item Per il PoC è consigliato avere un MCP funzionante su pochi casi base. Per l'MVP i requisiti nice-to-have sono preferibili agli opzionali. \vspace{-0.1cm}
+    \item SAL su Teams e disponibilità di approfondimenti mirati con il team previa richiesta con adeguato anticipo. \vspace{-0.1cm}
+\end{itemize}
+\subsection{Risorse e strumenti:}
+\begin{itemize}
+    \item I referenti aziendali hanno risposto che, qualora fosse necessario, forniranno le risorse richieste senza problemi. \vspace{-0.1cm}
+\end{itemize}
 \newpage
 
 
