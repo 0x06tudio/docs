@@ -7,8 +7,16 @@
 \usepackage{tabularx}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    pdftitle={Documento di Scelta del Capitolato},
+    pdfpagemode=FullScreen,
+}
 \usepackage{xcolor}
 \usepackage{enumitem}
+\usepackage{parskip}
 
 \geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
 
@@ -31,11 +39,12 @@
 \begin{minipage}{0.4\textwidth}
     \raggedleft
     \vspace{0pt}
-
-    \includegraphics[width=6cm]{../../media/logo.png}
-    \vspace{1cm}
-    \small
-    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+    \begin{center}
+        \includegraphics[width=6cm]{../../media/logo.png}\\
+        \vspace{0.5cm}
+        \small
+        \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+    \end{center}
 \end{minipage}
 
 \vspace{0.5cm}
@@ -61,12 +70,14 @@ Chirilov, Andrea Maggio \\
 
 % --- REGISTRO DELLE MODIFICHE ---
 \section*{Registro delle modifiche}
+{\renewcommand{\arraystretch}{1.5}
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.3.0 & 2026/10/26 & Correzioni finali e stesura "Scelta Finale" & Catalin Chirilov \\ \hline
     0.2.0 & 2026/10/25 & Stesura "Valutazione degli altri capitolati proposti" & Davide Colabove \\ \hline
     0.1.0 & 2026/10/24 & Stesura bozza iniziale, inserimento valutazioni capitolati in shortlist & Davide Colabove\\ \hline
-\end{tabularx}
+\end{tabularx}}
 
 \newpage
 \tableofcontents
@@ -168,6 +179,11 @@ Di seguito vengono riportate le motivazioni che hanno portato allo scarto degli 
 
 
 \subsection{Scelta Finale}
-\textit{}
+
+Dopo diverse discussioni interne e agl'incontri con i capitoli di nostro interesse, abbiamo deciso di optare per il Capitolato \textbf{C9: SpecCheck} proposto da Zucchetti.
+
+SpecCheck offre la possibilità di affrontare il problema del "Vibe Coding" andando a verifire la validità degli output proposti dagli LLM moderni con i requisiti imposti dall'utente; abbiamo apprezzato il carattere esplorativo del progetto e l'assenza di oneri infrastrutturali gravosi.  
+
+Infine, l'opportunità di sviluppare una pipeline di tracciabilità end-to-end (dai casi d'uso fino all'implementazione) crea una sinergia perfetta con il corso di Ingegneria del Software: potremo infatti usare il nostro stesso progetto universitario come banco di prova reale, utilizzando il tool per verificare in automatico se il codice che scriveremo rispetta davvero i documenti di specifica che abbiamo progettato.
 
 \end{document}
