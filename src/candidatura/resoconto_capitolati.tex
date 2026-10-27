@@ -23,6 +23,9 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \begin{document}
+
+\newcommand{\verbext}[1]{\href{https://github.com/0x06tudio/docs/blob/develop/out/verbali/esterni/#1}{\textit{#1}}}
+
 \thispagestyle{plain}
 
 % --- INTESTAZIONE E LOGO ---
@@ -35,7 +38,7 @@
 \begin{minipage}{0.4\textwidth}
     \raggedleft
     \vspace{0pt}
-    \includegraphics[width=6cm]{../../media/logo.png}
+    \includegraphics[width=6cm]{../media/logo.png}
     \vspace{1cm}
     \small
     \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
@@ -51,7 +54,7 @@
 
 % --- INFORMAZIONI SUL DOCUMENTO ---
 \begin{tabularx}{\textwidth}{l X}
-    \textbf{Versione:} & 0.4.0 \\
+    \textbf{Versione:} & 0.3.2 \\
     \textbf{Data:} & 2026/10/27 \\
     \textbf{Uso:} & Esterno\\
     \textbf{Redattori:} & Davide Colabove, Catalin Chirilov \\
@@ -68,6 +71,7 @@ Chirilov, Andrea Maggio \\
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.3.2 & 2026/10/27 & Correzione errori di battitura, aggiunti link ai verbali & Andrea Maggio \\ \hline
     0.3.1 & 2026/10/26 & Correzione frontspizio & Davide Colabove \\ \hline
     0.3.0 & 2026/10/26 & Correzioni finali e stesura "Scelta Finale" & Catalin Chirilov \\ \hline
     0.2.0 & 2026/10/25 & Stesura "Valutazione degli altri capitolati proposti" & Davide Colabove \\ \hline
@@ -86,9 +90,9 @@ Chirilov, Andrea Maggio \\
 Durante la prima fase di analisi, il gruppo ha ritenuto necessario fissare dei colloqui esplorativi con le aziende proponenti dei capitolati che hanno suscitato maggiore interesse. Di seguito l'elenco degli incontri effettuati. I resoconti dettagliati di ogni colloquio, con le relative domande e risposte (Q\&A), sono documentati nei rispettivi \textbf{Verbali Esterni}.
 
 \begin{itemize}
-    \item \textbf{Incontro con Zucchetti (C9):} 2026/10/20. Riferimento: \textit{VE\_2026\_10\_20.pdf}.
-    \item \textbf{Incontro con Vimar (C1):} 2026/10/22. Riferimento verbale: \textit{VE\_2026\_10\_22.pdf}
-    \item \textbf{Incontro con Var Group (C6):} 2026/10/26. Riferimento verbale: \textit{VE\_2026\_10\_26.pdf}
+    \item \textbf{Incontro con Zucchetti (C9):} 2026/10/20. Riferimento: \verbext{ve\_2026\_10\_20.pdf}
+    \item \textbf{Incontro con Vimar (C1):} 2026/10/22. Riferimento verbale: \verbext{ve\_2026\_10\_22.pdf}
+    \item \textbf{Incontro con Var Group (C6):} 2026/10/26. Riferimento verbale: \verbext{ve\_2026\_10\_26.pdf}
 \end{itemize}
 
 % ---------------------------------------------------------
@@ -173,11 +177,11 @@ Di seguito vengono riportate le motivazioni che hanno portato allo scarto degli 
 \end{itemize}
 
 
-\subsection{Scelta Finale}
+\section{Scelta Finale}
 
-Dopo diverse discussioni interne e agl'incontri con i capitoli di nostro interesse, abbiamo deciso di optare per il Capitolato \textbf{C9: SpecCheck} proposto da Zucchetti.
+Dopo diverse discussioni interne e agl'incontri con i capitolati di nostro interesse, abbiamo deciso di optare per il Capitolato \textbf{C9: SpecCheck} proposto da Zucchetti.
 
-SpecCheck offre la possibilità di affrontare il problema del "Vibe Coding" andando a verifire la validità degli output proposti dagli LLM moderni con i requisiti imposti dall'utente; abbiamo apprezzato il carattere esplorativo del progetto e l'assenza di oneri infrastrutturali gravosi.  
+SpecCheck offre la possibilità di affrontare il problema del "Vibe Coding" andando a verificare la validità degli output proposti dagli LLM moderni con i requisiti imposti dall'utente; abbiamo apprezzato il carattere esplorativo del progetto e l'assenza di oneri infrastrutturali gravosi.  
 
 Infine, l'opportunità di sviluppare una pipeline di tracciabilità end-to-end (dai casi d'uso fino all'implementazione) crea una sinergia perfetta con il corso di Ingegneria del Software: potremo infatti usare il nostro stesso progetto universitario come banco di prova reale, utilizzando il tool per verificare in automatico se il codice che scriveremo rispetta davvero i documenti di specifica che abbiamo progettato.
 
