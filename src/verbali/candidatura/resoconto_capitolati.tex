@@ -7,29 +7,25 @@
 \usepackage{tabularx}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    pdftitle={Documento di Scelta del Capitolato},
-    pdfpagemode=FullScreen,
-}
 \usepackage{xcolor}
 \usepackage{enumitem}
-\usepackage{parskip}
 
+
+% Margini
 \geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
 
+% Intestazione e piè di pagina
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small \textit{0x06tudio} -- Scelta del Capitolato}
+\fancyhead[L]{\small \textit{0x06tudio} -- Preventivo Costi e Impegni Orari}
 \fancyhead[R]{\small Anno Accademico 2026/2027}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
 \begin{document}
 \thispagestyle{plain}
-% --- INTESTAZIONE / FRONTESPIZIO RAPIDO ---
+
+% --- INTESTAZIONE E LOGO ---
 \begin{minipage}{0.6\textwidth}
     \vspace{-2cm}
     {\huge \textbf{0x06tudio}} \\[0.5em]
@@ -39,12 +35,10 @@
 \begin{minipage}{0.4\textwidth}
     \raggedleft
     \vspace{0pt}
-    \begin{center}
-        \includegraphics[width=6cm]{../../media/logo.png}\\
-        \vspace{0.5cm}
-        \small
-        \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
-    \end{center}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
 \end{minipage}
 
 \vspace{0.5cm}
@@ -57,10 +51,10 @@
 
 % --- INFORMAZIONI SUL DOCUMENTO ---
 \begin{tabularx}{\textwidth}{l X}
-    \textbf{Versione:} & 1.0.0 \\
-    \textbf{Data:} & ***** \\
+    \textbf{Versione:} & 0.4.0 \\
+    \textbf{Data:} & 2026/10/27 \\
     \textbf{Uso:} & Esterno\\
-    \textbf{Redattori:} & Davide Colabove \\
+    \textbf{Redattori:} & Davide Colabove, Catalin Chirilov \\
     \textbf{Verificatori:} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin
 Chirilov, Andrea Maggio \\
     \textbf{Destinatari:} & Proff. Vardanega, Cardin \\
@@ -74,6 +68,7 @@ Chirilov, Andrea Maggio \\
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.4.0 & 2026/10/26 & Correzione frontspizio & Davide Colabove \\ \hline
     0.3.0 & 2026/10/26 & Correzioni finali e stesura "Scelta Finale" & Catalin Chirilov \\ \hline
     0.2.0 & 2026/10/25 & Stesura "Valutazione degli altri capitolati proposti" & Davide Colabove \\ \hline
     0.1.0 & 2026/10/24 & Stesura bozza iniziale, inserimento valutazioni capitolati in shortlist & Davide Colabove\\ \hline

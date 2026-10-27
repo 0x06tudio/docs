@@ -1,0 +1,205 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Preventivo Costi e Impegni Orari}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE E LOGO ---
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Preventivo Costi e Impegni Orari}} \\[0.3em]
+    {\large \textbf{Capitolato C9: Zucchetti - Sviluppo di Skills per OpenCode per la verifica della tracciabilità end-
+to-end da casi d'uso a requisiti e codice sorgente.}}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- INFORMAZIONI SUL DOCUMENTO ---
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.2.0 \\
+    \textbf{Data:} & 2026/10/27 \\
+    \textbf{Uso:} & Esterno / Contrattuale \\
+    \textbf{Redattori:} & Alberto Cavalletto, Davide Colabove \\
+    \textbf{Destinatari:} & Proff. Vardanega, Cardin, Zucchetti S.p.A. \\
+\end{tabularx}
+
+\vspace{1cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.2.0 & 2026/10/27 & Correzioni finali e impaginazione in template & Davide Colabove \\ \hline
+    0.1.0 & 2026/10/26 & Stesura iniziale della bozza del documento, ripartizione oraria dei ruoli e computo economico. & Alberto Cavalletto\\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+% --- 1. SCOPO DEL DOCUMENTO ---
+\section{Scopo del documento}
+Il presente documento ha lo scopo di illustrare e formalizzare la pianificazione delle risorse, degli impegni orari e dei relativi costi preventivati dal gruppo per lo sviluppo del progetto didattico relativo al \textbf{Capitolato C9}.
+
+Nello specifico, vengono esposti:
+\begin{itemize}[label=-]
+    \item Il monte ore complessivo e la ripartizione del carico lavorativo tra i ruoli previsti dal corso;
+    \item L'analisi delle mansioni assegnate a ciascun ruolo con specifica motivazione operativa calibrata sul Capitolato C9;
+    \item La strategia concordata per la rotazione periodica dei membri nei ruoli;
+    \item Il quadro economico riassuntivo calcolato in base alle tariffe orarie convenzionate;
+    \item L'impegno ufficiale sulla data di consegna finale del prodotto.
+\end{itemize}
+
+
+% --- 2. IMPEGNI ORARI ---
+\section{Impegni orari}
+A seguito di un'approfondita analisi dei requisiti preliminari e della discussione interna tra i membri del gruppo, è stato stimato il fabbisogno orario complessivo necessario a garantire la massima qualità dei processi e dei prodotti intermedi.
+
+Ciascuno dei 6 componenti del team si impegna a dedicare al progetto una quota individuale media di \textbf{92 ore produttive}, per un monte ore dell'organizzazione complessivo pari a \textbf{552 ore}.
+
+Di seguito è riportata la suddivisione del monte ore preventivato per ciascun ruolo normato:
+
+\vspace{0.4cm}
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{|l|c|c|X|}
+    \hline
+    \textbf{Ruolo} & \textbf{Ore Previste} & \textbf{Incidenza (\%)} & \textbf{Media per Membro (su 6)} \\ \hline
+    Responsabile   & 48 h  & 8,70\%  & 8,0 h / componente \\ \hline
+    Amministratore & 48 h  & 8,70\%  & 8,0 h / componente \\ \hline
+    Analista       & 105 h & 19,02\% & 17,5 h / componente \\ \hline
+    Progettista    & 125 h & 22,64\% & 20,8 h / componente \\ \hline
+    Programmatore  & 136 h & 24,64\% & 22,7 h / componente \\ \hline
+    Verificatore   & 90 h  & 16,30\% & 15,0 h / componente \\ \hline
+    \textbf{TOTALE} & \textbf{552 h} & \textbf{100,00\%} & \textbf{92,0 h / componente} \\ \hline
+\end{tabularx}
+\caption{Ripartizione delle ore di lavoro produttivo tra i ruoli di progetto.}
+\end{table}
+
+\newpage
+
+% --- 3. ANALISI DEI RUOLI ---
+\section{Analisi dei ruoli e motivazioni operative per C9}
+
+Le mansioni e l'allocazione oraria sono state ponderate in relazione alle sfide architetturali e metodologiche introdotte dal capitolato in questione:
+
+\subsection{Responsabile (48 ore -- 8,70\%)}
+Il Responsabile coordina l'avanzamento dei lavori, gestisce il calendario delle scadenze e pianifica le riunioni. Cura i rapporti formali e le comunicazioni con il Committente e il Proponente, approvando i verbali interni ed esterni. Il monte ore è calibrato per una supervisione costante lungo tutte le fasi del ciclo di vita.
+
+\subsection{Amministratore (48 ore -- 8,70\%)}
+L'Amministratore gestisce l'infrastruttura tecnologica e favorisce la collaborazione del gruppo. È responsabile della configurazione del repository Git, della predisposizione e manutenzione delle pipeline di CI/CD, della definizione degli ambienti di containerizzazione (Docker) e del supporto agli standard qualitativi della documentazione.
+
+\subsection{Analista (105 ore -- 19,02\%)}
+L'Analista formalizza l'Analisi dei Requisiti traducendo i bisogni del capitolato in casi d'uso, requisiti funzionali, prestazionali e di vincolo. Nel contesto del Capitolato C9, assume rilevanza la modellazione formale della tracciabilità mediante diagrammi (Mermaid, XMI e formati immagine quali .jpg e .PNG), richiedendo un monte ore significativo nelle fasi iniziali.
+
+\subsection{Progettista (125 ore -- 22,64\%)}
+Il Progettista definisce la struttura architetturale complessiva del software. Si occupa in modo specifico della definizione dell'architettura della skill OpenCode, della stesura dei contratti d'interfaccia dei tool deterministici e dell'ingegnerizzazione della dashboard grafica di sintesi.
+
+\subsection{Programmatore (136 ore -- 24,64\%)}
+Il Programmatore realizza l'implementazione del software secondo i canoni stabiliti dal Progettista. Il ruolo assorbe la quota oraria maggiore per consentire lo sviluppo modulare della skill OpenCode, l'implementazione dei tool deterministici in ambiente Node.js/JavaScript e l'interfacciamento reattivo della dashboard.
+
+\subsection{Verificatore (90 ore -- 16,30\%)}
+Il Verificatore presidia costantemente la qualità dei processi e degli artefatti. Effettua la verifica formale e sintattica della documentazione (AdR, NdP, ST) e si occupa della stesura, automazione ed esecuzione delle suite di test (unitari, di integrazione e di sistema).
+
+
+% --- 4. ROTAZIONE DEI RUOLI ---
+\section{Rotazione dei ruoli}
+In linea con le buone pratiche dell'ingegneria del software e le linee guida del corso, il gruppo adotta un modello di \textbf{rotazione periodica a cadenza bisettimanale}, sincronizzato con gli sprint di sviluppo concordati.
+\newline
+
+Tale approccio risponde ai seguenti principi:
+\begin{enumerate}
+    \item \textbf{Crescita e consapevolezza trasversale:} Ogni componente del gruppo ricoprirà a turno ciascuno dei sei ruoli, sperimentando sia le responsabilità organizzative e di coordinamento, sia le sfide tecniche d'analisi, progettazione, codifica e verifica.
+    \item \textbf{Indipendenza della verifica:} Viene applicata la rigida regola per cui nessun membro può assumere il ruolo di Verificatore per codice, diagrammi o sezioni documentali da lui stesso prodotti all'interno dello stesso ciclo di lavoro.
+    \item \textbf{Continuità e transizione informativa:} Il passaggio di consegne avviene tramite retrospettive di sprint e aggiornamento dei repository, evitando colli di bottiglia o dipendenze critiche da singoli individui.
+\end{enumerate}
+
+\newpage
+
+% --- 5. PREVENTIVO COSTI ---
+\section{Preventivo costi}
+La valorizzazione economica del progetto è calcolata applicando al computo delle ore le tariffe orarie definite dal tariffario didattico ufficiale per ciascun profilo professionale.
+
+\vspace{0.4cm}
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{|l|c|c|c|X|}
+    \hline
+    \textbf{Ruolo} & \textbf{Ore Previste} & \textbf{Costo Orario} & \textbf{Totale Ruolo} & \textbf{Motivazione Operativa per C9} \\ \hline
+    Responsabile   & 48 h  & € 30,00/h & € 1.440,00 & Gestione scadenze, verbali e coordinamento del gruppo. \\ \hline
+    Amministratore & 48 h  & € 20,00/h & € 960,00   & Repository Git, pipeline CI/CD e ambienti di lavoro. \\ \hline
+    Analista       & 105 h & € 25,00/h & € 2.625,00 & Formalizzazione requisiti e tracciabilità da diagrammi (Mermaid/XMI). \\ \hline
+    Progettista    & 125 h & € 25,00/h & € 3.125,00 & Architettura skill OpenCode, contratti tool e struttura dashboard. \\ \hline
+    Programmatore  & 136 h & € 15,00/h & € 2.040,00 & Sviluppo skill, tool deterministici in Node.js/JS e dashboard di sintesi. \\ \hline
+    Verificatore   & 90 h  & € 15,00/h & € 1.350,00 & Verifica formale documenti (AdR, NdP, ST) e suite di test. \\ \hline
+    \textbf{TOTALE} & \textbf{552 h} & \textbf{--} & \textbf{€ 11.540,00} & \textbf{Media: 92 ore/persona (6 componenti)} \\ \hline
+\end{tabularx}
+\caption{Quadro finanziario ufficiale del progetto per il Capitolato C9.}
+\end{table}
+
+\vspace{0.6cm}
+
+\noindent
+Il costo complessivo stimato per la realizzazione dell'intero capitolato ammonta pertanto a:
+\begin{center}
+    {\Large \textbf{€ 11.540,00} \quad (\textit{undicimilacinquecentoquaranta/00 euro})}
+\end{center}
+
+\vspace{1cm}
+
+% --- 6. DATA DI CONSEGNA ---
+\section{Data di consegna}
+In considerazione dell'allocazione oraria concordata, dell'analisi di fattibilità e della sostenibilità economica del piano di lavoro, il gruppo si impegna a completare tutte le attività di sviluppo, verifica e collaudo relative al Capitolato C9 entro il giorno:
+
+\vspace{0.6cm}
+
+\begin{center}
+    {\LARGE \textbf{30 Aprile 2027}}
+\end{center}
+
+\vspace{0.8cm}
+
+\noindent
+La pianificazione degli sprint e delle release intermedie consentirà il rilascio progressivo degli incrementi software e documentali, garantendo la piena rispondenza ai criteri di accettazione previsti dal committente.
+
+\end{document}
