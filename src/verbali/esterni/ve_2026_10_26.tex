@@ -1,0 +1,120 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/26 \\
+    \textbf{Uso:} & Esterno \\
+    \textbf{Partecipanti (Presenti):} &  Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio\\
+    \textbf{Destinatari:} & VarGroup Spa; Proff. Vardanega, Cardin \\
+\end{tabularx}
+
+\vspace{1cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/10/26 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Informazioni generali}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Modalità / Luogo:} & Online / Microsoft Teams \\
+    \textbf{Data svolgimento:} & 2026/10/26 \\
+    \textbf{Ora inizio:} & 15:00 \\
+    \textbf{Ora fine:} & 15:30 \\
+    \textbf{Durata totale:} & 30 minuti \\
+    \textbf{Scopo della riunione:} & Domande riguardo il capitolato C6 \\
+    \textbf{Partecipanti esterni:} & Stefano Dindo, Laura Ferretti, Alessio Borgheresi, Michele Massaro (VarGroup SpA)
+\end{tabularx}
+
+\newpage
+
+
+\section{Ordine del giorno}
+Durante la riunione sono stati affrontati i seguenti punti:
+\begin{enumerate}
+    \item Come integrare il modello da sviluppare con liteLLM
+    \item Valutare se dividere la cache tra team diversi
+    \item Come effettuare il forecasting
+    \item Come effettuare il caching di conversazioni composte da più messaggi
+
+\end{enumerate}
+
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Integrazione con liteLLM}
+L'idea iniziale è effettuare un fork di liteLLM.
+\subsection{Divisione della cache}
+La cache è richiesta come univoca, perché in molti casi non è neanche ben definito chi appartiene a quale team.
+Sarà tuttavia necessario dividere la dashboard poichè questa deve rendicontare come ogni sviluppatore spende le risorse che l'azienda mette a disposizione.
+\subsection{Forecasting}
+Si consiglia di usare dati storici per il forecasting, ma in fase esplorativa sarà possibile discutere alternative.
+\subsection{Caching di conversazioni}
+Rispetto alle singole richieste, fare il caching di una intera conversazione porterebbe ad un aumento della grandezza dei messaggi, e anche a maggiore possibilità di una cache miss anche se vengono effettuate domande simili. Consigliato valutare soluzioni di riduzione dinamica del contesto.
+\newpage
+
+
+\section{Approvazione Esterna}
+
+Il presente verbale è stato condiviso con il referente aziendale in data YYYY/MM/DD ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
+
+\vspace{3cm}
+Firma del rappresentante:
+
+
+\end{document}
