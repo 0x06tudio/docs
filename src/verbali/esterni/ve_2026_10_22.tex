@@ -47,7 +47,7 @@
 
 
 \begin{tabularx}{\textwidth}{l X}
-    \textbf{Versione:} & 0.1.1 \\
+    \textbf{Versione:} & 0.1.3 \\
     \textbf{Data:} & 2026/10/22 \\
     \textbf{Uso:} & Esterno \\
     \textbf{Partecipanti (Presenti):} &  Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio\\
@@ -60,6 +60,7 @@
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    0.1.3 & 2026/10/28 & Revisione e correzione documento & Pietro Brocadello \\ \hline
     0.1.2 & 2026/10/24 & Correzione hyperref al logo di gruppo & Davide Colabove \\ \hline
     0.1.1 & 2026/10/24 & Aggiunta sezione risorse e strumenti & Pietro Brocadello \\ \hline
     0.1.0 & 2026/10/23 & Creazione e stesura bozza iniziale & Andrea Maggio \\ \hline
@@ -85,13 +86,10 @@
 
 
 \section{Ordine del giorno}
-Durante la riunione i referenti esterni hanno preparato risposte a domande inviate da diversi gruppi riguardanti questi temi:
+Durante la riunione abbiamo affrontato i seguenti punti:
 \begin{enumerate}
-    \item Domande riguardo architettura e linguaggi da utilizzare
-    \item Domande sui protocolli di sicurezza da adottare
-    \item Domande sullo sviluppo e il testing
-    \item Domande riguardanti l'organizzazione del lavoro
-    \item Domande riguardanti la disponibilità di risorse per il progetto
+    \item Presentazione temi emersi dal sondaggio dell'azienda e loro risposte
+    \item Live Q&A con i referenti aziendali
 \end{enumerate}
 
 \newpage
@@ -102,19 +100,20 @@ Durante la riunione i referenti esterni hanno preparato risposte a domande invia
 \subsection{Architettura e linguaggi:}
 \begin{itemize}
     \item Libertà sul linguaggio da usare per l'MCP, consigliato Python + FastMCP. \vspace{-0.1cm}
-    \item Il client MCP da sviluppare serve principalmente per i test di integrazione e la gestione degli errori. \vspace{-0.1cm}
-    \item Va sviluppata una soluzione principalmente back-end che funzioni su un servizio AI commerciale qualsiasi. \vspace{-0.1cm}
+    \item Il client MCP da sviluppare serve principalmente per test di unità, integrazione e verifica del funzionamento del server MCP  \vspace{-0.1cm}
+    \item Va sviluppata una soluzione principalmente back-end che funzioni su servizi AI richesti dal capitolato. \vspace{-0.1cm}
 \end{itemize}
 \subsection{Protocolli e sicurezza:}
 \begin{itemize}
-    \item Sarà necessario un account MyVimar con accesso all'impianto: l'MCP dovrà associare ogni utente alla sua autorizzazione OAuth2. \vspace{-0.1cm}
+    \item Sarà necessario un account MyVimar con accesso all'impianto (che verrà fornito alla consegna del kit): l'MCP dovrà associare ogni utente alla sua autorizzazione OAuth2. \vspace{-0.1cm}
     \item Per bloccare richieste sbagliate si possono configurare permessi di accesso (sola lettura o lettura e scrittura) diversi a dispositivi diversi. \vspace{-0.1cm}
-    \item Per lo stato dei dispositivi e le notifiche è accettabile il polling. Altre soluzioni esplorabili sono trigger via webhook. \vspace{-0.1cm}
-    \item L'assistente deve saper gestire varie richieste: interazioni non elencate nel capitolato sono \textit{nice-to-have}. \vspace{-0.1cm}
+    \item Per lo stato dei dispositivi e le notifiche è accettabile il polling verso API. Altre soluzioni esplorabili sono trigger via webhook. \vspace{-0.1cm}
+    \item L'assistente deve saper gestire le richieste: ci possono essere varianti, sinonimi e richieste ambigue. I casi basi e avanzati presentati dall'azienda vanno presi come punto di partenza noi dovremmo estenderli. 
+          Le interazioni gestite che non sono elencate nel capitolato sono \textit{nice-to-have}. \vspace{-0.1cm}
 \end{itemize}
 \subsection{Sviluppo e test:}
 \begin{itemize}
-    \item Il kit di impianto si condivide via cloud: è sufficiente che un membro del gruppo lo tenga acceso e dal suo account amministratore MyVimar può permettere l'accesso agli altri.\vspace{-0.1cm}
+    \item Il kit di impianto si condivide via cloud: è sufficiente che un membro del gruppo lo tenga acceso e dal suo account amministratore MyVimar o anche altri account utente che vengono aggiunti all'impianto possono permettere l'accesso agli altri.\vspace{-0.1cm}
     \item Per sviluppare in parallelo si può generare un mock server in locale. \vspace{-0.1cm}
     \item Nei test automatici si può usare un mock del servizio AI per avere test ripetibili e deterministici. \vspace{-0.1cm}
 \end{itemize}
@@ -125,17 +124,15 @@ Durante la riunione i referenti esterni hanno preparato risposte a domande invia
 \end{itemize}
 \subsection{Risorse e strumenti:}
 \begin{itemize}
-    \item I referenti aziendali hanno risposto che, qualora fosse necessario, forniranno le risorse richieste senza problemi. \vspace{-0.1cm}
+    \item I referenti aziendali hanno risposto che, qualora fosse necessario, previa opportuna motivazione e richiesta da parte del gruppo, forniranno le risorse menzionate nel capitolato senza problemi. \vspace{-0.1cm}
 \end{itemize}
 \newpage
 
 
 \section{Approvazione Esterna}
 
-Il presente verbale è stato condiviso con il referente aziendale in data YYYY/MM/DD ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
+Il presente verbale è stato condiviso con il referente aziendale in data 2026/10/27 e successivamente revisionato e reinviato in data 2026/10/28 ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
 
 \vspace{3cm}
-Firma del rappresentante:
-
 
 \end{document}
