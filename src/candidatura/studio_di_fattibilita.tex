@@ -1,0 +1,238 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Studio di Fattibilità}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\newcommand{\verbext}[1]{\href{https://raw.githubusercontent.com/0x06tudio/docs/develop/out/verbali/esterni/#1}{\textit{#1}}}
+
+\thispagestyle{plain}
+
+% --- INTESTAZIONE E LOGO ---
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Studio di Fattibilità}} \\[0.3em]
+    {\large \textbf{Analisi dei Capitolati e Scelta Finale}}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- INFORMAZIONI SUL DOCUMENTO ---
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/28 \\
+    \textbf{Uso:} & Esterno\\
+    \textbf{Redattori:} & Davide Colabove\\
+    \textbf{Verificatori:} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Andrea Maggio \\
+    \textbf{Destinatari:} & Proff. Vardanega, Cardin \\
+\end{tabularx}
+
+\vspace{1cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.1.0 & 2026/10/24 & Stesura bozza iniziale & Davide Colabove\\ \hline
+\end{tabularx}}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------
+% 1. INTRODUZIONE
+% ---------------------------------------------------------
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Il presente documento ha lo scopo di illustrare gli studi di fattibilità condotti dal gruppo sui capitolati d'appalto proposti per l'Anno Accademico 2026/2027. 
+L'obiettivo è presentare un'analisi critica dei capitolati ritenuti più in linea con gli interessi e le competenze del gruppo (shortlist), valutandone obiettivi, tecnologie, rischi e fattibilità, per giungere infine a motivare in modo formale e ponderato la scelta definitiva del Capitolato C9 (SpecCheck).
+
+\subsection{Elenco capitolati analizzati}
+In fase di valutazione preliminare, sono stati presi in esame approfondito i seguenti capitolati:
+\begin{itemize}[label=-]
+    \item \textbf{Capitolato C1}: Vimar -- AURA
+    \item \textbf{Capitolato C6}: Var Group -- Sistema IA di Caching e Dashboard FinOps
+    \item \textbf{Capitolato C9}: Zucchetti -- SpecCheck (Capitolato Scelto)
+\end{itemize}
+
+% ---------------------------------------------------------
+% 2. ANALISI CAPITOLATO C1
+% ---------------------------------------------------------
+\section{Analisi Capitolato C1}
+
+\subsection{Descrizione generale}
+Sviluppo di un server MCP (Model Context Protocol) per interfacciare l'ecosistema Smart Home di Vimar con i moderni Large Language Models commerciali, permettendo interazioni tramite linguaggio naturale.
+
+\subsection{Obiettivi e finalità}
+Realizzare un'infrastruttura in grado di orchestrare gli scenari di interazione proposti (17 base e 21 avanzati), consentendo all'utente di comandare la propria abitazione, gestire scenari e monitorare i consumi.
+
+\subsection{Tecnologie richieste}
+Sviluppo backend, architetture a container (Docker), API REST, protocollo MCP, integrazione LLM in cloud e impiego di servizi AWS.
+
+\subsection{Vincoli e requisiti}
+L'interfaccia utente (UI/CLI) è considerata opzionale. È imposto un vincolo rigoroso sulla copertura di test, in particolare si richiede una copertura End-to-End (E2E) pari ad almeno l'80\% sui casi d'uso.
+
+\subsection{Aspetti positivi}
+\begin{itemize}[label=-]
+    \item Analisi dei requisiti ben definita: scenari di interazione già tabellati.
+    \item Focus 100\% Backend, Cloud e AI.
+    \item Proponente strutturato (sede a Padova) e fornitura hardware fisico di test.
+\end{itemize}
+
+\subsection{Criticità e rischi}
+\begin{itemize}[label=-]
+    \item Scopo dell'MCP Client non immediatamente chiaro.
+    \item Flussi asincroni complessi: gestione dell'OAuth2 (MyVimar) in chat e delle notifiche push proattive non banale.
+    \item Difficoltà nel calcolare e certificare l'80\% di coverage E2E potendo mockare l'LLM solo parzialmente.
+\end{itemize}
+
+\subsection{Valutazione fattibilità}
+\begin{itemize}[label=-]
+    \item \textbf{Competenze disponibili}: Basi solide in containerizzazione e progettazione di API REST.
+    \item \textbf{Competenze da acquisire (formazione)}: Studio del protocollo MCP e delle dinamiche di autenticazione OAuth2.
+    \item \textbf{Stima tempi apprendimento}: Circa 2-3 settimane di formazione iniziale per la comprensione e la presa di praticità MCP e AWS.
+\end{itemize}
+
+\subsection{Valutazione economica preliminare}
+L'impegno orario si allineerebbe alla media del corso (circa 550 ore complessive). I ruoli tecnici (Progettista e Programmatore) assorbirebbero la maggioranza dei costi, stimati intorno agli 11.500 \texteuro.
+
+\subsection{Conclusioni}
+Nonostante l'ambito \textit{Smart Home} sia allettante, l'elevato rischio associato alla validazione del testing E2E su sistemi LLM non deterministici e i dubbi sollevati sui flussi di autorizzazione hanno spinto il gruppo a valutare capitolati differenti.
+
+% ---------------------------------------------------------
+% 3. ANALISI CAPITOLATO C6
+% ---------------------------------------------------------
+\section{Analisi Capitolato C6}
+
+\subsection{Descrizione generale}
+Progetto finalizzato all'estensione del software Open Source LiteLLM per ottimizzare i costi e i tempi di risposta delle API LLM tramite un sistema di \textit{Caching Semantico}.
+
+\subsection{Obiettivi e finalità}
+Creare un livello intermedio (proxy e database non relazionali) tra l'applicazione utente e i vari LLM, per evitare chiamate ridondanti tramite tecniche di cache semantica e monitorare la spesa tramite dashboard previsionali.
+
+\subsection{Tecnologie richieste}
+Python, framework FastAPI, Vector Database (es. ChromaDB, Redis) per l'embedding e metodologie progettuali come Design Thinking e ADR (Architecture Decision Records).
+
+\subsection{Vincoli e requisiti}
+Rigida aderenza a pattern UML e forte impronta all'ingegneria del software, con l'obbligo di raggiungere una test coverage minima del 70\%.
+
+\subsection{Aspetti positivi}
+\begin{itemize}[label=-]
+    \item Aderenza alle metodologie SWE richieste dal corso.
+    \item Stack tecnologico moderno ed altissima rilevanza di mercato (FinOps aziendale).
+    \item Strutturato piano di formazione e supporto eccellente offerto dall'azienda.
+\end{itemize}
+
+\subsection{Criticità e rischi}
+\begin{itemize}[label=-]
+    \item LiteLLM è un progetto open source complesso; estenderlo richiede analisi profonda per evitare fork insostenibili.
+    \item Complessità architetturale legata alla multi-tenancy e alla mitigazione del \textit{Data Leakage} tra cache semantiche.
+    \item Necessità di implementare logiche matematico-statistiche avanzate per il forecasting.
+\end{itemize}
+
+\subsection{Valutazione fattibilità}
+\begin{itemize}[label=-]
+    \item \textbf{Competenze disponibili}: Buone basi in ambito Python e data visualization.
+    \item \textbf{Competenze da acquisire (formazione)}: Ricerca sui Vector Database e studio di algoritmi per calcolo embedding su grandi finestre di contesto.
+    \item \textbf{Stima tempi apprendimento}: Molto elevata. Il team dovrebbe dedicare buona parte della fase di Analisi per comprendere LiteLLM.
+\end{itemize}
+
+\subsection{Valutazione economica preliminare}
+Progetto \textit{data-heavy} che sposta molto peso orario (e relativi costi) sui ruoli di Analista (per la parte statica e multi-tenant) e Progettista. Costo finale stimato sui 11.700 \texteuro.
+
+\subsection{Conclusioni}
+Pur riconoscendo l'altissimo valore formativo, la forte componente di responsabilità sui dati multi-tenant e l'incognita legata all'estensione di una codebase vasta (LiteLLM) configurano rischi non pienamente sostenibili per le tempistiche del gruppo.
+
+% ---------------------------------------------------------
+% 4. CAPITOLATO SCELTO
+% ---------------------------------------------------------
+\section{Capitolato Scelto: Zucchetti -- SpecCheck (C9)}
+
+In seguito alle analisi documentali e all'incontro con l'azienda proponente in data 2026/10/20 (Rif. \verbext{ve\_2026\_10\_20.pdf}), il gruppo ha deliberato la scelta del capitolato \textbf{C9: Zucchetti SpecCheck}.
+
+\subsection{Motivazioni della scelta}
+\begin{itemize}[label=-]
+    \item \textbf{Allineamento competenze gruppo}: Assenza di oneri infrastrutturali gravosi (DevOps/DB quasi nulli). Il focus interamente sulla logica e l'importanza mostrata verso l'aderenza fra i requisiti richiesti ed il codice prodotto da un Agentic Coding bot si sposa ottimamente con le skill e l'interesse del team.
+    \item \textbf{Interesse tecnico/professionale}: Il dominio affrontato, che miscela \textit{Agentic Coding}, reasoning e validazione automatizzata, rappresenta una delle sfide più innovative proposte.
+    \item \textbf{Rapporto complessità/fattibilità}: La possibilità di sviluppare iterativamente (dalla POC minima, all'MVP, ai requisiti opzionali) offre una scalabilità eccellente del lavoro. Vi è una forte sinergia didattica, consentendo inoltre di usare la nostra stessa documentazione come banco di prova nelle ultime fasi di sviluppo.
+    \item \textbf{Qualità rapporto con proponente}: L'azienda si è mostrata immediatamente disponibile a delineare perimetri chiari, chiarendo dubbi sul determinismo e rassicurando sull'uso di LLM locali.
+\end{itemize}
+
+\subsection{Strategie di mitigazione rischi}
+Durante l'incontro esplorativo, sono state discusse ed approvate le seguenti mitigazioni:
+\begin{itemize}[label=-]
+    \item \textbf{Gestione Context Window:} Verranno forniti file \textit{Markdown di appoggio} alle AI e si sfrutterà un progetto mock per i collaudi E2E, aggirando il limite hardware/token.
+    \item \textbf{Gestione del Non-Determinismo:} Per non invalidare le suite di test si svilupperà un tool/plugin deterministico (es. basato su mappe ID dei requisiti) che farà da orchestratore e gestore di stato, lasciando all'LLM solo le query strettamente semantiche.
+    \item \textbf{Input e Immagini:} Poiché i diagrammi in formato PNG portano spesso le IA ad avere \textit{allucinazioni}, si darà assoluta priorità al parsing di linguaggi formali testuali come \textit{Mermaid} ed \textit{XMI} passando solo successivamente al problema dell'interpretabilità delle immagini.
+\end{itemize}
+
+\subsection{Piano formazione preliminare}
+\begin{itemize}[label=-]
+    \item Studio dell'architettura e documentazione di \textbf{OpenCode} e dello sviluppo di "Skills".
+    \item Consolidamento di Node.js e metodologie di scripting deterministico per l'integrazione.
+    \item Studio di tecniche di Prompt Engineering per la validazione di tracciabilità requisiti.
+\end{itemize}
+
+\subsection{Impegno orario stimato}
+Come documentato nel \textit{Preventivo Costi e Impegni Orari}, il gruppo destinerà un monte ore totale di \textbf{552 ore} produttive (circa 92 ore a componente), calibrato specificamente per le sfide di SpecCheck. Il costo ammonta a \textbf{11.540,00 \texteuro}, fissando come data di completamento il \textbf{30 Aprile 2027}.
+
+\newpage
+
+% ---------------------------------------------------------
+% APPENDICI
+% ---------------------------------------------------------
+\appendix
+\section{Contatti aziende}
+Per comunicazioni ufficiali e tecniche relative al capitolato selezionato:
+\begin{itemize}[label=-]
+    \item \textbf{Zucchetti Spa:} Gregorio Piccoli (\href{mailto:gregorio.piccoli@zucchetti.it}{gregorio.piccoli@zucchetti.it})
+\end{itemize}
+
+\section{Verbali colloqui esplorativi}
+Si rimanda ai documenti ufficialmente ratificati dal gruppo e caricati nel repository GitHub, per consultare i resoconti dettagliati delle domande poste e delle risposte ricevute in fase di analisi:
+\begin{itemize}[label=-]
+    \item \textbf{Zucchetti (C9):} Verbale del 2026/10/20 (\verbext{ve\_2026\_10\_20.pdf})
+    \item \textbf{Vimar (C1):} Verbale del 2026/10/22 (\verbext{ve\_2026\_10\_22.pdf})
+    \item \textbf{Var Group (C6):} Verbale del 2026/10/26 (\verbext{ve\_2026\_10\_26.pdf})
+\end{itemize}
+
+\end{document}
