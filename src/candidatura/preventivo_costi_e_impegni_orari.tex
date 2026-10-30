@@ -9,7 +9,7 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{enumitem}
-
+\newcommand{\nmytilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}} 
 
 % Margini
 \geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
@@ -35,7 +35,7 @@
 \begin{minipage}{0.4\textwidth}
     \raggedleft
     \vspace{0pt}
-    \includegraphics[width=6cm]{../../media/logo.png}
+    \includegraphics[width=6cm]{../media/logo.png}
     \vspace{1cm}
     \small
     \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
@@ -53,8 +53,8 @@ to-end da casi d'uso a requisiti e codice sorgente.}}
 
 % --- INFORMAZIONI SUL DOCUMENTO ---
 \begin{tabularx}{\textwidth}{l X}
-    \textbf{Versione:} & 0.2.0 \\
-    \textbf{Data:} & 2026/10/27 \\
+    \textbf{Versione:} & 0.2.1 \\
+    \textbf{Data:} & 2026/10/30 \\
     \textbf{Uso:} & Esterno / Contrattuale \\
     \textbf{Redattori:} & Alberto Cavalletto, Davide Colabove \\
     \textbf{Destinatari:} & Proff. Vardanega, Cardin, Zucchetti S.p.A. \\
@@ -67,6 +67,7 @@ to-end da casi d'uso a requisiti e codice sorgente.}}
 \begin{tabularx}{\textwidth}{|c|c|X|c|}
     \hline
     \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore / Ruolo} \\ \hline
+    0.2.1 & 2026/10/30 & Correzioni ortografiche e coerenza sintattica & Davide Colabove \\ \hline
     0.2.0 & 2026/10/27 & Correzioni finali e impaginazione in template & Davide Colabove \\ \hline
     0.1.0 & 2026/10/26 & Stesura iniziale della bozza del documento, ripartizione oraria dei ruoli e computo economico. & Alberto Cavalletto\\ \hline
 \end{tabularx}
@@ -104,13 +105,13 @@ Di seguito è riportata la suddivisione del monte ore preventivato per ciascun r
 \begin{tabularx}{\textwidth}{|l|c|c|X|}
     \hline
     \textbf{Ruolo} & \textbf{Ore Previste} & \textbf{Incidenza (\%)} & \textbf{Media per Membro (su 6)} \\ \hline
-    Responsabile   & 48 h  & 8,70\%  & 8,0 h / componente \\ \hline
-    Amministratore & 48 h  & 8,70\%  & 8,0 h / componente \\ \hline
-    Analista       & 105 h & 19,02\% & 17,5 h / componente \\ \hline
-    Progettista    & 125 h & 22,64\% & 20,8 h / componente \\ \hline
-    Programmatore  & 136 h & 24,64\% & 22,7 h / componente \\ \hline
-    Verificatore   & 90 h  & 16,30\% & 15,0 h / componente \\ \hline
-    \textbf{TOTALE} & \textbf{552 h} & \textbf{100,00\%} & \textbf{92,0 h / componente} \\ \hline
+    Responsabile   & 48 h  & \nmytilde8,70\%  & 8,0 h / componente \\ \hline
+    Amministratore & 48 h  & \nmytilde8,70\%  & 8,0 h / componente \\ \hline
+    Analista       & 105 h & \nmytilde19,02\% & 17,5 h / componente \\ \hline
+    Progettista    & 125 h & \nmytilde22,64\% & 20,8 h / componente \\ \hline
+    Programmatore  & 136 h & \nmytilde24,64\% & 22,7 h / componente \\ \hline
+    Verificatore   & 90 h  & \nmytilde16,30\% & 15,0 h / componente \\ \hline
+    \textbf{TOTALE} & \textbf{552 h} & \textbf{100,00\%} & \textbf{\nmytilde92,0 h / componente} \\ \hline
 \end{tabularx}
 \caption{Ripartizione delle ore di lavoro produttivo tra i ruoli di progetto.}
 \end{table}
@@ -172,7 +173,7 @@ La valorizzazione economica del progetto è calcolata applicando al computo dell
     Progettista    & 125 h & € 25,00/h & € 3.125,00 & Architettura skill OpenCode, contratti tool e struttura dashboard. \\ \hline
     Programmatore  & 136 h & € 15,00/h & € 2.040,00 & Sviluppo skill, tool deterministici in Node.js/JS e dashboard di sintesi. \\ \hline
     Verificatore   & 90 h  & € 15,00/h & € 1.350,00 & Verifica formale documenti (AdR, NdP, ST) e suite di test. \\ \hline
-    \textbf{TOTALE} & \textbf{552 h} & \textbf{--} & \textbf{€ 11.540,00} & \textbf{Media: 92 ore/persona (6 componenti)} \\ \hline
+    \textbf{TOTALE} & \textbf{552 h} & \textbf{--} & \textbf{€ 11.540,00} & \textbf{\nmytilde92 ore/persona} \\ \hline
 \end{tabularx}
 \caption{Quadro finanziario ufficiale del progetto per il Capitolato C9.}
 \end{table}
@@ -194,7 +195,7 @@ In considerazione dell'allocazione oraria concordata, dell'analisi di fattibilit
 \vspace{0.6cm}
 
 \begin{center}
-    {\LARGE \textbf{30 Aprile 2027}}
+    {\LARGE \textbf{24 Marzo 2027}}
 \end{center}
 
 \vspace{0.8cm}
