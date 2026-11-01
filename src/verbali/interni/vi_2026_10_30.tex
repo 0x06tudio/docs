@@ -1,0 +1,141 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Data:} & 2026/10/30 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio \\
+    \textbf{Destinatari:} & 0x06tudio \\
+\end{tabularx}
+
+\vspace{1cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/10/30 & Revisione delle documentazioni e invio lettera di candidatura & Catalin Chirilov \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Informazioni generali}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Data svolgimento:} & 2026/10/30 \\
+    \textbf{Ora inizio:} & 15:30 \\
+    \textbf{Ora fine:} & 17:00 \\
+    \textbf{Durata totale:} & 1 ora 30 minuti \\
+    \textbf{Scopo della riunione:} & Invio lettera di candidatura, revisione documenti, pianificazione diario di bordo e studio tecnologie. \\
+\end{tabularx}
+
+\newpage
+
+
+\section{Ordine del giorno}
+Durante la riunione sono stati affrontati i seguenti punti:
+\begin{enumerate}
+    \item Revisione documenti
+    \item Invio lettera di candidatura
+    \item Pianificazione per la realizzazione del diario di bordo
+    \item Studio delle tecnologie per il capitolato C9 (SpecCheck)
+\end{enumerate}
+
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Revisione}
+Il gruppo ha revisionato i documenti precedentemente redatti, dove sono emersi piccoli errori di contenuto nelle intestazioni e alcune sviste morfosintattiche.  
+
+\subsection{Punto 2: Lettera di candidatura}
+Una volta assicurata la correttezza dei documenti, si è proseguito con l'invio della lettera di candidatura ai committenti.
+
+\subsection{Punto 3: Pianificazione diario di bordo}
+A seguito di una discussione, il gruppo ha stabilito in dettaglio gli argomenti da presentare per il Diario di Bordo 2 (DdB 2). I punti salienti individuati sono i seguenti:
+\begin{itemize}
+    \item \textbf{Stato di avanzamento:} incontro con VarGroup, firma dei verbali esterni, stesura e presentazione della candidatura e assegnazione dei ruoli.
+    \item \textbf{Obiettivi a breve termine:} implementare le automazioni nella repository e avviare la ricerca per i cruscotti di progetto.
+    \item \textbf{Difficoltà riscontrate:} difficoltà relative alla stima dei costi e delle ore necessarie.
+    \item \textbf{Dubbi ed incertezze:} individuazione delle risorse da studiare per proseguire i lavori.
+\end{itemize}
+
+\subsection{Punto 4: Studio delle tecnologie per il capitolato C9 (SpecCheck)}
+In previsione di un'eventuale assegnazione del capitolato prescelto (C9 - SpecCheck), il gruppo ha concordato la necessità di avviare uno studio individuale delle varie tecnologie richieste. A valle di questo studio, verrà redatto un documento apposito che spieghi in modo dettagliato il funzionamento di tali tecnologie e le motivazioni per il loro utilizzo all'interno del progetto.
+
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} \\ \hline
+    D 2.1 & Approvata revisione finale e invio della lettera di candidatura. \\ \hline
+    D 2.2 & Definiti i punti chiave da presentare nel Diario di Bordo 2 (DdB 2). \\ \hline
+    D 2.3 & Approvato lo studio individuale delle tecnologie (Capitolato C9) e la stesura del relativo documento valutativo. \\ \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} \\ \hline
+    TD 2.1 & Ricerca cruscotto rendicontazione ore & Tutti i membri \\ \hline
+    TD 2.2 & Ricerca cruscotto qualità & Tutti i membri \\ \hline
+    TD 2.3 & Sistemare la repository con automazioni & Tutti i membri \\ \hline
+    TD 2.4 & Studio tecnologie (C9) e stesura documento valutativo & Tutti i membri \\ \hline
+\end{tabularx}
+
+\end{document}
