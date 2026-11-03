@@ -473,9 +473,12 @@ def sezioni_issues(issues):
 
 
 def testata(attiva: str, logo_tag: str) -> str:
+    def voce_menu(href: str, titolo: str) -> str:
+        aria_corrente = ' aria-current="page"' if href == attiva else ""
+        return f'<li><a href="{href}"{aria_corrente}>{titolo}</a></li>'
+
     voci = "".join(
-        f'<li><a href="{h}"{" aria-current=\"page\"" if h == attiva else ""}>{t}</a></li>'
-        for h, t in PAGINE
+        voce_menu(href, titolo) for href, titolo in PAGINE
     )
     return (
         f'<header class="top"><div class="in">'
