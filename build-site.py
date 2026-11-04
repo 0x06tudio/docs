@@ -27,6 +27,7 @@ REPO_BRANCH = "main"
 CAPITOLATO_NOME = "Capitolato C9 - SpecCheck"
 CAPITOLATO_URL = "https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9.pdf"
 LOGO = Path(__file__).resolve().parent / "src" / "media" / "logo_edited.png"
+GLOSSARIO_FILE = Path(__file__).resolve().parent / "src" / "data" / "glossario.json"
 
 SRC = Path("src")
 OUT = Path("out")
@@ -119,145 +120,6 @@ PROGETTO = [
     ("Monte ore", "552 ore complessive (circa 92 a componente)"),
     ("Costo preventivato", "11.540,00 €"),
     ("Consegna prevista", "24 marzo 2027"),
-]
-
-GLOSSARIO = [
-    (
-        "AdR",
-        "Analisi dei Requisiti: documento che traduce i bisogni del capitolato in casi d'uso e requisiti.",
-    ),
-    (
-        "Agentic Coding",
-        "Modo di sviluppare in cui un agente basato su LLM pianifica, scrive e modifica il codice con un certo grado di autonomia.",
-    ),
-    (
-        "Amministratore",
-        "Ruolo di progetto responsabile di repository, pipeline CI/CD, ambienti di lavoro e strumenti di supporto.",
-    ),
-    ("Analista", "Ruolo di progetto che redige l'Analisi dei Requisiti."),
-    (
-        "Capitolato",
-        "Documento con cui un'azienda proponente descrive il progetto da realizzare. Il nostro è il C9 - SpecCheck.",
-    ),
-    (
-        "Caso d'uso",
-        "Descrizione di come un utente interagisce con il sistema per raggiungere un obiettivo; da esso discendono i requisiti.",
-    ),
-    (
-        "CI/CD",
-        "Integrazione e consegna continue: automazioni che costruiscono, verificano e pubblicano il lavoro a ogni modifica.",
-    ),
-    (
-        "Committente",
-        "Soggetto che commissiona e valuta il progetto didattico; nel corso sono i docenti.",
-    ),
-    (
-        "Context window",
-        "Quantità massima di testo (token) che un LLM riesce a considerare in una sola richiesta.",
-    ),
-    (
-        "Diario di bordo",
-        "Presentazione settimanale ai docenti sullo stato di avanzamento, le difficoltà e gli obiettivi a breve termine (DdB).",
-    ),
-    (
-        "Harness",
-        "Ambiente che fa funzionare un agente LLM e gli mette a disposizione strumenti e skill, ad esempio OpenCode o Claude Code.",
-    ),
-    (
-        "LLM",
-        "Large Language Model: modello di linguaggio di grandi dimensioni, base degli strumenti di agentic coding.",
-    ),
-    (
-        "Mermaid",
-        "Linguaggio testuale per descrivere diagrammi; formato privilegiato per i diagrammi in input a SpecCheck.",
-    ),
-    (
-        "MVP",
-        "Minimum Viable Product: prima versione del prodotto con le sole funzionalità essenziali.",
-    ),
-    (
-        "NdP",
-        "Norme di Progetto: regole di lavoro e di scrittura che il gruppo si impegna a rispettare.",
-    ),
-    (
-        "Node.js",
-        "Ambiente di esecuzione JavaScript usato per i tool deterministici del progetto.",
-    ),
-    (
-        "Non-determinismo",
-        "Proprietà per cui un LLM può dare risposte diverse a parità di input, che complica i test automatici.",
-    ),
-    (
-        "OpenCode",
-        "Agente di coding open source a riga di comando, per cui SpecCheck sviluppa le skill.",
-    ),
-    (
-        "OpenSpec",
-        "Strumento di sviluppo guidato dalle specifiche, mostrato dal proponente come esempio di plugin orchestratore.",
-    ),
-    (
-        "Plugin orchestratore",
-        "Componente deterministico che gestisce stato e dashboard e delega all'LLM solo le valutazioni semantiche.",
-    ),
-    (
-        "PoC",
-        "Proof of Concept: realizzazione minima per dimostrare la fattibilità di un'idea.",
-    ),
-    ("Programmatore", "Ruolo di progetto che implementa il software."),
-    ("Progettista", "Ruolo di progetto che definisce l'architettura del software."),
-    (
-        "Proponente",
-        "Azienda che propone il capitolato e affianca il gruppo; per il C9 è Zucchetti.",
-    ),
-    (
-        "Requisito",
-        "Capacità o vincolo che il sistema deve soddisfare; può essere funzionale, prestazionale o di vincolo.",
-    ),
-    ("Responsabile", "Ruolo di progetto che coordina il gruppo e approva i verbali."),
-    (
-        "Rotazione dei ruoli",
-        "Passaggio dei ruoli tra i componenti al termine di ogni sprint, con meccanismo di shift +1.",
-    ),
-    (
-        "Skill",
-        "Insieme di istruzioni e strumenti che estende le capacità di un agente come OpenCode per un compito specifico.",
-    ),
-    (
-        "SpecCheck",
-        "Nome del capitolato C9: verifica della tracciabilità tra casi d'uso, requisiti e codice.",
-    ),
-    (
-        "Sprint",
-        "Periodo di lavoro di circa due settimane, al termine del quale avviene la rotazione dei ruoli.",
-    ),
-    (
-        "Studio di fattibilità",
-        "Documento che analizza i capitolati della shortlist e motiva la scelta finale.",
-    ),
-    (
-        "Tracciabilità",
-        "Possibilità di seguire il legame tra casi d'uso, requisiti e codice che li realizza.",
-    ),
-    (
-        "Verbale",
-        "Resoconto di una riunione. Gli interni riguardano il gruppo; gli esterni gli incontri con le aziende e riportano l'approvazione del proponente.",
-    ),
-    (
-        "Verificatore",
-        "Ruolo di progetto che controlla qualità e correttezza di documenti, codice e test.",
-    ),
-    (
-        "Vibe Coding",
-        "Scrittura di codice affidata a un LLM tramite richieste informali, spesso senza verificare che rispetti i requisiti.",
-    ),
-    (
-        "Way of working",
-        "Insieme di strumenti e pratiche di lavoro del gruppo: LaTeX, GitHub, git e allineamenti settimanali.",
-    ),
-    (
-        "XMI",
-        "Formato XML per scambiare modelli UML; tra i formati testuali di diagramma supportati da SpecCheck.",
-    ),
 ]
 
 PAGINE = [
@@ -758,8 +620,33 @@ def pagina_cruscotto(logo_tag: str) -> None:
     pagina("cruscotto.html", "Cruscotto", logo_tag, corpo, css_extra="cruscotto.css")
 
 
+def carica_glossario() -> list[tuple[str, str]]:
+    dati = json.loads(GLOSSARIO_FILE.read_text(encoding="utf-8"))
+    if not isinstance(dati, list):
+        raise ValueError(f"{GLOSSARIO_FILE} deve contenere una lista di voci.")
+
+    termini = []
+    for indice, voce_json in enumerate(dati):
+        if not isinstance(voce_json, dict):
+            raise ValueError(
+                f"La voce {indice + 1} di {GLOSSARIO_FILE} deve essere un oggetto."
+            )
+        termine = voce_json.get("termine")
+        definizione = voce_json.get("definizione")
+        if not isinstance(termine, str) or not termine.strip():
+            raise ValueError(
+                f"La voce {indice + 1} di {GLOSSARIO_FILE} ha un termine non valido."
+            )
+        if not isinstance(definizione, str) or not definizione.strip():
+            raise ValueError(
+                f"La voce {indice + 1} di {GLOSSARIO_FILE} ha una definizione non valida."
+            )
+        termini.append((termine, definizione))
+    return termini
+
+
 def pagina_glossario(logo_tag: str) -> None:
-    termini = sorted(GLOSSARIO, key=lambda t: t[0].casefold())
+    termini = sorted(carica_glossario(), key=lambda t: t[0].casefold())
     lettere = sorted({t[0][0].upper() for t in termini})
     indice = "".join(f'<li><a href="#lett-{l}">{l}</a></li>' for l in lettere)
     blocchi = []
