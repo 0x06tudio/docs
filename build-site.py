@@ -27,7 +27,6 @@ REPO_BRANCH = "main"
 CAPITOLATO_NOME = "Capitolato C9 - SpecCheck"
 CAPITOLATO_URL = "https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9.pdf"
 LOGO = Path(__file__).resolve().parent / "src" / "media" / "logo_edited.png"
-MEDIA_URL = "../../docs/src/media"
 
 SRC = Path("src")
 OUT = Path("out")
@@ -334,7 +333,7 @@ def link_risorsa(f: PurePosixPath) -> str:
 
 
 def link_logo() -> str:
-    return f"{MEDIA_URL}/{quote(LOGO.name)}"
+    return link_risorsa(PurePosixPath("src/media") / LOGO.name)
 
 
 def voce(href: str, titolo: str, meta: str = "") -> str:
@@ -502,7 +501,7 @@ def pagina(
         css += f'\n<link rel="stylesheet" href="../css/{css_extra}">'
     script = f'<script src="../js/{js}"></script>' if js else ""
     favicon_tag = favicon_tag or (
-        f'<link rel="icon" href="../media/{LOGO.name}" type="image/png">'
+        f'<link rel="icon" href="{html.escape(link_logo())}" type="image/png">'
         if LOGO.exists()
         else ""
     )
@@ -797,15 +796,13 @@ def main():
     (SITE / "html").mkdir()
     (SITE / "css").mkdir()
     (SITE / "js").mkdir()
-    (SITE / "media").mkdir()
 
-    # Copia il logo nella directory media del sito generato
     logo_tag = ""
     favicon_tag = ""
     if LOGO.exists():
-        shutil.copy(LOGO, SITE / "media" / LOGO.name)
-        logo_tag = f'<img src="../media/{LOGO.name}" alt="" width="32" height="32">'
-        favicon_tag = f'<link rel="icon" href="../media/{LOGO.name}" type="image/png">'
+        logo_url = html.escape(link_logo())
+        logo_tag = f'<img src="{logo_url}" alt="" width="32" height="32">'
+        favicon_tag = f'<link rel="icon" href="{logo_url}" type="image/png">'
 
     n = pagina_documenti(logo_tag, favicon_tag)
     pagina_issues(logo_tag, favicon_tag)
