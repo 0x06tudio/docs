@@ -490,14 +490,14 @@ def testata(attiva: str, logo_tag: str) -> str:
 
 
 def pagina(
-    nome: str, titolo: str, logo_tag: str, corpo: str, css_extra: str = "", js: str = ""
+    nome: str, titolo: str, logo_tag: str, corpo: str, favicon_tag: str = "", css_extra: str = "", js: str = ""
 ) -> None:
     css = '<link rel="stylesheet" href="../css/style.css">'
     if css_extra:
         css += f'\n<link rel="stylesheet" href="../css/{css_extra}">'
     script = f'<script src="../js/{js}"></script>' if js else ""
-    favicon_tag = (
-        f'<link rel="icon" href="../../{LOGO.as_posix()}" type="image/png">'
+    favicon_tag = favicon_tag or (
+        f'<link rel="icon" href="../media/{LOGO.name}" type="image/png">'
         if LOGO.exists()
         else ""
     )
@@ -555,7 +555,7 @@ def info_progetto(aggiornato: str) -> str:
     return f'<div class="info">{riga1}{riga2}</div>'
 
 
-def pagina_documenti(logo_tag: str) -> int:
+def pagina_documenti(logo_tag: str, favicon_tag: str = "") -> int:
     candidatura_voci = []
     for f in raccogli("candidatura"):
         candidatura_voci.append(voce(link_risorsa(f), titolo_da_nome(f.stem)))
@@ -590,7 +590,7 @@ def pagina_documenti(logo_tag: str) -> int:
     corpo = f"""  <h1>{html.escape(GRUPPO)}</h1>
   <p class="intro">{html.escape(SOTTOTITOLO)}, {html.escape(ISTITUTO)}</p>
   {info_progetto(data_estesa(date.today().isoformat()))}
-  
+
   <div class="layout-principale">
     <aside class="sidebar-toc">
       <nav class="toc" aria-label="In questa pagina"><p>In questa pagina</p><ol>{toc}</ol></nav>
@@ -600,11 +600,11 @@ def pagina_documenti(logo_tag: str) -> int:
       {"".join(sezioni)}
     </div>
   </div>"""
-    pagina("index.html", "Documentazione", logo_tag, corpo, js="script.js")
+    pagina("index.html", "Documentazione", logo_tag, corpo, favicon_tag=favicon_tag, js="script.js")
     return len(sezioni)
 
 
-def pagina_issues(logo_tag: str) -> None:
+def pagina_issues(logo_tag: str, favicon_tag: str = "") -> None:
     issues, errore = carica_issues()
     if issues is None:
         contenuto = (
@@ -623,12 +623,13 @@ def pagina_issues(logo_tag: str) -> None:
         "Issues",
         logo_tag,
         corpo,
+        favicon_tag=favicon_tag,
         css_extra="issues.css",
         js="issues.js" if issues is not None else "",
     )
 
 
-def pagina_gruppo(logo_tag: str) -> None:
+def pagina_gruppo(logo_tag: str, favicon_tag: str = "") -> None:
     schede = "".join(
         f'<li class="scheda"><span class="nome-membro">{html.escape(n)} {html.escape(c)}</span>'
         f'<span class="ruolo">{html.escape(r)}</span></li>'
@@ -676,13 +677,13 @@ def pagina_gruppo(logo_tag: str) -> None:
 
     corpo = f"""  <h1>Gruppo</h1>
   <p class="intro">I sei componenti di {html.escape(GRUPPO)} e i ruoli ricoperti.</p>
-  
+
   <section id="componenti">
     <h2>Componenti<span class="conteggio">{len(MEMBRI)}</span></h2>
     <p class="descr">Ruoli dello sprint corrente ({html.escape(SPRINT_CORRENTE)}).</p>
     <ul class="membri">{schede}</ul>
   </section>
-  
+
   <section id="timeline">
     <h2>Timeline dei Ruoli</h2>
     <p class="descr">Seleziona lo sprint per consultare l'assegnazione dei ruoli.</p>
@@ -693,19 +694,19 @@ def pagina_gruppo(logo_tag: str) -> None:
       {pannelli_tab}
     </div>
   </section>
-  
+
   <section id="ruoli">
     <h2>Ruoli</h2>
     <p class="descr">Compiti di ciascun ruolo e ore previste nel preventivo.</p>
     <dl class="ruoli">{ruoli}</dl>
   </section>
-  
+
   <section id="progetto">
     <h2>Il progetto</h2>
     <dl class="progetto">{progetto}</dl>
     <p class="capitolato-testo"><strong>{html.escape(CAPITOLATO_NOME)}</strong></p>
   </section>
-  
+
   <section id="contatti">
     <h2>Contatti</h2>
     <ul class="contatti">
@@ -715,7 +716,7 @@ def pagina_gruppo(logo_tag: str) -> None:
   </section>"""
 
     pagina(
-        "gruppo.html", "Gruppo", logo_tag, corpo, css_extra="gruppo.css", js="gruppo.js"
+        "gruppo.html", "Gruppo", logo_tag, corpo, favicon_tag=favicon_tag, css_extra="gruppo.css", js="gruppo.js"
     )
 
 
@@ -781,14 +782,19 @@ def main():
     (SITE / "html").mkdir()
     (SITE / "css").mkdir()
     (SITE / "js").mkdir()
+    (SITE / "media").mkdir()
 
+    # Copia il logo nella directory media del sito generato
     logo_tag = ""
+    favicon_tag = ""
     if LOGO.exists():
-        logo_tag = f'<img src="../../{LOGO.as_posix()}" alt="" width="32" height="32">'
+        shutil.copy(LOGO, SITE / "media" / LOGO.name)
+        logo_tag = f'<img src="../media/{LOGO.name}" alt="" width="32" height="32">'
+        favicon_tag = f'<link rel="icon" href="../media/{LOGO.name}" type="image/png">'
 
-    n = pagina_documenti(logo_tag)
-    pagina_issues(logo_tag)
-    pagina_gruppo(logo_tag)
+    n = pagina_documenti(logo_tag, favicon_tag)
+    pagina_issues(logo_tag, favicon_tag)
+    pagina_gruppo(logo_tag, favicon_tag)
     pagina_cruscotto(logo_tag)
     pagina_glossario(logo_tag)
 
