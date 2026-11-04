@@ -639,6 +639,10 @@ def pagina_issues(logo_tag: str, favicon_tag: str = "") -> None:
 
 
 def pagina_gruppo(logo_tag: str, favicon_tag: str = "") -> None:
+    ruoli_correnti = {
+        persona: ruolo
+        for ruolo, persona in TIMELINE_RUOLI[-1]["ruoli"].items()
+    }
     schede = "".join(
         f'<li class="scheda"><span class="nome-membro">{html.escape(nome)}</span>'
         f'<span class="ruolo">{html.escape(ruoli_correnti[nome])}</span></li>'
