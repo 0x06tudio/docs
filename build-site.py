@@ -26,7 +26,8 @@ REPO_URL = f"https://github.com/{REPO_SLUG}"
 REPO_BRANCH = "main"
 CAPITOLATO_NOME = "Capitolato C9 - SpecCheck"
 CAPITOLATO_URL = "https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9.pdf"
-LOGO = Path("src/media/logo_edited.png")
+LOGO = Path(__file__).resolve().parent / "src" / "media" / "logo_edited.png"
+MEDIA_URL = "../../docs/src/media"
 
 SRC = Path("src")
 OUT = Path("out")
@@ -48,22 +49,21 @@ MESI = [
 ]
 
 # ---------- Dati del gruppo e Timeline dei Ruoli ----------
-SPRINT_CORRENTE = "S01"
 MEMBRI = [
-    ("Davide", "Colabove", "Responsabile"),
-    ("Catalin", "Chirilov", "Amministratore"),
-    ("Andrea", "Maggio", "Analista"),
-    ("Pietro", "Brocadello", "Progettista"),
-    ("Alberto", "Cavalletto", "Programmatore"),
-    ("Nicolò", "Beltrame", "Verificatore"),
+    ("Davide", "Colabove"),
+    ("Catalin", "Chirilov"),
+    ("Andrea", "Maggio"),
+    ("Pietro", "Brocadello"),
+    ("Alberto", "Cavalletto"),
+    ("Nicolò", "Beltrame"),
 ]
 
-# TIMELINE DEGLI SPRINT:
+# TIMELINE DEGLI SPRINT, dal più vecchio al più recente:
 # L'ultimo sprint inserito in fondo alla lista rimarrà attivo/aperto di default.
 TIMELINE_RUOLI = [
     {
         "sprint": "S01",
-        "periodo": "Ottobre 2026",
+        "periodo": "Inizio Progetto - Ottobre 2026",
         "ruoli": {
             "Responsabile": "Davide Colabove",
             "Amministratore": "Catalin Chirilov",
@@ -74,6 +74,7 @@ TIMELINE_RUOLI = [
         },
     },
 ]
+SPRINT_CORRENTE = TIMELINE_RUOLI[-1]["sprint"]
 
 RUOLI = {
     "Responsabile": (
@@ -332,6 +333,10 @@ def link_risorsa(f: PurePosixPath) -> str:
     return f"https://raw.githubusercontent.com/{REPO_SLUG}/{REPO_BRANCH}/{percorso}"
 
 
+def link_logo() -> str:
+    return f"{MEDIA_URL}/{quote(LOGO.name)}"
+
+
 def voce(href: str, titolo: str, meta: str = "") -> str:
     ext = href.rsplit(".", 1)[-1].upper()
     meta_html = f'<span class="meta">{html.escape(meta)}</span>' if meta else ""
@@ -497,7 +502,7 @@ def pagina(
         css += f'\n<link rel="stylesheet" href="../css/{css_extra}">'
     script = f'<script src="../js/{js}"></script>' if js else ""
     favicon_tag = (
-        f'<link rel="icon" href="../../{LOGO.as_posix()}" type="image/png">'
+        f'<link rel="icon" href="{html.escape(link_logo())}" type="image/png">'
         if LOGO.exists()
         else ""
     )
@@ -607,16 +612,20 @@ def pagina_documenti(logo_tag: str) -> int:
 def pagina_issues(logo_tag: str) -> None:
     issues, errore = carica_issues()
     if issues is None:
+        ricerca = ""
         contenuto = (
             '<p class="avviso" role="status">Le issues non sono al momento disponibili '
             f"in questa versione del sito. Si possono consultare direttamente su "
             f'<a href="{html.escape(REPO_URL)}/issues" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>'
         )
     else:
-        n_aperte = sum(1 for i in issues if i.get("state") != "closed")
+        ricerca = barra_ricerca(
+            "Cerca un'issue", "Es. titolo, assegnatario o etichetta"
+        )
         contenuto = sezioni_issues(issues)
     corpo = f"""  <h1>Issues</h1>
   <p class="intro">Attività e problemi tracciati su GitHub, aperti e chiusi.</p>
+  {ricerca}
   {contenuto}"""
     pagina(
         "issues.html",
@@ -629,10 +638,14 @@ def pagina_issues(logo_tag: str) -> None:
 
 
 def pagina_gruppo(logo_tag: str) -> None:
+    ruoli_correnti = {
+        persona: ruolo
+        for ruolo, persona in TIMELINE_RUOLI[-1]["ruoli"].items()
+    }
     schede = "".join(
-        f'<li class="scheda"><span class="nome-membro">{html.escape(n)} {html.escape(c)}</span>'
-        f'<span class="ruolo">{html.escape(r)}</span></li>'
-        for n, c, r in MEMBRI
+        f'<li class="scheda"><span class="nome-membro">{html.escape(nome)}</span>'
+        f'<span class="ruolo">{html.escape(ruoli_correnti[nome])}</span></li>'
+        for nome in (f"{n} {c}" for n, c in MEMBRI)
     )
     ruoli = "".join(
         f'<div class="ruolo-def"><dt>{html.escape(r)}<span class="ore">{ore} ore previste</span></dt>'
@@ -658,9 +671,10 @@ def pagina_gruppo(logo_tag: str) -> None:
         nascondi = "" if is_ultimo else " hidden"
 
         bottoni_tab += (
-            f'<button type="button" class="tab-btn{classe_attiva}" '
-            f'data-target="{sprint_id}" role="tab" aria-selected="{attivo_attr}">'
-            f'Sprint {item["sprint"]}</button>'
+            f'<button type="button" id="tab-{sprint_id}" class="tab-btn{classe_attiva}" '
+            f'data-target="{sprint_id}" role="tab" aria-selected="{attivo_attr}" '
+            f'aria-controls="pane-{sprint_id}">Sprint {html.escape(item["sprint"])}'
+            f'<span class="tab-periodo">{html.escape(item["periodo"])}</span></button>'
         )
 
         assegnazioni = "".join(
@@ -669,7 +683,8 @@ def pagina_gruppo(logo_tag: str) -> None:
         )
 
         pannelli_tab += (
-            f'<div id="pane-{sprint_id}" class="tab-pane{nascondi}" role="tabpanel">'
+            f'<div id="pane-{sprint_id}" class="tab-pane{nascondi}" role="tabpanel" '
+            f'aria-labelledby="tab-{sprint_id}">'
             f'<p class="meta-periodo">Periodo: {html.escape(item["periodo"])}</p>'
             f"<ul>{assegnazioni}</ul></div>"
         )
@@ -784,7 +799,7 @@ def main():
 
     logo_tag = ""
     if LOGO.exists():
-        logo_tag = f'<img src="../../{LOGO.as_posix()}" alt="" width="32" height="32">'
+        logo_tag = f'<img src="{html.escape(link_logo())}" alt="" width="32" height="32">'
 
     n = pagina_documenti(logo_tag)
     pagina_issues(logo_tag)
@@ -911,6 +926,7 @@ CSS_GRUPPO = """/* Pagina Gruppo e Tab Timeline */
 .tab-btn { font: inherit; font-size: 0.9rem; padding: 0.4rem 1rem; border: 1px solid var(--linea); border-radius: 6px; background: var(--sfondo); color: var(--tenue); cursor: pointer; }
 .tab-btn:hover { background: var(--hover); color: var(--testo); }
 .tab-btn.attivo { border-color: var(--accento); color: var(--accento); font-weight: 600; background: var(--hover); }
+.tab-periodo { display: block; font-size: 0.75rem; font-weight: 400; color: var(--tenue); }
 .tab-pane { border: 1px solid var(--linea); border-radius: 8px; padding: 1.2rem; background: var(--sfondo); }
 .meta-periodo { margin: 0 0 0.8rem 0; font-size: 0.9rem; color: var(--tenue); font-family: var(--ui); font-weight: 600; }
 .tab-pane ul { border-top: none; padding-left: 0; }
@@ -1057,7 +1073,13 @@ JS_ISSUES = r"""(function () {
     });
   });
 
-  if (input) input.addEventListener("input", filtra);
+  input.addEventListener("input", filtra);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      input.value = "";
+      filtra();
+    }
+  });
 })();
 """
 
