@@ -820,12 +820,12 @@ def main():
 # ======================= CSS =======================
 CSS = """:root{
   --sfondo:#faf9f6; --testo:#1f2328; --tenue:#5f6670; --linea:#e4e1d8;
-  --accento:#1f4fa3; --hover:#f1efe8; --font:"Iowan Old Style","Charter","Georgia",serif;
+  --accento:#8f51f2; --hover:#8f51f2; --font:"Iowan Old Style","Charter","Georgia",serif;
   --ui:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root{--sfondo:#16181b; --testo:#e8e6e1; --tenue:#a0a5ad; --linea:#2c3036;
-         --accento:#8ab4ff; --hover:#1f2226;}
+         --accento:#8f51f2; --hover:#1f2226;}
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:6rem}
@@ -876,6 +876,10 @@ ul a:hover .titolo{color:var(--accento);text-decoration:underline}
 .titolo{flex:1}
 .meta{font:.85rem var(--ui);color:var(--tenue);white-space:nowrap}
 .tipo{font:600 .75rem var(--ui);color:var(--tenue);border:1px solid var(--linea);border-radius:4px;padding:.05rem .4rem}
+.tipo.PDF {background-color: #f8f0ff; color: #6a0dad; border-color: #e6d7ff;}
+.tipo.PPTX {background-color: #fff0f5; color: #c2185b; border-color: #f8d0e0;}
+.tipo.XLSX {background-color: #f0fff4; color: #2e7d32; border-color: #d0f0d9;}
+.tipo.DOCX {background-color: #f0f7ff; color: #1565c0; border-color: #d0e8ff;}
 footer{max-width:64rem;margin:0 auto;padding:1.5rem 1.25rem 3rem;border-top:1px solid var(--linea);font:.9rem var(--ui);color:var(--tenue)}
 footer a{color:var(--accento)}
 .cerca{margin:0 0 2.5rem;font-family:var(--ui)}
