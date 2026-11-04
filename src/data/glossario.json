@@ -1,0 +1,186 @@
+[
+  {
+    "termine": "AdR",
+    "definizione": "Analisi dei Requisiti: documento che traduce i bisogni del capitolato in casi d'uso e requisiti."
+  },
+  {
+    "termine": "Agentic Coding",
+    "definizione": "Modo di sviluppare in cui un agente basato su LLM pianifica, scrive e modifica il codice con un certo grado di autonomia."
+  },
+  {
+    "termine": "Amministratore",
+    "definizione": "Ruolo di progetto responsabile di repository, pipeline CI/CD, ambienti di lavoro e strumenti di supporto."
+  },
+  {
+    "termine": "Analista",
+    "definizione": "Ruolo di progetto che redige l'Analisi dei Requisiti."
+  },
+  {
+    "termine": "Best practice",
+    "definizione": "Modo di fare (Way of Working) noto, che abbia mostrato di garantire i migliori risultati in circostanze note e specifiche."
+  },
+  {
+    "termine": "Cammino critico",
+    "definizione": "Sequenza di attività ordinata con prodotto importante e dipendenze temporali strette, ciò implica il massimo rischio."
+  },
+  {
+    "termine": "Capitolato",
+    "definizione": "Documento con cui un'azienda proponente descrive il progetto da realizzare. Il nostro è il C9 - SpecCheck."
+  },
+  {
+    "termine": "Capitolato d'appalto",
+    "definizione": "Determina i \"requisiti utente\"."
+  },
+  {
+    "termine": "Caso d'uso",
+    "definizione": "Descrizione di come un utente interagisce con il sistema per raggiungere un obiettivo; da esso discendono i requisiti."
+  },
+  {
+    "termine": "CI/CD",
+    "definizione": "Integrazione e consegna continue."
+  },
+  {
+    "termine": "Ciclo di vita",
+    "definizione": "Gli stati che il prodotto SW richiesto assume dal suo concepimento al ritiro."
+  },
+  {
+    "termine": "Ciclo di vita del SW",
+    "definizione": "Gli stati che il prodotto SW assume tra concepimento e ritiro in conseguenza delle attività svolte su di esso."
+  },
+  {
+    "termine": "Committente",
+    "definizione": "Chi ordina qualcosa, vaglia le proposte e le espone ai fornitori."
+  },
+  {
+    "termine": "Controllo di configurazione",
+    "definizione": "Ci dice come si fa a comporre il prodotto a partire dalle sue parti."
+  },
+  {
+    "termine": "Controllo di versione",
+    "definizione": "Quali specifiche parti della loro storia individuale ci interessa (es. l'ultima versione, quella precedente, ecc..)."
+  },
+  {
+    "termine": "Economicità",
+    "definizione": "L'insieme di efficienza ed efficacia."
+  },
+  {
+    "termine": "Efficacia",
+    "definizione": "Misura della capacità di raggiungere l'obiettivo prefissato. In ottica di processo, è un insieme di attività che raggiungono gli obiettivi attesi."
+  },
+  {
+    "termine": "Efficienza",
+    "definizione": "Misura dell'abilità di raggiungere l'obiettivo impiegando le risorse minime indispensabili."
+  },
+  {
+    "termine": "Efficiente",
+    "definizione": "Insieme di attività fatte senza spreco di risorse."
+  },
+  {
+    "termine": "Engineering",
+    "definizione": "Application of scientific and mathematical principles to practical ends."
+  },
+  {
+    "termine": "Fase",
+    "definizione": "Designa un segmento temporale contiguo con caratteristiche coerenti."
+  },
+  {
+    "termine": "Glossario",
+    "definizione": "Spiega ogni termine specializzato del dominio di progetto."
+  },
+  {
+    "termine": "Incremento",
+    "definizione": "Procedere per aggiunte successive a un impianto base (scultura), solo costruttivo."
+  },
+  {
+    "termine": "Ingegneria del software",
+    "definizione": "Approccio sistematico, disciplinato e quantificabile allo sviluppo, l'uso, la manutenzione ed il ritiro del SW. Sistematico: modo di lavorare metodico che evolve le best practice; Disciplinato: segue le regole; Quantificabile: permette di misurarne efficienza ed efficacia."
+  },
+  {
+    "termine": "Iterazione",
+    "definizione": "Procedere per raffinamenti o rivisitazione (pittura), potenzialmente distruttivo."
+  },
+  {
+    "termine": "Manutenzione",
+    "definizione": "Insieme di attività necessarie a garantire l'uso continuativo del prodotto: reattivamente (per correzione dopo malfunzionamento) o preventivamente."
+  },
+  {
+    "termine": "Milestones",
+    "definizione": "Punto del calendario che sia significativo per la pianificazione."
+  },
+  {
+    "termine": "Modelli di ciclo di vita",
+    "definizione": "Descrivono quali stati e quali transizioni privilegiare in un ciclo di vita e quindi quali processi attivare in esso. Consentono di pianificare, organizzare, eseguire e controllare lo svolgimento delle attività."
+  },
+  {
+    "termine": "Modello",
+    "definizione": "Un insieme di specifiche che descrivono un fenomeno di interesse (astratto/concreto) in modo oggettivo, non dipendente dall'osservatore e dimostrato corretto empiricamente o per teorema."
+  },
+  {
+    "termine": "MVP (Minimum Viable Product)",
+    "definizione": "Approssima da vicino il prodotto atteso senza essere finale. È dotato di funzionalità sufficienti per valutare la visione iniziale, consentire l'uso esplorativo e prendere decisioni fondate. Offre \"the maximum amount of validated learning about customers' needs with the least amount of effort\"."
+  },
+  {
+    "termine": "POC (Proof of concept)",
+    "definizione": "Realizzato a inizio progetto, è un artefatto usa-e-getta sul piano architetturale. Serve a valutare la fattibilità tecnologica del prodotto rispetto a specifici sottoinsiemi di funzionalità. Aiuta a consolidare l'analisi dei requisiti dal lato della soluzione."
+  },
+  {
+    "termine": "Processi di ciclo di vita",
+    "definizione": "Raggruppano e codificano le attività da svolgere per effettuare corrette transizioni di stato nel ciclo di vita di un prodotto SW."
+  },
+  {
+    "termine": "Processo",
+    "definizione": "Insieme di attività correlate e coese che trasformano ingressi (bisogni) in uscite (prodotti) secondo regole date, consumando risorse nel farlo."
+  },
+  {
+    "termine": "Produttività",
+    "definizione": "Rapporto tra quantità di prodotto realizzato e risorse utilizzate."
+  },
+  {
+    "termine": "Prototipo",
+    "definizione": "Per provare e scegliere soluzioni, usa e getta o per incrementi."
+  },
+  {
+    "termine": "Qualità",
+    "definizione": "Ha più dimensioni: riguarda i prodotti e i processi, e interessa sia il committente che la direzione aziendale."
+  },
+  {
+    "termine": "Requisito",
+    "definizione": "Descrizione documentata di una capacità. Può derivare da un Bisogno (capacità necessaria all'utente per risolvere un problema) o essere una Soluzione (condizione che il sistema deve soddisfare per adempiere a un obbligo)."
+  },
+  {
+    "termine": "Riuso",
+    "definizione": "Copia-incolla opportunistico (occasionale: basso costo e scarso impatto) oppure Sistematico (per progetto o famiglia di prodotti: maggior costo iniziale ma maggior impatto a lungo termine)."
+  },
+  {
+    "termine": "Sistema di qualità",
+    "definizione": "Valuta la Maturità (qualità misurata delle prestazioni) e la Conformità (adesione alle aspettative e agli obblighi)."
+  },
+  {
+    "termine": "Software Engineering",
+    "definizione": "Disciplina per la realizzazione di prodotti SW così impegnativi da richiedere il dispiego di attività collaborative. Richiede la capacità di produrre \"in grande\" ed \"in piccolo\", garantendo qualità ed efficienza lungo l'intero ciclo di vita."
+  },
+  {
+    "termine": "Specifica Tecnica",
+    "definizione": "Definisce l'architettura logica del prodotto (componenti, ruoli, interazioni), l'architettura di deployment, i design pattern architetturali e gli idiomi utilizzati, oltre a ogni aspetto che caratterizzi il design."
+  },
+  {
+    "termine": "Stakeholder",
+    "definizione": "Portatore di interesse: tutti coloro che a vario titolo hanno influenza sul prodotto e sul progetto (comunità degli utenti, committente, fornitore, eventuali regolatori)."
+  },
+  {
+    "termine": "Studio di fattibilità",
+    "definizione": "Fissa le implicazioni di interesse, di costo e di qualità in un documento."
+  },
+  {
+    "termine": "Teamwork",
+    "definizione": "Lavoro collaborativo che punta a raggiungere un obiettivo comune. Richiede gestione dell'interdipendenza tra i membri tramite comunicazioni aperte, fiducia reciproca, assunzione di responsabilità e condivisione dei rischi. Alla base si trova un solido Way of Working."
+  },
+  {
+    "termine": "Verbali",
+    "definizione": "Breve rendiconto di riunioni ufficiali (agenda, decisioni, azioni)."
+  },
+  {
+    "termine": "Way of Working",
+    "definizione": "La maniera di organizzare al meglio le attività di progetto."
+  }
+]
