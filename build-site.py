@@ -6,7 +6,6 @@ file nella root di site/.
 
 import html
 import json
-import os
 import re
 import shutil
 import urllib.request
@@ -124,7 +123,6 @@ PROGETTO = [
 
 PAGINE = [
     ("index.html", "Documenti"),
-    ("issues.html", "Issues"),
     ("gruppo.html", "Gruppo"),
     ("cruscotto.html", "Cruscotto"),
     ("glossario.html", "Glossario"),
@@ -250,92 +248,6 @@ def voci_diari():
         )
     return voci
 
-
-def carica_issues():
-    locale = os.environ.get("ISSUES_FILE")
-    try:
-        if locale:
-            dati = json.loads(Path(locale).read_text(encoding="utf-8"))
-        else:
-            dati = []
-            token = os.environ.get("GITHUB_TOKEN")
-            for pagina in range(1, 11):
-                url = (
-                    f"https://api.github.com/repos/{REPO_SLUG}/issues"
-                    f"?state=all&per_page=100&page={pagina}"
-                )
-                req = urllib.request.Request(
-                    url,
-                    headers={
-                        "Accept": "application/vnd.github+json",
-                        "User-Agent": "0x06tudio-docs-build",
-                    },
-                )
-                if token:
-                    req.add_header("Authorization", f"Bearer {token}")
-                with urllib.request.urlopen(req, timeout=20) as r:
-                    blocco = json.load(r)
-                dati.extend(blocco)
-                if len(blocco) < 100:
-                    break
-    except Exception as e:
-        return None, f"{type(e).__name__}: {e}"
-    return [i for i in dati if "pull_request" not in i], None
-
-
-def voce_issue(i: dict) -> str:
-    chiusa = i.get("state") == "closed"
-    url = str(i.get("html_url", ""))
-    if not url.startswith("https://github.com/"):
-        url = f"{REPO_URL}/issues/{int(i.get('number', 0))}"
-    autore = (i.get("user") or {}).get("login", "")
-    assegnati = [a.get("login", "") for a in (i.get("assignees") or [])]
-    etichette = [
-        l.get("name", "") for l in (i.get("labels") or []) if isinstance(l, dict)
-    ]
-
-    meta = [f"#{int(i.get('number', 0))}"]
-    if chiusa and i.get("closed_at"):
-        meta.append("chiusa il " + data_estesa(i["closed_at"]))
-    elif i.get("created_at"):
-        meta.append("aperta il " + data_estesa(i["created_at"]))
-    if autore:
-        meta.append("da " + autore)
-    if assegnati:
-        meta.append("assegnata a " + ", ".join(assegnati))
-
-    chips = "".join(
-        f'<span class="etichetta">{html.escape(e)}</span>' for e in etichette
-    )
-    stato = "Chiusa" if chiusa else "Aperta"
-    return (
-        f'<li><a href="{html.escape(url)}" target="_blank" rel="noopener noreferrer">'
-        f'<span class="stato {"chiusa" if chiusa else "aperta"}">{stato}</span>'
-        f'<span class="corpo"><span class="titolo">{html.escape(i.get("title", ""))}</span>'
-        f'<span class="meta">{html.escape(" · ".join(meta))}</span>'
-        f'{("<span class=etichette>" + chips + "</span>") if chips else ""}</span></a></li>'
-    )
-
-
-def sezioni_issues(issues):
-    aperte = [i for i in issues if i.get("state") != "closed"]
-    chiuse = [i for i in issues if i.get("state") == "closed"]
-    aperte.sort(key=lambda i: i.get("created_at", ""), reverse=True)
-    chiuse.sort(key=lambda i: i.get("closed_at") or "", reverse=True)
-
-    out = []
-    for sid, titolo, descr, lista in (
-        ("aperte", "Aperte", "Dalla più recente.", aperte),
-        ("chiuse", "Chiuse", "Dalla chiusa più di recente.", chiuse),
-    ):
-        voci = "".join(voce_issue(i) for i in lista)
-        corpo = f"<ul>{voci}</ul>" if voci else '<p class="vuoto">Nessuna issue.</p>'
-        out.append(
-            f'<section id="{sid}" data-stato="{sid}"><h2>{titolo}'
-            f'<span class="conteggio">{len(lista)}</span></h2>'
-            f'<p class="descr">{descr}</p>{corpo}</section>'
-        )
-    return "".join(out)
 
 
 def testata(attiva: str, logo_tag: str) -> str:
@@ -468,35 +380,6 @@ def pagina_documenti(logo_tag: str, favicon_tag: str = "") -> int:
   </div>"""
     pagina("index.html", "Documentazione", logo_tag, corpo, favicon_tag=favicon_tag, js="script.js")
     return len(sezioni)
-
-
-def pagina_issues(logo_tag: str, favicon_tag: str = "") -> None:
-    issues, errore = carica_issues()
-    if issues is None:
-        ricerca = ""
-        contenuto = (
-            '<p class="avviso" role="status">Le issues non sono al momento disponibili '
-            f"in questa versione del sito. Si possono consultare direttamente su "
-            f'<a href="{html.escape(REPO_URL)}/issues" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>'
-        )
-    else:
-        ricerca = barra_ricerca(
-            "Cerca un'issue", "Es. titolo, assegnatario o etichetta"
-        )
-        contenuto = sezioni_issues(issues)
-    corpo = f"""  <h1>Issues</h1>
-  <p class="intro">Attività e problemi tracciati su GitHub, aperti e chiusi.</p>
-  {ricerca}
-  {contenuto}"""
-    pagina(
-        "issues.html",
-        "Issues",
-        logo_tag,
-        corpo,
-        favicon_tag=favicon_tag,
-        css_extra="issues.css",
-        js="issues.js" if issues is not None else "",
-    )
 
 
 def pagina_gruppo(logo_tag: str, favicon_tag: str = "") -> None:
@@ -692,19 +575,16 @@ def main():
         favicon_tag = f'<link rel="icon" href="{logo_url}" type="image/png">'
 
     n = pagina_documenti(logo_tag, favicon_tag)
-    pagina_issues(logo_tag, favicon_tag)
     pagina_gruppo(logo_tag, favicon_tag)
     pagina_cruscotto(logo_tag)
     pagina_glossario(logo_tag)
 
     for nome, contenuto in (
         ("style.css", CSS),
-        ("issues.css", CSS_ISSUES),
         ("gruppo.css", CSS_GRUPPO),
         ("cruscotto.css", CSS_CRUSCOTTO),
         ("glossario.css", CSS_GLOSSARIO),
         ("script.js", JS),
-        ("issues.js", JS_ISSUES),
         ("glossario.js", JS_GLOSSARIO),
         ("gruppo.js", JS_GRUPPO),
     ):
@@ -787,26 +667,6 @@ footer a{color:var(--accento)}
 .cerca input:focus-visible{border-color:var(--accento)}
 .cerca .esito{margin:.4rem 0 0;font-size:.9rem;color:var(--tenue);min-height:1.3em}
 [hidden]{display:none !important}
-"""
-
-CSS_ISSUES = """/* Pagina Issues */
-.filtri{display:flex;gap:.4rem;margin:0 0 .6rem;font-family:var(--ui)}
-.filtri button{font:inherit;font-size:.9rem;padding:.3rem .9rem;border:1px solid var(--linea);border-radius:999px;background:var(--sfondo);color:var(--tenue);cursor:pointer}
-.filtri button:hover{background:var(--hover);color:var(--testo)}
-.filtri button[aria-pressed="true"]{border-color:var(--accento);color:var(--accento);font-weight:600}
-.riepilogo{font:.9rem var(--ui);color:var(--tenue);margin:0 0 2.5rem}
-ul a{align-items:flex-start}
-.corpo{flex:1;display:flex;flex-direction:column;gap:.15rem}
-.corpo .titolo{flex:none}
-.etichette{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.2rem}
-.etichetta{font:.75rem var(--ui);color:var(--tenue);border:1px solid var(--linea);border-radius:999px;padding:.02rem .55rem}
-.stato{font:600 .75rem var(--ui);border-radius:4px;padding:.1rem .5rem;margin-top:.2rem;border:1px solid var(--linea)}
-.stato.aperta{color:#1a7f37;border-color:#1a7f37}
-.stato.chiusa{color:var(--tenue)}
-@media (prefers-color-scheme: dark){.stato.aperta{color:#56d364;border-color:#56d364}}
-.vuoto{color:var(--tenue);font-family:var(--ui);border-top:1px solid var(--linea);padding-top:.8rem;margin:0}
-.avviso{font-family:var(--ui);border:1px solid var(--linea);border-radius:6px;padding:.9rem 1.1rem}
-.avviso a{color:var(--accento)}
 """
 
 CSS_GRUPPO = """/* Pagina Gruppo e Tab Timeline */
@@ -913,66 +773,6 @@ JS = r"""(function () {
   input.addEventListener("input", filtra);
   input.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { input.value = ""; filtra(); }
-  });
-})();
-"""
-
-JS_ISSUES = r"""(function () {
-  var input = document.getElementById("cerca");
-  if (!input) return;
-  var esito = document.getElementById("esito");
-  var sezioni = Array.prototype.slice.call(document.querySelectorAll("main section[data-stato]"));
-  var bottoni = Array.prototype.slice.call(document.querySelectorAll(".filtri button"));
-  var filtroStato = "tutte";
-
-  function norm(t) {
-    return t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-  }
-
-  sezioni.forEach(function (sez) {
-    Array.prototype.forEach.call(sez.querySelectorAll("li"), function (li) {
-      li._testo = norm(li.textContent);
-    });
-  });
-
-  function filtra() {
-    var termini = norm(input.value).split(/\s+/).filter(Boolean);
-    var totali = 0;
-
-    sezioni.forEach(function (sez) {
-      var inclusa = filtroStato === "tutte" || sez.getAttribute("data-stato") === filtroStato;
-      var tutte = sez.querySelectorAll("li");
-      var visibili = 0;
-      Array.prototype.forEach.call(tutte, function (li) {
-        var ok = termini.every(function (t) { return li._testo.indexOf(t) !== -1; });
-        li.hidden = !ok;
-        if (ok) visibili++;
-      });
-      var cont = sez.querySelector(".conteggio");
-      if (cont) cont.textContent = termini.length ? visibili + " di " + tutte.length : tutte.length;
-      sez.hidden = !inclusa || (termini.length > 0 && visibili === 0);
-      if (inclusa) totali += visibili;
-    });
-
-    if (!termini.length) esito.textContent = "";
-    else if (!totali) esito.textContent = "Nessuna issue corrisponde alla ricerca.";
-    else esito.textContent = totali + (totali === 1 ? " issue trovata" : " issue trovate");
-  }
-
-  bottoni.forEach(function (b) {
-    b.addEventListener("click", function () {
-      filtroStato = b.getAttribute("data-filtro");
-      bottoni.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-      filtra();
-    });
-  });
-
-  input.addEventListener("input", filtra);
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      input.value = "";
-      filtra();
-    }
   });
 })();
 """
