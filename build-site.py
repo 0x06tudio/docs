@@ -10,10 +10,13 @@ import re
 import shutil
 import urllib.request
 from datetime import date
+from decimal import Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
 from pathlib import PurePosixPath
 from urllib.parse import quote
+
+from openpyxl import load_workbook
 
 # ---------- Configurazione ----------
 GRUPPO = "0x06tudio"
@@ -27,6 +30,10 @@ CAPITOLATO_NOME = "Capitolato C9 - SpecCheck"
 CAPITOLATO_URL = "https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9.pdf"
 LOGO = Path(__file__).resolve().parent / "src" / "media" / "logo_edited.png"
 GLOSSARIO_FILE = Path(__file__).resolve().parent / "src" / "data" / "glossario.json"
+RENDICONTAZIONE_FILE = (
+    Path(__file__).resolve().parent / "src" / "data" / "rendicontazione_ore.xlsx"
+)
+ORE_PREVENTIVATE = Decimal("552")
 
 SRC = Path("src")
 OUT = Path("out")
@@ -479,7 +486,106 @@ def pagina_gruppo(logo_tag: str, favicon_tag: str = "") -> None:
     )
 
 
+def formatta_ore(ore: Decimal) -> str:
+    return format(ore.normalize(), "f").replace(".", ",")
+
+
+def carica_ore_rendicontate() -> tuple[Decimal, dict[str, Decimal], dict[str, Decimal]]:
+    workbook = load_workbook(RENDICONTAZIONE_FILE, data_only=True, read_only=True)
+    try:
+        if "Dati" not in workbook.sheetnames:
+            raise ValueError(
+                f"Il foglio 'Dati' non esiste in {RENDICONTAZIONE_FILE}."
+            )
+
+        totale = Decimal("0")
+        ore_per_membro = {nome: Decimal("0") for nome, _ in MEMBRI}
+        ore_per_ruolo = {ruolo: Decimal("0") for ruolo in RUOLI}
+        for riga_numero, riga in enumerate(
+            workbook["Dati"].iter_rows(min_row=2, max_col=5, values_only=True),
+            start=2,
+        ):
+            data, membro, ruolo, ore, _descrizione = riga
+            valori = (data, membro, ruolo, ore)
+            if all(
+                valore is None
+                or (isinstance(valore, str) and not valore.strip())
+                for valore in riga
+            ):
+                continue
+            if any(
+                valore is None or (isinstance(valore, str) and not valore.strip())
+                for valore in valori
+            ):
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "completare Data, Membro, Ruolo e Ore."
+                )
+            if not isinstance(data, date):
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "Data deve essere una data valida."
+                )
+            if not isinstance(membro, str) or not isinstance(ruolo, str):
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "Membro e Ruolo devono essere testo."
+                )
+            membro = membro.strip()
+            ruolo = ruolo.strip()
+            if membro not in ore_per_membro:
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    f"membro '{membro}' non riconosciuto."
+                )
+            if ruolo not in ore_per_ruolo:
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    f"ruolo '{ruolo}' non riconosciuto."
+                )
+            if isinstance(ore, bool):
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "Ore deve essere un numero non negativo."
+                )
+            try:
+                valore_ore = Decimal(str(ore))
+            except InvalidOperation as errore:
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "Ore deve essere un numero non negativo."
+                ) from errore
+            if not valore_ore.is_finite() or valore_ore < 0:
+                raise ValueError(
+                    f"Riga {riga_numero} di {RENDICONTAZIONE_FILE}: "
+                    "Ore deve essere un numero non negativo."
+                )
+            totale += valore_ore
+            ore_per_membro[membro] += valore_ore
+            ore_per_ruolo[ruolo] += valore_ore
+        return totale, ore_per_membro, ore_per_ruolo
+    finally:
+        workbook.close()
+
+
 def pagina_cruscotto(logo_tag: str) -> None:
+    ore_rendicontate, ore_per_membro, ore_per_ruolo = carica_ore_rendicontate()
+    percentuale_ore = (ore_rendicontate / ORE_PREVENTIVATE * 100).quantize(
+        Decimal("1")
+    )
+    progresso_ore = min(ore_rendicontate, ORE_PREVENTIVATE)
+    progresso_html = format(progresso_ore, "f")
+    massimo_html = format(ORE_PREVENTIVATE, "f")
+    righe_membri = "".join(
+        f"<tr><th scope=\"row\">{html.escape(nome)} {html.escape(cognome)}</th>"
+        f"<td>{formatta_ore(ore_per_membro[nome])} h</td></tr>"
+        for nome, cognome in MEMBRI
+    )
+    righe_ruoli = "".join(
+        f"<tr><th scope=\"row\">{html.escape(ruolo)}</th>"
+        f"<td>{formatta_ore(ore_per_ruolo[ruolo])} h</td></tr>"
+        for ruolo in RUOLI
+    )
     corpo = f"""  <h1>Cruscotto di Progetto</h1>
   <p class="intro">Panoramica dello stato di avanzamento, metriche e indicatori chiave del progetto.</p>
   <section id="stato-avanzamento">
@@ -492,7 +598,18 @@ def pagina_cruscotto(logo_tag: str) -> None:
       </div>
       <div class="card">
         <h3>Ore Totali Preventivate</h3>
-        <p class="valore">552 h</p>
+        <p class="valore">{formatta_ore(ORE_PREVENTIVATE)} h</p>
+      </div>
+      <div class="card">
+        <h3>Ore rendicontate</h3>
+        <p class="valore">{formatta_ore(ore_rendicontate)} h</p>
+        <p class="dettaglio">Somma delle registrazioni nel foglio Dati.</p>
+      </div>
+      <div class="card">
+        <h3>Avanzamento ore</h3>
+        <p class="valore">{formatta_ore(percentuale_ore)}%</p>
+        <progress max="{massimo_html}" value="{progresso_html}"
+          aria-label="Ore rendicontate rispetto al monte ore preventivato"></progress>
       </div>
       <div class="card">
         <h3>Stato Consegna</h3>
@@ -500,7 +617,32 @@ def pagina_cruscotto(logo_tag: str) -> None:
       </div>
     </div>
   </section>"""
-    pagina("cruscotto.html", "Cruscotto", logo_tag, corpo, css_extra="cruscotto.css")
+    corpo += f"""
+  <section id="ore-per-membro">
+    <h2>Ore rendicontate per membro</h2>
+    <div class="tabella-scroll">
+      <table>
+        <thead><tr><th scope="col">Membro</th><th scope="col">Ore</th></tr></thead>
+        <tbody>{righe_membri}</tbody>
+      </table>
+    </div>
+  </section>
+  <section id="ore-per-ruolo">
+    <h2>Ore rendicontate per ruolo</h2>
+    <div class="tabella-scroll">
+      <table>
+        <thead><tr><th scope="col">Ruolo</th><th scope="col">Ore</th></tr></thead>
+        <tbody>{righe_ruoli}</tbody>
+      </table>
+    </div>
+  </section>"""
+    pagina(
+        "cruscotto.html",
+        "Cruscotto",
+        logo_tag,
+        corpo,
+        css_extra="cruscotto.css",
+    )
 
 
 def carica_glossario() -> list[tuple[str, str]]:
@@ -704,6 +846,13 @@ CSS_CRUSCOTTO = """/* Pagina Cruscotto */
 .card{border:1px solid var(--linea);border-radius:8px;padding:1.2rem;background:var(--sfondo)}
 .card h3{margin:0 0 .5rem;font-size:1rem;color:var(--tenue);font-family:var(--ui)}
 .card .valore{font-size:1.8rem;font-weight:700;margin:0;color:var(--accento);font-family:var(--ui)}
+.card .dettaglio{font:.85rem var(--ui);color:var(--tenue);margin:.35rem 0 0}
+.card progress{width:100%;height:.65rem;accent-color:var(--accento)}
+.tabella-scroll{overflow-x:auto}
+.tabella-scroll table{width:100%;border-collapse:collapse;font-family:var(--ui);font-size:.95rem}
+.tabella-scroll th,.tabella-scroll td{text-align:left;padding:.65rem .5rem;border-bottom:1px solid var(--linea)}
+.tabella-scroll thead th{color:var(--tenue);font-weight:600;border-top:1px solid var(--linea)}
+.tabella-scroll td{text-align:right;font-variant-numeric:tabular-nums}
 """
 
 CSS_GLOSSARIO = """/* Pagina Glossario */
