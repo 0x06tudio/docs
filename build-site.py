@@ -247,7 +247,9 @@ def voci_verbali(cartella: str, prefisso: str, etichetta: str):
 
 def voci_diari():
     voci = []
-    for f in raccogli("diari_di_bordo"):
+    for f in sorted(
+        raccogli("diari_di_bordo", "*.pptx"), key=lambda f: f.name, reverse=True
+    ):
         voci.append(
             voce(
                 link_risorsa(f), titolo_da_nome(re.sub(r"_ZeroSixStudio$", "", f.stem))
