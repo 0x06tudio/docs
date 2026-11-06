@@ -1,0 +1,130 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 1.0.0 \\
+    \textbf{Stato:} & Approvato \\
+    \textbf{Data:} & 2026/11/06 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Catalin Chirilov, Davide Colabove, Andrea Maggio \\
+    \textbf{Destinatari:} & 0x06tudio \\
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Ora inizio:} & 15:30 \\
+    \textbf{Ora fine:} & 17:30 \\
+    \textbf{Durata totale:} & 2 ore \\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Modifiche al workflow su github\vspace{-0.2cm}
+    \item Resoconto cambio di regime\vspace{-0.2cm}
+    \item Finalizzazione della seconda candidatura\vspace{-0.2cm}
+    \item Estensione studio tecnologie per capitolato C9
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Verificatore} & \textbf{Autore} \\ \hline
+    1.0.0 & 2026/11/06 & Approvazione del Responsabile S1 & / & Davide Colabove \\ \hline
+    0.1.0 & 2026/11/06 & Stesura iniziale del documento & Nicolò Beltrame & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Modifiche al workflow} \label{PuntoUno}
+Per migliorare l'organizzazione asincrona sono state decise alcune regole da seguire:
+\begin{itemize}
+    \item Utilizzo del workflow Gitflow: ogni feature (e dunque ogni documento nel caso della repository docs) avrà il proprio branch, di cui il Responsabile effettuerà il merge in seguito alla verifica da parte del Verificatore ed alla sua approvazione. \vspace{-0.2cm}
+    \item Creare issue atomiche e precise, con assegnatari precisi\vspace{-0.2cm}
+    \item Aggiunta Kanban board e milestones su GitHub
+\end{itemize}
+\subsection{Punto 2: Resoconto cambio di regime}
+Insieme alle modifiche al workflow descritte in \ref{PuntoUno}, sono state effettuate le seguenti:
+\begin{itemize}
+    \item Creazione del sito web per la consultazione della documentazione\vspace{-0.2cm}
+    \item Aggiunta del calendario a lungo termine nella dichiarazione degli impegni\vspace{-0.2cm}
+    \item Modificato il template dei verbali per rendere meno dispersive le informazioni di contesto, aggiungendo inoltre la sezione verificatore nel registro modifiche e migliorando il tracciamento degli esiti includendo motivazioni per ogni decisione, scadenze e issue relative su GitHub.
+\end{itemize}
+\subsection{Punto 3: Finalizzazione candidatura}
+Sono state effettuate modifiche alla lettera di presentazione per poterla nuovamente presentare e ricandidarsi al capitolato C9, ed è stato incluso un calendario di massima delle scadenze nel preventivo costi e impegni orari. Infine è stato aggiornato il sistema di versionamento (registro delle modifiche) di tutti i file per la candidatura per renderlo coerente al nuovo Way of Working.
+\subsection{Punto 4: Estensione scadenza studio tecnologie (C9)}
+Si è deciso di rinviare la scadenza per la stesura dei documenti esplorativi sulle tecnologie richieste al per il capitolato 16 Novembre p.v. in attesa di un nuovo colloquio con l'azienda per discutere le risorse da approfondire.
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} & \textbf{Motivazione} \\ \hline
+    D 6.1 & Aggiornamento del workflow; vedi \ref{PuntoUno} & Migliorare i processi di lavoro \\ \hline
+    D 6.2 & Estensione scadenza dello studio tecnologie e la stesura dei relativi documenti esplorativi & Impegno rinviato in seguito alla sospensione della candidatura \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|X|c|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} & \textbf{Scadenza} & \textbf{Issue} \\ \hline
+    TD 6.1 & Ultime modifiche alla lettera di candidatura & Davide Colabove & Conclusa in riunione & / \\ \hline
+    TD 6.2 & Finalizzazione creazione sito web & Pietro Brocadello & Conclusa in riunione & \issue{29} \\ \hline
+    TD 6.3 & Stesura documenti esplorativi sulle tecnologie richieste (C9) & Tutti i membri & 2026/11/16 & \issue{28} \\ \hline
+    TD 6.4 & Invio e-mail seconda candidatura & Davide Colabove & 2026/11/06 & \issue{40} \\ \hline
+    TD 6.5 & Stesura verbale interno & Andrea Maggio & 2026/11/06 & \issue{41} \\ \hline
+\end{tabularx}
+
+\end{document}
