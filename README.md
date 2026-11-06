@@ -5,6 +5,15 @@
   Università degli Studi di Padova · Corso di Laurea in Informatica</p>
 </div>
 
+<p align="center">
+  <a href="https://0x06tudio.github.io/docs/html/index.html">
+    <img alt="Apri il sito della documentazione" src="https://img.shields.io/badge/Sito-Documentazione-8f51f2?style=flat">
+  </a>
+  <a href="https://github.com/0x06tudio/docs/actions/workflows/pages.yml">
+    <img alt="Stato del workflow di pubblicazione" src="https://github.com/0x06tudio/docs/actions/workflows/pages.yml/badge.svg?branch=main">
+  </a>
+</p>
+
 ## Struttura della repository
 
 La repository contiene i sorgenti modificabili dei documenti in `src/` e i
@@ -22,6 +31,7 @@ relativi PDF pubblicati in `out/`.
 │       └── interni/       # Verbali delle riunioni del gruppo
 └── out/
     ├── candidatura/       # PDF dei documenti di candidatura
+    ├── diari_di_bordo/    # PDF dei diari di bordo
     └── verbali/
         ├── esterni/       # PDF dei verbali esterni
         └── interni/       # PDF dei verbali interni
@@ -44,12 +54,10 @@ in `src/diari_di_bordo/`.
 - Scrivere la data all'interno del documento come `AAAA/MM/GG`, ad esempio
   `2026/11/03`.
 - Mantenere nel verbale titolo, uso (interno/esterno), partecipanti,
-  destinatari e le informazioni di riunione pertinenti. I verbali interni
-  riportano anche luogo/modalità, orari e durata; quelli esterni includono le
+  destinatari e le informazioni di riunione pertinenti. I verbali esterni includono le
   informazioni dell'incontro con il proponente.
 - Tenere aggiornato il registro delle modifiche con versione, data,
-  descrizione e autore. Nei verbali interni il registro riporta anche il
-  verificatore.
+  descrizione e autore.
 - Salvare il PDF compilato con lo stesso nome e nella cartella omologa sotto
   `out/verbali/`.
 
@@ -79,11 +87,10 @@ site/
 └── js/                  # Ricerca dei documenti, glossario e interazioni
 ```
 
-La pagina Documenti elenca i PDF di `out/candidatura/` e `out/verbali/` e le
-presentazioni di `src/diari_di_bordo/`. I collegamenti ai file puntano alle
-risorse della repository su GitHub; i documenti non vengono incorporati
-nell'HTML. La navigazione tra pagine è condivisa e ogni pagina usa gli stili
-comuni (`style.css`) più eventuali fogli e script specifici.
+La pagina Documenti elenca i PDF di `out/candidatura/`, `out/verbali/` e
+`out/diari_di_bordo/`. I collegamenti ai file puntano alle risorse della
+repository su GitHub. La navigazione tra pagine è condivisa e ogni pagina usa
+gli stili comuni (`style.css`) più eventuali fogli e script specifici.
 
 La cartella `site/` è un artefatto generato, non una fonte da modificare a
 mano. La configurazione Git ignore la esclude dal versionamento; le modifiche
