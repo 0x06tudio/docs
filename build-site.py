@@ -247,7 +247,11 @@ def voci_verbali(cartella: str, prefisso: str, etichetta: str):
 
 def voci_diari():
     voci = []
-    for f in raccogli("diari_di_bordo"):
+    def chiave_ordinamento(f: PurePosixPath) -> tuple[int, str]:
+        match = re.fullmatch(r"DiarioDiBordo(\d+)(?:_ZeroSixStudio)?", f.stem)
+        return (int(match.group(1)) if match else -1, f.name)
+
+    for f in sorted(raccogli("diari_di_bordo"), key=chiave_ordinamento, reverse=True):
         voci.append(
             voce(
                 link_risorsa(f), titolo_da_nome(re.sub(r"_ZeroSixStudio$", "", f.stem))
