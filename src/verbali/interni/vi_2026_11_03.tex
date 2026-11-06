@@ -1,0 +1,133 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 1.0.0 \\
+    \textbf{Stato:} & Approvato \\
+    \textbf{Data:} & 2026/11/03 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Catalin Chirilov, Davide Colabove, Andrea Maggio \\
+    \textbf{Destinatari:} & 0x06tudio \\
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Ora inizio:} & 15:30 \\
+    \textbf{Ora fine:} & 17:40 \\
+    \textbf{Durata totale:} & 2 ore e 10 minuti \\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Correzioni ai documenti in base alla valutazione della candidatura\vspace{-0.2cm}
+    \item Pianificazione per la creazione del sito web\vspace{-0.2cm}
+    \item Pianificazione di calendario a lungo termine\vspace{-0.2cm}
+    \item Inizio stesura glossario\vspace{-0.2cm}
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Verificatore} & \textbf{Autore} \\ \hline
+    1.0.0 & 2026/11/06 & Approvazione del Responsabile S1 & / & Davide Colabove \\ \hline
+    0.1.1 & 2026/11/05 & Correzioni: ID duplicato e assegnatario TD 5.3 & Nicolò Beltrame & Andrea Maggio \\ \hline
+    0.1.0 & 2026/11/03 & Stesura iniziale del documento & Nicolò Beltrame & Andrea Maggio \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Correzioni ai documenti}
+Migliorati i verbali con le seguenti correzioni:
+\begin{itemize}
+    \item Aggiunta colonna verificatore nel registro modifiche, per attestare la verifica indipendente di ogni modifica\vspace{-0.2cm}
+    \item Impostazione migliorata delle informazioni di contesto (quando, chi e OdG)\vspace{-0.2cm}
+    \item Migliorata la precisione del tracciamento degli esiti: aggiunte le scadenze attese e riferimenti alla piattaforma di gestione del progetto.\vspace{-0.2cm}
+\end{itemize}
+
+\subsection{Punto 2: Pianificazione sito web}
+Pianificazione di un sito web per rendere consultabile la documentazione senza accesso alla repository.
+
+\subsection{Punto 3: Pianificazione calendario a lungo termine}
+Pianificazione di un calendario a lungo termine da aggiungere al preventivo costi per avere una visione lungimirante all'adesione delle scadenze.
+
+\subsection{Punto 4: Inizio stesura glossario}
+Inizio stesura del glossario con i termini delle lezioni di Ottobre.
+
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} & \textbf{Motivazione} \\ \hline
+    D 5.1 & Modifica template verbali & Migliorare il precedente, troppo dispersivo\\ \hline
+    D 5.2 & Creazione di un sito web per la documentazione & Necessario per migliorare la navigazione tra i documenti \\ \hline
+    D 5.3 & Arricchimento del preventivo costi con un calendario scadenze & Utile a rendere credibili gli impegni di consegna \\ \hline
+    D 5.4 & Estensione scadenza ricerca cruscotto ore e qualità & Dare priorità alle correzioni per la candidatura \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|X|c|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} & \textbf{Scadenza} & \textbf{Issue} \\ \hline
+    TD 5.1 & Creazione sito web & Pietro Brocadello & 2026/11/06 & \issue{29} \\ \hline
+    TD 5.2 & Stesura prima versione glossario & Davide Colabove & 2026/11/06 & \issue{30} \\ \hline
+    TD 5.3 & Aggiunta del calendario a lungo termine nella dichiarazione degli impegni & Davide Colabove & 2026/11/06 & \issue{31} \\ \hline
+    TD 5.4 & Modificare il template dei verbali & Tutti i membri (durante la riunione) & 2026/11/06 & / \\ \hline
+    TD 5.5 & Stesura verbale interno & Andrea Maggio & 2026/11/04 & \issue{32} \\ \hline
+    TD 5.6 & Verifica verbale interno & Nicolò Beltrame & 2026/11/06 & \issue{33} \\ \hline
+\end{tabularx}
+
+\end{document}
