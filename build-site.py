@@ -247,7 +247,7 @@ def voci_verbali(cartella: str, prefisso: str, etichetta: str):
 
 def voci_diari():
     voci = []
-    for f in raccogli("diari_di_bordo", "*.pptx"):
+    for f in raccogli("diari_di_bordo"):
         voci.append(
             voce(
                 link_risorsa(f), titolo_da_nome(re.sub(r"_ZeroSixStudio$", "", f.stem))
@@ -852,6 +852,7 @@ CSS_CRUSCOTTO = """/* Pagina Cruscotto */
 .tabella-scroll table{width:100%;border-collapse:collapse;font-family:var(--ui);font-size:.95rem}
 .tabella-scroll th,.tabella-scroll td{text-align:left;padding:.65rem .5rem;border-bottom:1px solid var(--linea)}
 .tabella-scroll thead th{color:var(--tenue);font-weight:600;border-top:1px solid var(--linea)}
+.tabella-scroll thead th:last-child{text-align:right}
 .tabella-scroll td{text-align:right;font-variant-numeric:tabular-nums}
 """
 
