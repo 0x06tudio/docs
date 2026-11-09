@@ -745,7 +745,7 @@ def main():
 # ======================= CSS =======================
 CSS = """:root{
   --sfondo:#faf9f6; --testo:#1f2328; --tenue:#5f6670; --linea:#e4e1d8;
-  --accento:#8f51f2; --hover:#8f51f2; --font:"Iowan Old Style","Charter","Georgia",serif;
+  --accento:#8f51f2; --hover:#f1e9ff; --font:"Iowan Old Style","Charter","Georgia",serif;
   --ui:system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){
