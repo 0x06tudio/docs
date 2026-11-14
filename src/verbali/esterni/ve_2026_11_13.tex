@@ -1,0 +1,111 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Stato:} & Non approvato \\
+    \textbf{Data:} & 2026/11/13 \\
+    \textbf{Uso:} & Esterno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Alberto Cavalletto, Catalin Chirilov, Davide Colabove, Andrea Maggio \\
+    \textbf{Destinatari:} & Zucchetti SpA, Proff Vardanega, Cardin \\
+    \textbf{Modalità / Luogo:} & Online / Google Meet \\
+    \textbf{Ora inizio:} & 15:00 \\
+    \textbf{Ora fine:} & 16:00 \\
+    \textbf{Durata totale:} & 1 ora \\
+    \textbf{Partecipanti esterni:} & Gregorio Piccoli (Zucchetti SpA)\\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Discussione con il referente esterno riguardo le tecnologie da esplorare e studiare autonomamente prima dell'inizio dei lavori\vspace{-0.2cm}
+    \item Chiarimenti sul perimetro del progetto \vspace{-0.2cm}
+    \item Proposta di un piano per il PoC \vspace{-0.2cm}
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/14 & Stesura del documento & Andrea Maggio & / \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Discussione sulle tecnologie}
+Il gruppo ha avanzato varie proposte su tecnologie da esaminare, dettagliate nelle sub-issue della issue \issue{28} della repository del gruppo dedicata alla documentazione. Il referente esterno ha approvato le proposte del gruppo, e ha offerto alcuni spunti di riflessione riguardo lo Spec-Driven development:
+\begin{itemize}
+    \item \href{https://ranthebuilder.cloud/blog/i-tested-three-spec-driven-ai-tools-here-s-my-honest-take}{\texttt{ranthebuilder.cloud/blog/}} \vspace{-0.2cm}
+    \item Una relazione di un precedente stagista, che il referente invierà via mail al recapito del gruppo\vspace{-0.2cm}
+\end{itemize}
+\subsection{Punto 2: Chiarimenti sulle richieste per il progetto}
+Il referente esterno ha mostrato al gruppo il suo attuale flusso di lavoro che usufruisce di openCode con openSpec per mostrare chiaramente le sue limitazioni e quali obiettivi vorrebbe dall'MVP. In particolare il referente ha posto particolare attenzione alla mancanza di rigorosità e formalismi nella pratica del \textit{vibe coding}: l'obiettivo principale{\renewcommand{\thefootnote}{*} \footnote{il progetto include anche altre richieste, descritte nel documento di presentazione del capitolato. Il chiarimento mostrato in seguito è da intendersi come spiegazione "ad alto livello" e non esaustiva.}} è quello di sostituire il prompt con la lettura di un diagramma dei casi d'uso, e anche verificare che il prodotto finale effettivamente soddisfi tali casi d'uso. In tal modo è possibile evitare l'ambiguità del linguaggio naturale.
+
+Inoltre il referente ha fornito chiarimenti sul funzionamento dei \textit{code agents}, dando alcune definizioni:
+\begin{itemize}
+    \item \textbf{\textit{skill:}} una skill è un file \texttt{.md} scritto in linguaggio naturale che spiega all'LLM la procedura, le best practices e l'ordine in cui effettuare una specifica richiesta. Il risultato è certamente non deterministico: sono delle aggiunte al contesto dell'LLM, che dunque le interpreterà arbitrariamente. Importante notare che le skill non vengono iniettate per intero in ogni prompt: ne viene iniettata una breve descrizione, così il modello potrà decidere autonomamente, se ritiene necessario, di leggerla.   \vspace{-0.2cm}
+    \item \textbf{\textit{tool:}} un tool è un file strutturato (nell'esempio con openSpec un \texttt{JSON}) che fornisce una descrizione di uno strumento specifico, e i parametri da passargli (ad esempio \texttt{run\_bash(comando)}). Dunque il tool è deterministico nella sua esecuzione, ma l'LLM decide quando e con quali parametri usarlo. I tool vengono sempre iniettati nel prompt, perché il modello deve sempre sapere cosa può fare e come farlo. \vspace{-0.2cm}
+    \item \textbf{\textit{comando:}} nel contesto di openSpec, i comandi con sintassi \texttt{/opsx-nome} sono tecnicamente delle skill, ma attivate manualmente su necessità: ad esempio si usa \texttt{/opsx-propose} per obbligare il modello a seguire un flusso di lavoro specifico per il quale genera una \textit{documentazione di pianificazione} prima di agire sul codice. \vspace{-0.2cm}
+\end{itemize}
+
+\subsection{Punto 3: Piano per il PoC}
+A causa dell'esaurimento della quantità di tempo disponibile al referente per la riunione, la proposta di un piano di azione per la realizzazione del PoC è stata ridotta ad una e-mail, di cui il gruppo attende risposta.
+\newpage
+
+
+\section{Approvazione esterna}
+Il presente verbale è stato condiviso con il referente aziendale in data YYYY/MM/DD ed è da ritenersi approvato e conforme a quanto discusso durante il colloquio. 
+
+
+\end{document}
