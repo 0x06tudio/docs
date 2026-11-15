@@ -156,6 +156,10 @@
     "definizione": "Valuta la Maturità (qualità misurata delle prestazioni) e la Conformità (adesione alle aspettative e agli obblighi)."
   },
   {
+    "termine": "Skill",
+    "definizione": "Nel contesto dell'agentic coding, documento scritto in linguaggio naturale (tipicamente in formato Markdown) caricato contestualmente nel prompt di un agente per fornirgli procedure, regole e best practice su come svolgere un compito specifico combinando i tool disponibili."
+  },
+  {
     "termine": "Software Engineering",
     "definizione": "Disciplina per la realizzazione di prodotti SW così impegnativi da richiedere il dispiego di attività collaborative. Richiede la capacità di produrre \"in grande\" ed \"in piccolo\", garantendo qualità ed efficienza lungo l'intero ciclo di vita."
   },
@@ -174,6 +178,10 @@
   {
     "termine": "Teamwork",
     "definizione": "Lavoro collaborativo che punta a raggiungere un obiettivo comune. Richiede gestione dell'interdipendenza tra i membri tramite comunicazioni aperte, fiducia reciproca, assunzione di responsabilità e condivisione dei rischi. Alla base si trova un solido Way of Working."
+  },
+  {
+    "termine": "Tool",
+    "definizione": "Nel contesto dell'agentic coding, funzione software deterministica, esposta a un LLM tramite uno schema strutturato, che permette all'agente di interagire con l'ambiente esterno ed eseguire azioni concrete (es. leggere file, eseguire comandi o interrogare API)."
   },
   {
     "termine": "Verbali",
