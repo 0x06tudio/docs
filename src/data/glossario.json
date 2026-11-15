@@ -16,6 +16,10 @@
     "definizione": "Ruolo di progetto che redige l'Analisi dei Requisiti."
   },
   {
+    "termine": "Benchmark",
+    "definizione": "Insieme standardizzato di test, dataset e metriche utilizzato per valutare e confrontare oggettivamente le prestazioni di modelli o agenti software."
+  },
+  {
     "termine": "Best practice",
     "definizione": "Modo di fare (Way of Working) noto, che abbia mostrato di garantire i migliori risultati in circostanze note e specifiche."
   },
@@ -88,6 +92,10 @@
     "definizione": "Spiega ogni termine specializzato del dominio di progetto."
   },
   {
+    "termine": "Harness",
+    "definizione": "Infrastruttura operativa e di orchestrazione attorno a un LLM (come OpenCode) che gestisce contesto, memoria persistente, skill, tool e componenti deterministici di supporto."
+  },
+  {
     "termine": "Incremento",
     "definizione": "Procedere per aggiunte successive a un impianto base (scultura), solo costruttivo."
   },
@@ -98,6 +106,10 @@
   {
     "termine": "Iterazione",
     "definizione": "Procedere per raffinamenti o rivisitazione (pittura), potenzialmente distruttivo."
+  },
+  {
+    "termine": "LLM (Large Language Model)",
+    "definizione": "Modello linguistico di grandi dimensioni addestrato su vasti corpora testuali, in grado di comprendere, generare e analizzare linguaggio naturale e codice sorgente."
   },
   {
     "termine": "Manutenzione",
@@ -156,6 +168,10 @@
     "definizione": "Valuta la Maturità (qualità misurata delle prestazioni) e la Conformità (adesione alle aspettative e agli obblighi)."
   },
   {
+    "termine": "Skill",
+    "definizione": "File dichiarativo modulare che istruisce un agente software su come eseguire una procedura o un flusso operativo specifico."
+  },
+  {
     "termine": "Software Engineering",
     "definizione": "Disciplina per la realizzazione di prodotti SW così impegnativi da richiedere il dispiego di attività collaborative. Richiede la capacità di produrre \"in grande\" ed \"in piccolo\", garantendo qualità ed efficienza lungo l'intero ciclo di vita."
   },
@@ -176,8 +192,16 @@
     "definizione": "Lavoro collaborativo che punta a raggiungere un obiettivo comune. Richiede gestione dell'interdipendenza tra i membri tramite comunicazioni aperte, fiducia reciproca, assunzione di responsabilità e condivisione dei rischi. Alla base si trova un solido Way of Working."
   },
   {
+    "termine": "Tool",
+    "definizione": "Strumento invocabile da un agente software per interagire con l'ambiente esterno (es. leggere file, eseguire comandi di sistema o interrogare plugin)."
+  },
+  {
     "termine": "Verbali",
     "definizione": "Breve rendiconto di riunioni ufficiali (agenda, decisioni, azioni)."
+  },
+  {
+    "termine": "Vibe Coding",
+    "definizione": "Approccio allo sviluppo in cui lo sviluppatore descrive l'intento funzionale in linguaggio naturale affidando all'LLM la generazione diretta del codice sorgente."
   },
   {
     "termine": "Way of Working",
