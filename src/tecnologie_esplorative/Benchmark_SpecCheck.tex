@@ -1,0 +1,295 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem} % Per gestire meglio la spaziatura degli elenchi
+\usepackage{listings} % Utile per eventuali snippet di codice negli studi tecnologici
+\usepackage{xcolor}
+
+% Margini
+\geometry{top=2.8cm, bottom=2.8cm, left=2.4cm, right=2.4cm}
+
+% ==============================================================================
+% VARIABILI DEL DOCUMENTO (Modificare solo questi valori per ogni nuovo file)
+% ==============================================================================
+\newcommand{\DocTitle}{Studio Tecnologico: Benchmark per Agenti Software e Metodologie Spec-Driven}
+\newcommand{\DocSubtitle}{Approfondimento Tecnologico Modulo 2 -- Capitolato C9 (SpecCheck)}
+\newcommand{\DocVersion}{0.1.0}
+\newcommand{\DocStatus}{Bozza} % Bozza | In verifica | Approvato
+\newcommand{\DocDate}{2026/11/15}
+\newcommand{\DocUsage}{Interno} % Interno | Esterno
+\newcommand{\DocRecipients}{0x06tudio}
+% ==============================================================================
+
+% Comandi di utilità del gruppo
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{\##1}}}
+\newcommand{\term}[1]{\textit{#1}$_G$} % Per eventuali termini da inserire nel Glossario
+
+% Configurazione stile link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!70!black,
+    pdftitle={\DocTitle},
+    pdfauthor={0x06tudio}
+}
+
+% Configurazione stile blocchi di codice (utile per analisi tecniche)
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    rulecolor=\color{gray!40},
+    captionpos=b
+}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Benchmark e Metodologie Spec-Driven}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[L]{\small Versione \DocVersion}
+\fancyfoot[R]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE PRIMA PAGINA ---
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../media/logo.png}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    {\LARGE \textbf{\DocTitle}} \\[0.4em]
+    {\large \textit{\DocSubtitle}}
+\end{center}
+
+\vspace{0.8cm}
+
+% --- TABELLA INFORMAZIONI DEL DOCUMENTO ---
+\section*{Informazioni sul documento}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & \DocVersion \\
+    \textbf{Stato:} & \DocStatus \\
+    \textbf{Data ultimo aggiornamento:} & \DocDate \\
+    \textbf{Uso:} & \DocUsage \\
+    \textbf{Destinatari:} & \DocRecipients \\
+\end{tabularx}
+
+\vspace{0.5cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/15 & Stesura dello studio tecnologico su benchmark per agenti software & Catalin & / \\ \hline
+\end{tabularx}
+
+\newpage
+\renewcommand{\contentsname}{Indice}
+\tableofcontents
+\newpage
+
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Il presente documento costituisce lo studio tecnologico relativo a \textbf{\term{Benchmark} per Agenti Software e Metodologie} per il progetto \textit{SpecCheck} (Capitolato C9, proposto da Zucchetti S.p.A.). L'obiettivo dell'analisi è duplice:
+\begin{itemize}[noitemsep]
+    \item esaminare lo stato dell'arte dei Benchmark per agenti software e dei framework di sviluppo guidati dalle specifiche Spec-Driven Development, evidenziando i limiti della generazione estemporanea di codice e l'impatto dell'infrastruttura di orchestrazione \term{Harness};
+    \item definire criteri progettuali e metriche di valutazione interni che il gruppo si impegnerà a rispettare e a seguire durante la realizzazione e collaudo di \textit{SpecCheck} su \textit{OpenCode}, garantendo la verificabilità end-to-end tra casi d'uso, specifiche dei requisiti e codice sorgente sia su modelli di grandi dimensioni sia su modelli locali compatti.
+\end{itemize}
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}[noitemsep]
+    \item Capitolato d'appalto C9 proposto dal proponente Zucchetti S.p.A., A.A. 2026/2027;
+    \item \textit{Norme di Progetto} (gruppo \textit{0x06tudio}, in fase di redazione).
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}[noitemsep]
+    \item Documentazione ufficiale \textit{OpenCode}: \url{https://opencode.ai/} (ultimo accesso: 2026/11/15);
+    \item \textit{SWE-Bench} -- Benchmark per la risoluzione di issue software reali: \url{https://github.com/swe-bench/SWE-bench} (ultimo accesso: 2026/11/15);
+    \item \textit{Terminal-bench} -- Valutazione di agenti su flussi operativi da terminale: \url{https://www.tbench.ai/} (ultimo accesso: 2026/11/15);
+    \item Framework \textit{OpenSpec}: \url{https://openspec.dev/} (ultimo accesso: 2026/11/15);
+    \item Framework \textit{BMAD Method}: \url{https://github.com/bmad-code-org/bmad-method} (ultimo accesso: 2026/11/15);
+    \item Framework \textit{Spec-Kit}: \url{https://github.com/github/spec-kit} (ultimo accesso: 2026/11/15);
+    \item I. Eretz Kdosha, \textit{I Tested Three Spec-Driven AI Tools. Here's My Honest Take}, Ran the Builder Blog, Aprile 2026: \url{https://ranthebuilder.cloud/blog/i-tested-three-spec-driven-ai-tools-here-s-my-honest-take/} (ultimo accesso: 2026/11/15);
+    \item \textit{OpenFastTrace} -- Tool open-source per il tracciamento deterministico dei requisiti: \url{https://github.com/itsallcode/openfasttrace} (ultimo accesso: 2026/11/15);
+    \item \textit{Doorstop} -- Gestione e tracciabilità dei requisiti versionati su Git: \url{https://github.com/doorstop-dev/doorstop} (ultimo accesso: 2026/11/15);
+    \item \textit{StrictDoc} -- Piattaforma per specifiche tecniche e tracciabilità bidirezionale: \url{https://github.com/strictdoc-project/strictdoc} (ultimo accesso: 2026/11/15).
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+
+\section{Panoramica e Contesto}
+
+\subsection{Dal Vibe Coding al collo di bottiglia della verifica}
+L'evoluzione dei Large Language Models (\term{LLM}) ha trasformato profondamente la produzione del software. Nella prima fase di adozione, sintetizzata dal concetto di \term{Vibe Coding} formulato da Andrej Karpathy (\textit{``il prossimo linguaggio di programmazione sarà l'inglese''}), lo sviluppatore descrive ad alto livello l'intento funzionale lasciando che il modello generi direttamente il codice sorgente.
+
+Tuttavia, l'applicazione su sistemi reali di dimensioni medio-grandi ha evidenziato rapidamente che il \textit{Vibe Coding} puro degenera in una forma moderna di \textit{cowboy coding}: l'interazione conversazionale priva di vincoli architetturali produce codice frammentato, difficile da manutenere e spesso non allineato ai requisiti funzionali iniziali. Come evidenziato nel capitolato C9, l'automazione della scrittura ha spostato il vero collo di bottiglia dell'ingegneria del software dalla \textbf{costruzione} alla \textbf{verifica}:
+\begin{itemize}[noitemsep]
+    \item gli strumenti tradizionali di analisi statica (compilatori, linter, test unitari) verificano la correttezza sintattica e il comportamento locale del programma, ma non garantiscono che il codice implementi effettivamente i desiderata espressi nei casi d'uso;
+    \item scrivere codice a velocità agentica senza un presidio formale equivale a produrre ambiguità su larga scala.
+\end{itemize}
+
+\subsection{Anatomia dell'Harness e ruolo di OpenCode}
+Per superare i limiti del semplice chatbot sono nati i sistemi di gestione del contesto e orchestrazione agentica, definiti in letteratura come \term{Harness} (tra cui \textit{OpenCode}, \textit{Claude Code}, \textit{Codex} e \textit{OpenHands}). Un \textit{Harness} fornisce l'impalcatura operativa attorno all'LLM attraverso:
+\begin{itemize}[noitemsep]
+    \item \textbf{memoria architetturale persistente}, tramite file strutturali di progetto (ad esempio \texttt{AGENTS.md}) che vincolano le scelte tecnologiche lungo tutto il ciclo di vita;
+    \item \textbf{estensioni modulari}, articolate in \term{Skill} (file dichiarativi che istruiscono l'agente su come eseguire una procedura specifica), comandi invocabili dall'utente e \term{Tool} (strumenti per leggere file, eseguire comandi di sistema o interrogare programmi esterni);
+    \item \textbf{componenti deterministici di supporto} (plugin o eseguibili sidecar), indispensabili per eseguire controlli oggettivi e tracciamenti di stato che un modello probabilistico non può garantire da solo.
+\end{itemize}
+
+Durante l'incontro esplorativo con il proponente (Zucchetti S.p.A.), è emerso chiaramente come l'efficacia di \textit{OpenCode} dipenda in modo diretto dalla qualità delle descrizioni associate a comandi, \textit{skill} e \textit{tool}: tali descrizioni guidano il ragionamento dell'agente nella selezione dei passi operativi. Nel medesimo incontro, il proponente ha inoltre ribadito la centralità dei \textbf{casi d'uso} come punto di origine della catena di tracciabilità (\textit{Casi d'Uso $\rightarrow$ Specifiche dei Requisiti $\rightarrow$ Codice Sorgente}), sottolineando come la verifica automatica debba partire dagli scenari raccolti con gli utenti per accertarne la copertura lungo l'intero ciclo di sviluppo.
+
+% ------------------------------------------------------------------------------
+
+\section{Analisi Tecnica}
+
+\subsection{Evoluzione dei Benchmark: dai test statici agli agenti software}
+La misurazione delle capacità degli LLM in ambito ingegneristico ha attraversato un netto cambio di paradigma:
+\begin{itemize}[noitemsep]
+    \item \textbf{Benchmark tradizionali (MMLU, GSM8K):} valutano l'erudizione enciclopedica, la comprensione del testo e il ragionamento logico-matematico su singoli prompt isolati. Pur utili per stimare le capacità linguistiche di base, risultano inadeguati a misurare la capacità di operare su repository complessi.
+    \item \textbf{Benchmark agentici (SWE-Bench, Terminal-bench):} valutano l'intero ciclo operativo su progetti reali. \textit{SWE-Bench} misura la percentuale di issue GitHub reali risolte autonomamente dall'agente (comprensione della codebase, modifica multi-file e superamento delle suite di test), mentre \textit{Terminal-bench} valuta l'esecuzione di sequenze articolate di comandi da riga di comando, impacchettamento e diagnostica.
+\end{itemize}
+
+Un dato cruciale per il progetto \textit{SpecCheck} riguarda il peso dell'\textit{Harness} rispetto al singolo modello linguistico. Secondo le rilevazioni riportate nel capitolato C9, l'architettura di gestione del contesto e pianificazione incide per circa il \textbf{30\%} sulle prestazioni complessive di sistemi di vertice su \textit{SWE-Bench} (come nel caso di \textit{ChatGPT 6 Astra}). Analogamente, le classifiche \textit{SWE-Bench} di metà 2026 mostrano come la combinazione tra agente e modello determini scarti significativi a parità di famiglia di modelli (ad esempio, \textit{AMI Agent + Claude-4.6-Opus} raggiunge il 63,0\% di issue risolte contro il 36,0\% di \textit{SWE-agent + Claude-4.5-Sonnet} e il 25,0\% di \textit{Slingshot-v3.1.0 + Claude-4.6-Opus}). Questo conferma che un'ingegnerizzazione accurata delle \textit{skill} e dei \textit{tool} di \textit{OpenCode} può compensare in larga misura i limiti intrinseci del modello sottostante.
+
+\subsection{Frontiera di Pareto e vincoli sui modelli per SpecCheck}
+L'analisi della frontiera di Pareto tra qualità (Arena Score) e costo per milione di token (rapporto input/output 3:1) evidenzia due fasce operative distinte:
+\begin{itemize}[noitemsep]
+    \item \textbf{Modelli proprietari di frontiera:} offrono i punteggi massimi (es. \texttt{gpt-6-astra-max} con 1796 punti a \$40/M token, \texttt{claude-opus-5-max} con 1688 punti a \$20/M token, \texttt{qwen3.8-max-0902} con 1685 punti a \$5/M token), ma comportano costi operativi elevati su analisi iterative di interi repository;
+    \item \textbf{Modelli compatti ed economici:} mantengono prestazioni competitive a una frazione del costo (es. \texttt{qwen3.8-flash-next} con 1631 punti a \$0,39/M token, \texttt{glm-5.3-flash} con 1605 punti a \$0,21/M token, fino a modelli open-weight leggeri come \texttt{granite-4.1-8b} a \$0,09/M token).
+\end{itemize}
+
+Il capitolato C9 stabilisce che Zucchetti metterà a disposizione sia modelli di grandi dimensioni (soggetti a un tetto massimo di budget) sia modelli compatti eseguibili senza limitazioni, quali \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B}. Di conseguenza, la progettazione delle \textit{skill} di \textit{SpecCheck} non può fare affidamento esclusivamente sulla capacità di ragionamento di modelli frontier, ma deve scomporre la verifica in sotto-compiti atomici e deterministi affinché anche modelli nella fascia 26B--27B ottengano risultati affidabili.
+
+\subsection{Workflow AI-Assisted e Framework Spec-Driven}
+Nell'ecosistema degli agenti di sviluppo si distinguono due famiglie principali di estensioni:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Raccolte di skill general-purpose:} forniscono workflow trasversali per interviste preliminari, pianificazione, scrittura e debug (tra cui \textit{SuperPowers}, le \textit{Agent-skills} di Addy Osmani e \textit{Grill me} di Matt Pocock). Pur migliorando la disciplina del prompt, non impongono una struttura formale di tracciabilità tra requisiti e sorgente.
+    \item \textbf{Framework Spec-Driven:} strutturano l'intero ciclo di sviluppo attorno a specifiche scritte e revisionate prima della generazione del codice. I principali riferimenti individuati sono \textit{BMAD Method}, \textit{Spec-Kit}, \textit{OpenSpec} e \textit{AI Unified Process}.
+\end{enumerate}
+
+Tra questi, \textbf{OpenSpec} rappresenta il riferimento architetturale direttamente indicato dal capitolato C9. Il suo funzionamento si basa su:
+\begin{itemize}[noitemsep]
+    \item \textbf{Delta Specs:} invece di rigenerare l'intera documentazione di sistema ad ogni modifica, ogni proposta descrive esclusivamente i requisiti aggiunti, modificati o rimossi (\textit{delta}), che vengono poi consolidati nella documentazione principale (\textit{source-of-truth}) al completamento;
+    \item \textbf{Architettura ibrida:} combina comandi slash e \textit{skill} interpretati dall'LLM con un eseguibile CLI dedicato che gestisce in modo deterministico lo stato degli artefatti, il grafo delle dipendenze e la dashboard testuale da terminale (\texttt{openspec view}, \texttt{openspec status}).
+\end{itemize}
+
+\subsection{Esempio pratico: orchestrare verifica semantica e plugin deterministico}
+Per evitare che l'LLM allucini o salti controlli sui file di progetto, il pattern consigliato per \textit{SpecCheck} prevede che la \textit{skill} di \textit{OpenCode} orchestri sia l'analisi semantica sia l'invocazione di un plugin/eseguibile esterno dedicato alla mappatura deterministica dei file e al calcolo della copertura. Di seguito si riporta uno schema esemplificativo di definizione dichiarativa di una \textit{skill} di verifica:
+
+\begin{lstlisting}[caption={Schema esemplificativo di una Skill di verifica per OpenCode}]
+---
+name: speccheck-verify-traceability
+description: Verifica la corrispondenza end-to-end tra casi d'uso,
+  specifiche dei requisiti e codice sorgente, invocando il plugin
+  deterministico per l'estrazione strutturale e il report di copertura.
+---
+
+# Procedura di Verifica SpecCheck
+
+1. Invoca il tool `speccheck_parse_artifacts` per estrarre in formato JSON
+   l'elenco deterministico di Casi d'Uso (UC-ID) e Requisiti (REQ-ID).
+2. Confronta semanticamente ciascun UC-ID con i REQ-ID associati,
+   segnalando eventuali casi d'uso orfani o ambigui.
+3. Analizza i moduli sorgente mappati dal plugin e verifica che ogni
+   requisito funzionale sia effettivamente implementato nel codice.
+4. Genera il file di stato JSON e avvia la dashboard TUI di riepilogo.
+\end{lstlisting}
+
+\subsection{Progetti simili: strumenti deterministici di Requirements Traceability}
+Oltre ai framework generativi basati su LLM, l'analisi dello stato dell'arte ha considerato strumenti open-source consolidati nell'ambito del \textit{Requirements Traceability}, utili come riferimento architetturale per la componente deterministica (plugin) di \textit{SpecCheck}:
+\begin{itemize}[noitemsep]
+    \item \textbf{OpenFastTrace (OFT):} strumento leggero che analizza file Markdown, codice sorgente e suite di test per verificare la copertura lungo l'intera catena di tracciabilità, segnalando requisiti scoperti o artefatti orfani. Rappresenta il riferimento più affine alla logica di parsing e calcolo della copertura prevista per il plugin di \textit{SpecCheck}.
+    \item \textbf{Doorstop:} tool in Python che gestisce i requisiti come file testuali strutturati (YAML/Markdown) versionati su Git, rilevando automaticamente i cosiddetti \textit{suspect links} quando un requisito a monte viene modificato senza un corrispondente aggiornamento nel codice o nei test collegati.
+    \item \textbf{StrictDoc:} piattaforma per \textit{specifications-as-code} che supporta la tracciabilità bidirezionale (\textit{Requisiti $\rightarrow$ Architettura $\rightarrow$ Codice $\rightarrow$ Test}) e la generazione automatica di report di copertura.
+\end{itemize}
+
+Il limite principale di questi strumenti classici risiede nell'approccio puramente sintattico: essi richiedono che lo sviluppatore inserisca manualmente identificativi rigidi nei commenti del codice sorgente (ad esempio \texttt{REQ-001}) e non effettuano alcuna verifica semantica. Di conseguenza, non sono in grado di rilevare se un modulo sorgente implementi realmente il comportamento descritto in un caso d'uso o se presenti divergenze logiche rispetto alla specifica. \textit{SpecCheck} supera questo limite combinando l'estrazione strutturale deterministica (ispirata a \textit{OpenFastTrace} e \textit{OpenSpec}) con l'analisi semantica guidata da \textit{skill} in \textit{OpenCode}.
+
+% ------------------------------------------------------------------------------
+
+\section{Valutazione e Confronto}
+
+\subsection{Confronto empirico tra BMAD, Spec-Kit e OpenSpec}
+Per valutare l'efficacia concreta dei framework \textit{spec-driven}, sono stati analizzati i risultati di un benchmark comparativo indipendente condotto nel 2026 sullo sviluppo della medesima funzionalità backend (servizio serverless in Python con autenticazione, sicurezza e Infrastructure-as-Code, eseguito con \textit{Claude Sonnet 4.5}). I tre strumenti sono stati valutati su 13 dimensioni qualitative e quantitative (scala 1--5), oltre che su tempi e costi complessivi.
+
+\vspace{0.25cm}
+\noindent
+{\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{|l|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+    \hline
+    \textbf{Criterio} & \textbf{BMAD (v6.0.3)} & \textbf{Spec-Kit (v0.1.6)} & \textbf{OpenSpec (v1.2.0)} \\ \hline
+    Punteggio globale & 3,65 / 5 (Full) \newline 3,74 / 5 (Quick) & 2,77 / 5 & \textbf{4,00 / 5} (Migliore) \\ \hline
+    Approccio alle specifiche & PRD completo, architettura e user story (Full) o documento unico (Quick) & \texttt{constitution} globale di progetto + specifiche con flag \texttt{NEEDS CLARIFICATION} & \textit{Delta specs} incrementali unite a una \textit{source-of-truth} persistente \\ \hline
+    Verifica e Revisione & Eccellente (5/5): \textit{adversarial code review} dedicata e revisione multi-agente (\textit{Party Mode}) & Carente (2/5): verifica coerenza tra documenti (\texttt{/speckit.analyze}), ma nessuna code review integrata & Fluida ma non vincolante: permette iterazioni rapide, ma senza gate automatici tra fasi \\ \hline
+    Tempi e Costi stimati & Full: ~6 giorni, ~\$200 \newline Quick: ~2 giorni, ~\$85 & ~1,5 giorni, ~\$75 & \textbf{~1,3 giorni, ~\$95} \\ \hline
+    Sviluppo parallelo & Limitato (2/5): output in cartelle condivise di default & Elevato (5/5): directory isolate per singola feature & Elevato (5/5): directory isolate per singola modifica \\ \hline
+    Criticità principali & Curva di apprendimento ripida (12 agenti) e forte pesantezza nella modalità Full & Il codice generato spesso non rispecchia fedelmente la specifica; aggiornamenti distruttivi & \textit{Bus factor} pari a 1 (singolo maintainer) e rigidità sulla struttura delle cartelle \\ \hline
+\end{tabularx}
+}
+\vspace{0.25cm}
+
+\subsection{Vantaggi, limiti e implicazioni per SpecCheck}
+Dall'analisi comparativa emergono tre insegnamenti diretti per la progettazione di \textit{SpecCheck}:
+\begin{itemize}[noitemsep]
+    \item \textbf{Pro -- Validazione dell'esigenza di SpecCheck:} nel test empirico, né \textit{OpenSpec} né \textit{Spec-Kit} hanno rilevato autonomamente una lacuna nei controlli di autorizzazione durante la pianificazione, e \textit{Spec-Kit} ha generato codice non aderente alle specifiche. Ciò dimostra che i framework attuali sono ottimizzati per la \textbf{generazione}, lasciando scoperto il problema della \textbf{verifica formale e della tracciabilità inversa} richiesto da Zucchetti.
+    \item \textbf{Pro -- Complementarità tra OpenSpec e BMAD:} \textit{OpenSpec} offre l'architettura più leggera ed efficace per tracciare lo stato degli artefatti e visualizzarlo da terminale (\texttt{openspec view}), mentre \textit{BMAD} dimostra l'efficacia di una fase di \textbf{revisione avversariale} (\textit{adversarial review}) separata dalla fase di generazione. \textit{SpecCheck} dovrebbe integrare entrambi i principi: la struttura leggera e deterministica di \textit{OpenSpec} unita a una logica di verifica critica ispirata a \textit{BMAD}.
+    \item \textbf{Contro e mitigazioni (Anti-Lock-In):} data la rapida evoluzione e il rischio di \textit{bus factor} dei tool emergenti, il gruppo \textit{0x06tudio} deve incapsulare l'installazione (tramite script Bash/PowerShell unico come richiesto dal capitolato), definire formati interni standardizzati (Markdown/Mermaid/XMI e JSON) e astrarre i comandi utente tramite \textit{skill} proprietarie di \textit{OpenCode}.
+\end{itemize}
+
+\subsection{Metodologia di Benchmark interno per SpecCheck (PoC e MVP)}
+Poiché i benchmark pubblici come \textit{SWE-Bench} misurano la capacità di scrivere patch di codice ma non la capacità di verificare la tracciabilità documentale, il gruppo deve adottare un \textbf{protocollo di benchmark interno} per validare \textit{SpecCheck} durante le fasi di \term{Proof of Concept} (PoC) e \term{Minimum Viable Product} (MVP):
+\begin{enumerate}[noitemsep]
+    \item \textbf{Costruzione del Golden Dataset:} selezione di un progetto software campione dotato della catena completa \textit{Casi d'Uso (Mermaid/XMI + descrizioni) $\rightarrow$ Specifiche dei Requisiti (Markdown) $\rightarrow$ Codice Sorgente} (eventualmente adattando benchmark accademici consolidati per il \textit{Traceability Link Recovery}, quali \textit{eTour} o \textit{iTrust}, già dotati di \textit{ground truth} verificata), in cui vengono iniettate in modo controllato quattro classi di anomalie:
+    \begin{itemize}[noitemsep]
+        \item \textit{Caso d'uso non coperto:} scenario presente nei diagrammi ma assente nei requisiti;
+        \item \textit{Requisito non implementato:} specifica formalizzata ma priva di riscontro nel codice;
+        \item \textit{Implementazione non conforme:} comportamento del codice divergente rispetto alla specifica;
+        \item \textit{Codice non tracciato (requisito opzionale):} funzionalità presenti nel sorgente ma non derivate da alcuna specifica.
+    \end{itemize}
+    \item \textbf{Metriche quantitative di valutazione:} per ciascuna esecuzione vengono misurate \textit{Precision} (percentuale di discrepanze segnalate che corrispondono a difetti reali, riducendo i falsi allarmi per lo sviluppatore), \textit{Recall} (percentuale di discrepanze reali effettivamente individuate), \textit{F1-Score}, tempo di esecuzione e consumo di token.
+    \item \textbf{Confronto multi-modello e regressione automatica:} ogni versione delle \textit{skill} verrà eseguita sul medesimo \textit{Golden Dataset} confrontando almeno un modello frontier (entro il budget aziendale) con i modelli locali \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B}. La suite costituirà la base per i test automatici di regressione richiesti a partire dall'MVP.
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+
+\section{Conclusioni}
+L'analisi dei benchmark per agenti software e delle metodologie \textit{spec-driven} conferma la solidità e l'attualità delle scelte architetturali delineate nel capitolato C9. Il passaggio da test statici (\textit{MMLU}) a benchmark agentici (\textit{SWE-Bench}) dimostra che l'affidabilità di un sistema basato su LLM dipende in misura determinante dall'\textit{Harness} e dalla scomposizione procedurale dei compiti, più che dalla sola dimensione del modello.
+
+Alla luce del confronto tra \textit{BMAD}, \textit{Spec-Kit} e \textit{OpenSpec}, e delle indicazioni emerse nell'incontro con Zucchetti S.p.A., il gruppo \textit{0x06tudio} adotterà le seguenti linee guida operazionali:
+\begin{itemize}[noitemsep]
+    \item replicare il modello architetturale ibrido di \textit{OpenSpec}, affiancando alle \textit{skill} e ai comandi di \textit{OpenCode} un plugin/eseguibile deterministico dedicato al parsing strutturale, al calcolo della copertura e al rendering della dashboard;
+    \item progettare prompt e descrizioni delle \textit{skill} secondo un approccio di \textit{verifica avversariale} granulare, così da garantire elevata accuratezza anche sui modelli compatti \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B};
+    \item predisporre fin dalla fase di PoC un \textit{Golden Dataset} articolato sulla catena \textit{Casi d'Uso $\rightarrow$ Requisiti $\rightarrow$ Codice} per misurare oggettivamente \textit{Precision}, \textit{Recall} e costi prima del rilascio dell'MVP.
+\end{itemize}
+
+\end{document}
