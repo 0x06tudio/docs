@@ -279,6 +279,9 @@
     "termine": "SSE (Server-Sent Events)",
     "definizione": "Canale unidirezionale dal server al browser su HTTP, usato per aggiornamenti in tempo reale."
   },
+    "termine": "Specifiche dei requisiti",
+    "definizione": "Documento formale che definisce in modo dettagliato, univoco e verificabile le funzioni, i comportamenti e i vincoli del sistema software derivanti dai casi d'uso."
+  },
   {
     "termine": "Stakeholder",
     "definizione": "Portatore di interesse: tutti coloro che a vario titolo hanno influenza sul prodotto e sul progetto (comunità degli utenti, committente, fornitore, eventuali regolatori)."
