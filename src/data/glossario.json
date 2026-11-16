@@ -4,6 +4,10 @@
     "definizione": "Analisi dei Requisiti: documento che traduce i bisogni del capitolato in casi d'uso e requisiti."
   },
   {
+    "termine": "Agente CLI",
+    "definizione": "Assistente basato su LLM usato da riga di comando, che alterna ragionamento del modello e invocazione di strumenti (es. OpenCode)."
+  },
+  {
     "termine": "Agentic Coding",
     "definizione": "Modo di sviluppare in cui un agente basato su LLM pianifica, scrive e modifica il codice con un certo grado di autonomia."
   },
@@ -18,6 +22,10 @@
   {
     "termine": "Best practice",
     "definizione": "Modo di fare (Way of Working) noto, che abbia mostrato di garantire i migliori risultati in circostanze note e specifiche."
+  },
+  {
+    "termine": "Bridge",
+    "definizione": "Componente che trasferisce i dati dal processo locale (sidecar o plugin) alla dashboard."
   },
   {
     "termine": "Cammino critico",
@@ -36,6 +44,10 @@
     "definizione": "Descrizione di come un utente interagisce con il sistema per raggiungere un obiettivo; da esso discendono i requisiti."
   },
   {
+    "termine": "Checksum",
+    "definizione": "Valore calcolato sul contenuto di un file (es. SHA-256) per verificarne l'integrità."
+  },
+  {
     "termine": "CI/CD",
     "definizione": "Integrazione e consegna continue."
   },
@@ -48,9 +60,14 @@
     "definizione": "Gli stati che il prodotto SW assume tra concepimento e ritiro in conseguenza delle attività svolte su di esso."
   },
   {
+    "termine": "Command injection",
+    "definizione": "Attacco che fa eseguire comandi arbitrari al sistema tramite input non validato."
+  },
+  {
     "termine": "Committente",
     "definizione": "Chi ordina qualcosa, vaglia le proposte e le espone ai fornitori."
   },
+
   {
     "termine": "Controllo di configurazione",
     "definizione": "Ci dice come si fa a comporre il prodotto a partire dalle sue parti."
@@ -59,6 +76,13 @@
     "termine": "Controllo di versione",
     "definizione": "Quali specifiche parti della loro storia individuale ci interessa (es. l'ultima versione, quella precedente, ecc..)."
   },
+  {
+    "termine": "Dashboard",
+    "definizione": "Vista di sintesi che riporta lo stato di realizzazione rispetto a quanto previsto dalle specifiche dei requisiti; può essere testuale (TUI) o grafica (HTML)."
+  },
+  {
+    "termine": "Deployment",
+    "definizione": "Insieme delle operazioni che portano il prodotto dal repository all'ambiente dell'utente: installazione, configurazione e distribuzione."  },
   {
     "termine": "Economicità",
     "definizione": "L'insieme di efficienza ed efficacia."
@@ -88,6 +112,22 @@
     "definizione": "Spiega ogni termine specializzato del dominio di progetto."
   },
   {
+    "termine": "Handshake",
+    "definizione": "Scambio iniziale con cui due componenti verificano la compatibilità delle versioni del protocollo."
+  },
+  {
+    "termine": "Harness",
+    "definizione": "Impalcatura attorno all'LLM (gestione del contesto, strumenti, flusso di lavoro) che sostiene le attività di pianificazione e produzione del codice."
+  },
+  {
+    "termine": "Hook",
+    "definizione": "Punto di aggancio a un evento del ciclo di vita di un'applicazione, a cui un plugin può associare del codice."
+  },
+  {
+    "termine": "Idempotenza",
+    "definizione": "Proprietà di un'operazione che, ripetuta, produce lo stesso risultato della prima esecuzione."
+  },
+  {
     "termine": "Incremento",
     "definizione": "Procedere per aggiunte successive a un impianto base (scultura), solo costruttivo."
   },
@@ -100,12 +140,32 @@
     "definizione": "Procedere per raffinamenti o rivisitazione (pittura), potenzialmente distruttivo."
   },
   {
+    "termine": "JSON Schema",
+    "definizione": "Linguaggio per descrivere e validare la struttura di documenti JSON."
+  },
+  {
+    "termine": "JSON-RPC",
+    "definizione": "Protocollo leggero di chiamata di procedure remote che scambia messaggi in formato JSON."
+  },
+  {
+    "termine": "LLM (Large Language Model)",
+    "definizione": "Modello linguistico di grandi dimensioni, addestrato su grandi quantità di testo e capace anche di generare e comprendere codice."
+  },
+  {
     "termine": "Manutenzione",
     "definizione": "Insieme di attività necessarie a garantire l'uso continuativo del prodotto: reattivamente (per correzione dopo malfunzionamento) o preventivamente."
   },
   {
+    "termine": "MCP (Model Context Protocol)",
+    "definizione": "Protocollo standard con cui un processo esterno espone strumenti e risorse a un agente basato su LLM."
+  },
+  {
     "termine": "Milestones",
     "definizione": "Punto del calendario che sia significativo per la pianificazione."
+  },
+  {
+    "termine": "Mock",
+    "definizione": "Componente simulato che sostituisce una dipendenza reale (es. l'agente o il sidecar) durante i test."
   },
   {
     "termine": "Modelli di ciclo di vita",
@@ -120,12 +180,20 @@
     "definizione": "Approssima da vicino il prodotto atteso senza essere finale. È dotato di funzionalità sufficienti per valutare la visione iniziale, consentire l'uso esplorativo e prendere decisioni fondate. Offre \"the maximum amount of validated learning about customers' needs with the least amount of effort\"."
   },
   {
-    "termine": "NLI",
-    "definizione": "Natural Language Inference: sotto-task dell'NLP che determina la relazione logica tra due porzioni di testo (premessa e ipotesi), impiegato per il rilevamento di discrepanze e coerenza semantica."
+    "termine": "NLI (Natural Language Inference)",
+    "definizione": "Compito che stabilisce se un testo implica, contraddice o è indipendente da un altro; qui applicato al confronto tra casi d'uso e requisiti."
   },
   {
-    "termine": "NLP",
-    "definizione": "Natural Language Processing: branca dell'intelligenza artificiale e della linguistica computazionale che studia l'interazione tra sistemi informatici e linguaggio umano, applicata tramite LLM per l'analisi dei requisiti."
+    "termine": "NLP (Natural Language Processing)",
+    "definizione": "Insieme di tecniche per l'elaborazione automatica del linguaggio naturale."
+  },
+  {
+    "termine": "OpenCode",
+    "definizione": "Agente di harness da riga di comando, estendibile con skill, tool, comandi e plugin, che SpecCheck estende."
+  },
+  {
+    "termine": "Plugin",
+    "definizione": "Modulo che estende un'applicazione agganciandosi ai punti di estensione che essa dichiara."
   },
   {
     "termine": "POC (Proof of concept)",
@@ -144,6 +212,10 @@
     "definizione": "Rapporto tra quantità di prodotto realizzato e risorse utilizzate."
   },
   {
+    "termine": "Prompt injection",
+    "definizione": "Attacco che inserisce istruzioni malevole nei testi elaborati dal modello per deviarne il comportamento."
+  },
+  {
     "termine": "Prototipo",
     "definizione": "Per provare e scegliere soluzioni, usa e getta o per incrementi."
   },
@@ -152,8 +224,12 @@
     "definizione": "Ha più dimensioni: riguarda i prodotti e i processi, e interessa sia il committente che la direzione aziendale."
   },
   {
+    "termine": "RAG (Retrieval-Augmented Generation)",
+    "definizione": "Tecnica che recupera i passaggi pertinenti da una base documentale e li fornisce all'LLM per generare la risposta."
+  },
+  {
     "termine": "Requirements Engineering",
-    "definizione": "Disciplina strutturata dell'ingegneria del software che comprende l'elicitazione, l'analisi, la specifica, la validazione e la gestione dei requisiti."
+    "definizione": "Disciplina che si occupa di raccogliere, analizzare, specificare e validare i requisiti di un sistema."
   },
   {
     "termine": "Requisito",
@@ -164,8 +240,32 @@
     "definizione": "Copia-incolla opportunistico (occasionale: basso costo e scarso impatto) oppure Sistematico (per progetto o famiglia di prodotti: maggior costo iniziale ma maggior impatto a lungo termine)."
   },
   {
+    "termine": "SARIF",
+    "definizione": "Static Analysis Results Interchange Format: formato standard per lo scambio dei risultati di analisi statica."
+  },
+  {
+    "termine": "SBOM (Software Bill of Materials)",
+    "definizione": "Elenco dei componenti software contenuti in un artefatto."
+  },
+  {
+    "termine": "SemVer (versionamento semantico)",
+    "definizione": "Convenzione di numerazione maggiore.minore.patch che segnala la compatibilità tra versioni."
+  },
+  {
+    "termine": "Sidecar",
+    "definizione": "Processo o eseguibile ausiliario che affianca l'applicazione principale e le fornisce funzionalità aggiuntive."
+  },
+  {
     "termine": "Sistema di qualità",
     "definizione": "Valuta la Maturità (qualità misurata delle prestazioni) e la Conformità (adesione alle aspettative e agli obblighi)."
+  },
+  {
+    "termine": "Skill",
+    "definizione": "File di istruzioni che descrivono come portare a termine un compito e che l'harness attiva quando serve."
+  },
+  {
+    "termine": "Smoke test",
+    "definizione": "Controllo rapido che verifica che il sistema installato si avvii e funzioni nei punti essenziali."
   },
   {
     "termine": "Software Engineering",
@@ -174,6 +274,10 @@
   {
     "termine": "Specifica Tecnica",
     "definizione": "Definisce l'architettura logica del prodotto (componenti, ruoli, interazioni), l'architettura di deployment, i design pattern architetturali e gli idiomi utilizzati, oltre a ogni aspetto che caratterizzi il design."
+  },
+  {
+    "termine": "SSE (Server-Sent Events)",
+    "definizione": "Canale unidirezionale dal server al browser su HTTP, usato per aggiornamenti in tempo reale."
   },
   {
     "termine": "Specifiche dei requisiti",
@@ -188,8 +292,25 @@
     "definizione": "Fissa le implicazioni di interesse, di costo e di qualità in un documento."
   },
   {
-    "termine": "Teamwork",
-    "definizione": "Lavoro collaborativo che punta a raggiungere un obiettivo comune. Richiede gestione dell'interdipendenza tra i membri tramite comunicazioni aperte, fiducia reciproca, assunzione di responsabilità e condivisione dei rischi. Alla base si trova un solido Way of Working."
+    "termine": "Supply chain",
+    "definizione": "Insieme dei passaggi e dei componenti che portano un artefatto dal repository all'utente."
+  },
+
+  {
+    "termine": "Tool",
+    "definizione": "Funzione con parametri tipizzati che il modello può invocare per svolgere un'azione."
+  },
+  {
+    "termine": "Toolchain",
+    "definizione": "Insieme coordinato di strumenti (skill, tool, comandi, plugin, sidecar) che compongono il prodotto."
+  },
+  {
+    "termine": "Tracciabilità",
+    "definizione": "Possibilità di collegare ogni caso d'uso ai requisiti e al codice che lo realizzano, e viceversa."
+  },
+  {
+    "termine": "TUI (Terminal User Interface)",
+    "definizione": "Interfaccia testuale interattiva che usa il terminale come superficie di disegno."
   },
   {
     "termine": "Verbali",
@@ -198,5 +319,9 @@
   {
     "termine": "Way of Working",
     "definizione": "La maniera di organizzare al meglio le attività di progetto."
+  },
+  {
+    "termine": "XSS (Cross-Site Scripting)",
+    "definizione": "Iniezione di codice JavaScript in una pagina web, che viene eseguito nel browser di chi la visualizza."
   }
 ]
