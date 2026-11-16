@@ -1,0 +1,316 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem} % Per gestire meglio la spaziatura degli elenchi
+\usepackage{listings} % Utile per eventuali snippet di codice negli studi tecnologici
+\usepackage{xcolor}
+
+% Definizione di una palette colori moderna e leggibile
+\definecolor{codebackground}{rgb}{0.96, 0.96, 0.97}   % Grigio molto chiaro / panna
+\definecolor{codecomment}{rgb}{0.30, 0.50, 0.30}     % Verde scuro per i commenti
+\definecolor{codekeyword}{rgb}{0.00, 0.34, 0.70}     % Blu profondo per le keyword (class, def, return)
+\definecolor{codestring}{rgb}{0.75, 0.10, 0.10}      % Rosso scuro per le stringhe
+\definecolor{codenumber}{rgb}{0.50, 0.50, 0.50}      % Grigio neutro per i numeri di riga
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    % Mostra i numeri di riga a sinistra
+    numbersep=8pt,                   % Distanza dei numeri di riga dal codice
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,                    % Cornice sottile attorno al codice
+    rulecolor=\color{gray!30},       % Colore della cornice
+    frameround=tttt                  % Angoli leggermente arrotondati (se supportato) o stile standard
+}
+
+% Imposta lo stile come predefinito per i listing
+\lstset{style=pythonstyle}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% ==============================================================================
+% VARIABILI DEL DOCUMENTO
+% ==============================================================================
+\newcommand{\DocTitle}{Tracciabilità Semantica: Casi d'Uso vs Specifiche}
+\newcommand{\DocSubtitle}{Studio Tecnologico -- Capitolato C9: SpecCheck (Zucchetti S.p.A.)}
+\newcommand{\DocVersion}{0.1.0}
+\newcommand{\DocStatus}{Approvato} % Bozza | In verifica | Approvato
+\newcommand{\DocDate}{2026/11/15}
+\newcommand{\DocUsage}{Interno} % Interno | Esterno
+\newcommand{\DocRecipients}{0x06tudio}
+% ==============================================================================
+
+% Comandi di utilità del gruppo
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{\##1}}}
+\newcommand{\term}[1]{\textit{#1}$_G$} % Per eventuali termini da inserire nel Glossario
+
+% Configurazione stile link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!70!black,
+    pdftitle={\DocTitle},
+    pdfauthor={0x06tudio}
+}
+
+% Configurazione stile blocchi di codice (utile per analisi tecniche)
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    rulecolor=\color{gray!40},
+    captionpos=b
+}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- \DocTitle}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[L]{\small Versione \DocVersion}
+\fancyfoot[R]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE PRIMA PAGINA ---
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=5.5cm]{../media/logo.png} \\[0.5em]
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    {\LARGE \textbf{\DocTitle}} \\[0.4em]
+    {\large \textit{\DocSubtitle}}
+\end{center}
+
+\vspace{0.8cm}
+
+% --- TABELLA INFORMAZIONI DEL DOCUMENTO ---
+\section*{Informazioni sul documento}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & \DocVersion \\
+    \textbf{Stato:} & \DocStatus \\
+    \textbf{Data ultimo aggiornamento:} & \DocDate \\
+    \textbf{Uso:} & \DocUsage \\
+    \textbf{Destinatari:} & \DocRecipients \\
+\end{tabularx}
+
+\vspace{0.5cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/15 & Stesura del documento & Andrea Maggio & Catalin Chirilov\\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==============================================================================
+\section{Introduzione}
+% ==============================================================================
+
+\subsection{Scopo del documento}
+Il presente studio tecnologico analizza le metodologie, le architetture e gli strumenti idonei a implementare il modulo di \textbf{Tracciabilità Semantica tra Casi d'Uso e Specifiche dei Requisiti} nell'ambito del progetto \textit{SpecCheck} (Capitolato C9 proposto da Zucchetti S.p.A.). 
+
+Nel contesto dello sviluppo guidato dall'Intelligenza Artificiale, in cui la generazione di artefatti avviene a velocità elevata, il collo di bottiglia si sposta dalla produzione alla verifica. L'obiettivo di questa analisi è definire una pipeline automatizzata, integrabile come estensione (\textit{skill} e \textit{tool}) nell'agente di \textit{harness} \textbf{OpenCode}, capace di:
+\begin{itemize}[noitemsep]
+    \item estrarre e normalizzare le informazioni semantiche dai \term{Casi d'Uso} (diagrammi testuali e documentazione descrittiva);
+    \item allinearle e confrontarle con le \term{Specifiche dei Requisiti} (espresse in Markdown e, opzionalmente, in PDF);
+    \item rilevare formalmente discrepanze, omissioni e contraddizioni logiche, garantendo robustezza anche con modelli linguistici di dimensioni contenute (\textit{Small Language Models}).
+\end{itemize}
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}[noitemsep]
+    \item Capitolato d'appalto C9: \href{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9-SpecCheck.pdf}{\textit{SpecCheck -- Sviluppo di Skills per OpenCode per la verifica della tracciabilità end-to-end da casi d'uso a requisiti e codice sorgente} (Zucchetti S.p.A., A.A. 2026/2027)};
+    \item \textit{Norme di Progetto} del gruppo \textit{0x06tudio} (in fase di redazione).
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}[noitemsep]
+    \item \textbf{OpenCode (Agente di Harness):} \url{https://opencode.ai/};
+    \item \textbf{Framework di gestione specifiche e harness:} 
+        \begin{itemize}[noitemsep]
+            \item \textit{OpenSpec}: \url{https://openspec.dev/};
+            \item \textit{GitHub Spec-Kit}: \url{https://github.com/github/spec-kit};
+            \item \textit{BMAD Method}: \url{https://github.com/bmad-code-org/bmad-method};
+        \end{itemize}
+    \item \textbf{Benchmark di sviluppo e coding:} 
+        \begin{itemize}[noitemsep]
+            \item \textit{SWE-bench}: \url{https://github.com/swe-bench/SWE-bench};
+            \item \textit{Terminal-bench}: \url{https://www.tbench.ai/};
+        \end{itemize}
+    \item \textbf{Piattaforme e modelli linguistici di riferimento:} 
+        \begin{itemize}[noitemsep]
+            \item \textit{Hugging Face} (raccolta modelli LLM e SLM come Gemma e Qwen): \url{https://huggingface.co/};
+        \end{itemize}
+    \item \textbf{Tecnologie di Information Retrieval e Database Vettoriali:}
+        \begin{itemize}[noitemsep]
+            \item \textit{BM25 (Best Matching 25)}: Robertson, S., \& Zaragoza, H. (2009). \textit{The Probabilistic Relevance Framework: BM25 and Beyond}. Foundations and Trends in Information Retrieval.
+            \item \textit{LanceDB} (Database vettoriale embedded serverless): \url{https://lancedb.com/}
+            \item \textit{Chroma} (AI-native open-source vector database): \url{https://www.trychroma.com/}
+            \item \textit{SQLite-vec} (Vector search extension per SQLite): \url{https://github.com/asg017/sqlite-vec}
+        \end{itemize}
+\end{itemize}
+
+\newpage
+% ==============================================================================
+\section{Contesto e Sfide della Tracciabilità nel Capitolato C9}
+% ==============================================================================
+
+Il capitolato C9 richiede di verificare che ogni \term{Caso d'Uso} raccolto nella fase di analisi con gli stakeholder trovi effettiva e coerente declinazione nelle \term{Specifiche dei Requisiti} (requisiti obbligatori 1-5). Questa attività presenta tre criticità architetturali fondamentali:
+
+\begin{enumerate}
+    \item \textbf{Asimmetria lessicale e strutturale (\textit{Abstraction Gap}):} I Casi d'Uso adottano una prospettiva esterna orientata all'utente (\textit{attore, precondizioni, flusso principale, estensioni}), mentre le Specifiche dei Requisiti assumono una forma propositiva e sistemica (\textit{requisiti funzionali RF, non funzionali RNF, vincoli}). Un semplice confronto sintattico o basato su parole chiave fallisce sistematicamente.
+    \item \textbf{Cardinalità molti-a-molti ($N:M$):} Come evidenziato nel capitolato, un singolo Caso d'Uso può essere soddisfatto da più requisiti atomici e, viceversa, un requisito trasversale (es. autenticazione o logging) può impattare su molteplici Casi d'Uso.
+    \item \textbf{Vincolo sui modelli e determinismo:} Zucchetti metterà a disposizione sia modelli frontier (con tetto di spesa) sia modelli locali/ridotti come \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B} senza limiti di utilizzo. Inoltre, il capitolato prescrive che le attività di analisi strutturata e verifica non siano affidate al solo ragionamento non-deterministico dell'LLM, ma supportate da \textit{plugin} o applicativi esterni deterministici richiamati tramite \textit{skill} e \textit{tool} di OpenCode.
+\end{enumerate}
+
+% ==============================================================================
+\section{Analisi delle Tecnologie Chiave}
+% ==============================================================================
+
+\subsection{NLP per Requirements Engineering (RE)}
+L'applicazione dei Large Language Models al \term{Requirements Engineering} consente di superare i limiti delle tecniche \term{NLP} classiche (come TF-IDF o Latent Semantic Analysis) nella comprensione dell'intento funzionale.
+
+\begin{itemize}
+    \item \textbf{Decomposizione Atomica e Normalizzazione:} Prima del confronto, l'LLM viene istruito tramite \textit{prompting strutturato} a scomporre sia i Casi d'Uso (inclusi diagrammi Mermaid, PlantUML o XMI) sia le specifiche in \textit{unità semantiche atomiche} (es. \textit{Soggetto - Azione - Oggetto - Condizione}).
+    \item \textbf{Output Strutturati (JSON Schema):} Per garantire che modelli da 26B--27B parametri (Gemma 4, Qwen 3.8) producano output affidabili e consumabili da un plugin deterministico, è indispensabile vincolare la generazione tramite \textit{Constrained Decoding} (JSON Schema / Pydantic), estraendo entità standardizzate (ID Caso d'Uso, Attori, Postcondizioni, ID Requisito).
+    \item \textbf{Gestione del Contesto (Harness Engineering):} In linea con l'architettura di OpenCode e di framework come \textit{OpenSpec}, il contesto non deve essere saturato caricando interi documenti in un unico prompt. Le \textit{skill} devono orchestrare letture incrementali e produrre artefatti intermedi sintetici (es. file di mappatura JSON/Markdown).
+\end{itemize}
+
+\subsection{Semantic Matching e Architetture RAG}
+Quando la base documentale cresce, l'approccio \textit{brute-force} (confronto a coppie $O(N \times M)$ di tutti i Casi d'Uso contro tutti i Requisiti via LLM) diventa lento e costoso. L'adozione di una pipeline \term{RAG} (\textit{Retrieval-Augmented Generation}) risolve il problema della scalabilità:
+
+\begin{enumerate}
+    \item \textbf{Ingestion e Chunking Semantico:}
+    \begin{itemize}[noitemsep]
+        \item \textit{Documenti Markdown (Requisito Obbligatorio):} Parsing basato sull'albero sintattico (AST Markdown) per preservare la gerarchia delle sezioni, i blocchi di diagrammi (Mermaid) e gli identificativi univoci (es. \texttt{UC-01}, \texttt{RF-04}).
+        \item \textit{Documenti PDF (Requisito Opzionale):} Utilizzo di parser layout-aware (es. \textit{Docling} o \textit{PyMuPDF4LLM}) capaci di convertire tabelle, elenchi e didascalie di diagrammi UML in Markdown pulito, evitando la perdita di struttura tipica dell'estrazione testuale grezza.
+    \end{itemize}
+    \item \textbf{Hybrid Search (Dense + Sparse Retrieval):} I testi dei requisiti vengono indicizzati in un database vettoriale locale leggero (es. \textit{LanceDB}, \textit{Chroma} o \textit{SQLite-vec}). La ricerca combina \textit{Dense Embeddings} (per cogliere la sinonimia semantica tra linguaggio utente e linguaggio tecnico) e ricerca lessicale \textit{BM25} (fondamentale per preservare riferimenti esatti a codici, acronimi e nomi di entità di dominio).
+    \item \textbf{Cross-Encoder Reranking:} Per ogni Caso d'Uso, il retriever estrae i primi $k$ requisiti candidati (es. $k=10$); un modello \textit{Cross-Encoder} leggero riordina le coppie $(UC_i, Req_j)$ assegnando un punteggio di affinità preciso prima di passarle all'LLM per la verifica logica.
+\end{enumerate}
+Prima di giungere a una pipeline ibrida, un primo approccio intuitivo potrebbe consistere nel ricorrere alla sola similarità degli embedding (confronto vettoriale puro tramite similarità del coseno tra i testi dei Casi d'Uso e dei Requisiti). Tuttavia, sebbene questo metodo sia rapido ed efficiente su grandi volumi di dati, fallisce inevitabilmente nel cogliere sfumature logiche fondamentali (quali negazioni, inversioni di ruolo, contraddizioni sottili) poiché due frasi semanticamente opposte possono comunque presentare vettori numerici molto vicini nello spazio geometrico.
+\subsection{Rilevamento Logico delle Discrepanze}
+Il cuore del sistema di verifica (Requisito 5) consiste nel classificare formalmente la relazione tra un Caso d'Uso e i requisiti candidati recuperati tramite RAG. L'analisi si ispira ai task di \textit{Natural Language Inference} (\term{NLI}) adattati all'ingegneria del software, classificando ogni collegamento in quattro stati:
+
+\begin{itemize}
+    \item \textbf{Copertura Completa (\textit{Entailment}):} L'insieme dei requisiti collegati soddisfa integralmente lo scenario principale, le precondizioni e i flussi alternativi del Caso d'Uso.
+    \item \textbf{Copertura Parziale / Sottospecificazione:} Il requisito copre l'azione base del Caso d'Uso ma omette vincoli, eccezioni o postcondizioni esplicitate nel diagramma o nella descrizione.
+    \item \textbf{Contraddizione Logica:} I requisiti definiscono comportamenti incompatibili con il Caso d'Uso (es. ruoli autorizzati differenti, stati di uscita discordanti, vincoli temporali opposti).
+    \item \textbf{Mancata Copertura (\textit{Orphan Use Case}) / Requisito non tracciato (\textit{Gold Plating}):} Un Caso d'Uso privo di requisiti associati segnala un'omissione progettuale; viceversa, un requisito funzionale privo di alcun Caso d'Uso genitore evidenzia potenziale \textit{scope creep} (funzionalità non richieste).
+\end{itemize}
+
+% ==============================================================================
+\section{Architettura Proposta e Proof of Concept}
+% ==============================================================================
+
+Per rispettare il vincolo architetturale di OpenCode (separazione tra ragionamento probabilistico dell'LLM ed esecuzione deterministica), si propone un'architettura ibrida composta da:
+\begin{itemize}[noitemsep]
+    \item \textbf{OpenCode Skill (\texttt{speccheck-trace-uc}):} Definisce il workflow operativo, i prompt di estrazione e le regole di giudizio per l'LLM.
+    \item \textbf{Tool / Eseguibile Esterno (Python CLI):} Gestisce il parsing deterministico di Markdown/Mermaid/PDF, l'indicizzazione vettoriale locale, la generazione della matrice di tracciabilità in formato \texttt{JSON} e l'output formattato per la dashboard TUI.
+\end{itemize}
+
+
+\begin{lstlisting}[language=Python, caption={Schema concettuale della pipeline ibrida di verifica UC-Requisiti.}]
+from pydantic import BaseModel
+from typing import Literal, List
+
+class TraceabilityVerdict(BaseModel):
+    use_case_id: str
+    matched_req_ids: List[str]
+    status: Literal["COVERED", "PARTIAL", "CONTRADICTION", "MISSING"]
+    missing_aspects: List[str]
+    reasoning: str
+
+def verify_use_case(uc_chunk: dict, vector_store, llm_client) -> TraceabilityVerdict:
+    # 1. Fase deterministica/RAG: recupero Top-K requisiti candidati
+    candidates = vector_store.hybrid_search(
+        query=uc_chunk["normalized_intent"], 
+        top_k=8
+    )
+    
+    # 2. Fase NLP/NLI: valutazione logica vincolata a JSON Schema
+    prompt = build_nli_verification_prompt(uc_chunk, candidates)
+    verdict = llm_client.generate_structured(
+        model="qwen-3.8-27b",
+        prompt=prompt,
+        response_format=TraceabilityVerdict
+    )
+    return verdict
+\end{lstlisting}
+
+% ==============================================================================
+\section{Valutazione Comparativa delle Soluzioni}
+% ==============================================================================
+
+Di seguito vengono confrontate le principali strategie architetturali per l'implementazione del motore di tracciabilità semantica, valutate rispetto ai vincoli del capitolato C9.
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|X|X|}
+    \hline
+    \textbf{Criterio} & \textbf{Full-Context LLM (Zero-RAG)} & \textbf{Solo Embedding Similarity} & \textbf{Pipeline Ibrida (RAG + NLI Strutturato)} \\ \hline
+    \textbf{Scalabilità su progetti grandi} & Bassa (degrado per \textit{lost-in-the-middle} e limiti di token) & Alta (ricerca vettoriale istantanea) & \textbf{Alta} (filtra i candidati prima dell'inferenza LLM) \\ \hline
+    \textbf{Rilevamento contraddizioni} & Alta con modelli frontier, instabile con SLM & Nulla (due frasi opposte hanno alta similarità coseno) & \textbf{Alta} (il passo NLI confronta esplicitamente pre/post-condizioni) \\ \hline
+    \textbf{Resa con SLM (Gemma 4 / Qwen 3.8)} & Media (difficoltà a ragionare su decine di documenti insieme) & Non applicabile & \textbf{Ottima} (contesto focalizzato sul singolo UC + Top-K requisiti) \\ \hline
+    \textbf{Determinismo e riproducibilità} & Bassa & Alta (ma priva di spiegazione logica) & \textbf{Alta} (parsing/retrieval deterministici + output JSON vincolato) \\ \hline
+    \textbf{Complessità implementativa} & Bassa & Media & Media-Alta (richiede parser AST e DB vettoriale embedded) \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ==============================================================================
+\section{Conclusioni e Raccomandazioni per il Progetto}
+% ==============================================================================
+
+L'analisi condotta dimostra che affidare la verifica di tracciabilità direttamente a un LLM caricando l'intera documentazione nel contesto non soddisfa i requisiti di precisione, spiegabilità e compatibilità con modelli ridotti richiesti da Zucchetti S.p.A.
+
+Per lo sviluppo del \textit{Proof of Concept} (PoC) e del successivo \textit{Minimum Viable Product} (MVP) di \textbf{SpecCheck}, si raccomanda l'adozione di una \textbf{pipeline ibrida deterministico-semantica}:
+\begin{enumerate}[noitemsep]
+    \item \textbf{Core deterministico in Python (CLI / Plugin):} responsabile del parsing strutturato dei file Markdown e dei diagrammi Mermaid/PlantUML, della gestione di un indice vettoriale locale leggero (es. \textit{SQLite-vec} o \textit{LanceDB}) con ricerca ibrida (vettoriale + BM25) e della persistenza dei risultati.
+    \item \textbf{Modulo di inferenza NLI vincolato:} invocato tramite le \textit{skill} di OpenCode su porzioni ristrette di contesto (singolo Caso d'Uso e relativi requisiti candidati) con output forzato su schema JSON, garantendo affidabilità sia su modelli frontier sia su \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B}.
+    \item \textbf{Estendibilità per i requisiti opzionali:} l'architettura modulare permette di integrare successivamente parser PDF (\textit{Docling}/\textit{PyMuPDF4LLM}) nello stadio di \textit{ingestion} senza alterare la logica di confronto e rilevamento delle discrepanze.
+\end{enumerate}
+
+\end{document}
