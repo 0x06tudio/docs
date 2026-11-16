@@ -20,6 +20,10 @@
     "definizione": "Ruolo di progetto che redige l'Analisi dei Requisiti."
   },
   {
+    "termine": "Benchmark",
+    "definizione": "Insieme standardizzato di test, dataset e metriche utilizzato per valutare e confrontare oggettivamente le prestazioni di modelli o agenti software."
+  },
+  {
     "termine": "Best practice",
     "definizione": "Modo di fare (Way of Working) noto, che abbia mostrato di garantire i migliori risultati in circostanze note e specifiche."
   },
@@ -112,12 +116,12 @@
     "definizione": "Spiega ogni termine specializzato del dominio di progetto."
   },
   {
-    "termine": "Handshake",
-    "definizione": "Scambio iniziale con cui due componenti verificano la compatibilità delle versioni del protocollo."
+    "termine": "Harness",
+    "definizione": "Infrastruttura operativa e di orchestrazione attorno a un LLM (come OpenCode) che gestisce contesto, memoria persistente, skill, tool e componenti deterministici di supporto."
   },
   {
-    "termine": "Harness",
-    "definizione": "Impalcatura attorno all'LLM (gestione del contesto, strumenti, flusso di lavoro) che sostiene le attività di pianificazione e produzione del codice."
+    "termine": "Handshake",
+    "definizione": "Scambio iniziale con cui due componenti verificano la compatibilità delle versioni del protocollo."
   },
   {
     "termine": "Hook",
@@ -149,7 +153,7 @@
   },
   {
     "termine": "LLM (Large Language Model)",
-    "definizione": "Modello linguistico di grandi dimensioni, addestrato su grandi quantità di testo e capace anche di generare e comprendere codice."
+    "definizione": "Modello linguistico di grandi dimensioni addestrato su vasti corpora testuali, in grado di comprendere, generare e analizzare linguaggio naturale e codice sorgente."
   },
   {
     "termine": "Manutenzione",
@@ -261,7 +265,7 @@
   },
   {
     "termine": "Skill",
-    "definizione": "File di istruzioni che descrivono come portare a termine un compito e che l'harness attiva quando serve."
+    "definizione": "File dichiarativo modulare che istruisce un agente software su come eseguire una procedura o un flusso operativo specifico."
   },
   {
     "termine": "Smoke test",
@@ -313,8 +317,16 @@
     "definizione": "Interfaccia testuale interattiva che usa il terminale come superficie di disegno."
   },
   {
+    "termine": "Tool",
+    "definizione": "Strumento invocabile da un agente software per interagire con l'ambiente esterno (es. leggere file, eseguire comandi di sistema o interrogare plugin)."
+  },
+  {
     "termine": "Verbali",
     "definizione": "Breve rendiconto di riunioni ufficiali (agenda, decisioni, azioni)."
+  },
+  {
+    "termine": "Vibe Coding",
+    "definizione": "Approccio allo sviluppo in cui lo sviluppatore descrive l'intento funzionale in linguaggio naturale affidando all'LLM la generazione diretta del codice sorgente."
   },
   {
     "termine": "Way of Working",
