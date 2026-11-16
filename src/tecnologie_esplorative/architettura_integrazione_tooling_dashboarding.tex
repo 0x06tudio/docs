@@ -1,0 +1,596 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem} % Per gestire meglio la spaziatura degli elenchi
+\usepackage{listings} % Utile per eventuali snippet di codice negli studi tecnologici
+\usepackage{xcolor}
+
+% Definizione di una palette colori moderna e leggibile
+\definecolor{codebackground}{rgb}{0.96, 0.96, 0.97}   % Grigio molto chiaro / panna
+\definecolor{codecomment}{rgb}{0.30, 0.50, 0.30}     % Verde scuro per i commenti
+\definecolor{codekeyword}{rgb}{0.00, 0.34, 0.70}     % Blu profondo per le keyword (class, def, return)
+\definecolor{codestring}{rgb}{0.75, 0.10, 0.10}      % Rosso scuro per le stringhe
+\definecolor{codenumber}{rgb}{0.50, 0.50, 0.50}      % Grigio neutro per i numeri di riga
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    % Mostra i numeri di riga a sinistra
+    numbersep=8pt,                   % Distanza dei numeri di riga dal codice
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,                    % Cornice sottile attorno al codice
+    rulecolor=\color{gray!30},       % Colore della cornice
+    frameround=tttt                  % Angoli leggermente arrotondati (se supportato) o stile standard
+}
+% ==============================================================================
+% VARIABILI DEL DOCUMENTO (Modificare solo questi valori per ogni nuovo file)
+% ==============================================================================
+\newcommand{\DocTitle}{Architettura di Integrazione, Tooling e Dashboarding}
+\newcommand{\DocSubtitle}{Studio Tecnologico -- Capitolato C9: SpecCheck (Zucchetti S.p.A.)}
+\newcommand{\DocVersion}{0.1.0}
+\newcommand{\DocStatus}{Non Approvato} % Non Approvato | In verifica | Approvato
+\newcommand{\DocDate}{2026/11/16}
+\newcommand{\DocUsage}{Interno} % Interno | Esterno
+\newcommand{\DocRecipients}{0x06tudio}
+% ==============================================================================
+
+% Comandi di utilità del gruppo
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{\##1}}}
+\newcommand{\term}[1]{\textit{#1}$_G$} % Per eventuali termini da inserire nel Glossario
+
+% Configurazione stile link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!70!black,
+    pdftitle={\DocTitle},
+    pdfauthor={0x06tudio}
+}
+
+% Configurazione stile blocchi di codice (utile per analisi tecniche)
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    rulecolor=\color{gray!40},
+    captionpos=b
+}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- \DocTitle}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[L]{\small Versione \DocVersion}
+\fancyfoot[R]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE PRIMA PAGINA ---
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=5.5cm]{../media/logo.png} \\[0.5em]
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    {\LARGE \textbf{\DocTitle}} \\[0.4em]
+    {\large \textit{\DocSubtitle}}
+\end{center}
+
+\vspace{0.8cm}
+
+% --- TABELLA INFORMAZIONI DEL DOCUMENTO ---
+\section*{Informazioni sul documento}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & \DocVersion \\
+    \textbf{Stato:} & \DocStatus \\
+    \textbf{Data ultimo aggiornamento:} & \DocDate \\
+    \textbf{Uso:} & \DocUsage \\
+    \textbf{Destinatari:} & \DocRecipients \\
+\end{tabularx}
+
+\vspace{0.5cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/15 & Stesura iniziale del documento & Pietro Brocadello & / \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Il presente studio tecnologico approfondisce le tecnologie candidate per la parte di integrazione, tooling e presentazione dei risultati del progetto SpecCheck (Capitolato C9 proposto da Zucchetti S.p.A.). Le aree trattate sono tre:
+\begin{itemize}[noitemsep]
+    \item \textbf{Plugin e sidecar executables:} progettazione di estensioni ed eseguibili di supporto per agenti a riga di comando (CLI) come OpenCode;
+    \item \textbf{Interfacce di presentazione:} interfacce utente da terminale (\term{TUI}) e bridge di comunicazione verso dashboard grafiche web/HTML;
+    \item \textbf{Automazione del deployment:} script unificati Bash/PowerShell per l'installazione, la configurazione e la distribuzione automatizzata del toolchain.
+\end{itemize}
+Per ciascuna area vengono descritti il problema, le opzioni disponibili, i criteri di scelta, i rischi e una proposta di utilizzo. Le scelte indicate sono proposte motivate, da validare con il gruppo e con il proponente. I dettagli sulle API e sui formati di configurazione di OpenCode vanno verificati sulla documentazione ufficiale aggiornata, perché lo strumento evolve rapidamente.
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}[noitemsep]
+    \item Capitolato d'appalto C9: \textit{SpecCheck -- Sviluppo di Skills per OpenCode per la verifica della tracciabilità end-to-end da casi d'uso a requisiti e codice sorgente} (Zucchetti S.p.A., A.A. 2026/2027);
+    \item Norme di Progetto del gruppo 0x06tudio (in fase di redazione).
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}[noitemsep]
+    \item Studio tecnologico interno: \textit{Tracciabilità Semantica: Casi d'Uso vs Specifiche}, 0x06tudio, versione 0.1.0 (pipeline ibrida con core deterministico in Python);
+    \item OpenCode (agente di harness): \url{https://opencode.ai/};
+    \item Documentazione di OpenCode: \url{https://opencode.ai/docs/};
+    \item OpenSpec (comandi, skill ed eseguibile di appoggio): \url{https://openspec.dev/};
+    \item GitHub Spec-Kit: \url{https://github.com/github/spec-kit};
+    \item Model Context Protocol: \url{https://modelcontextprotocol.io/};
+    \item Librerie TUI:
+    \begin{itemize}[noitemsep]
+        \item Bubble Tea (Go): \url{https://github.com/charmbracelet/bubbletea};
+        \item Ratatui (Rust): \url{https://ratatui.rs/};
+        \item Textual (Python): \url{https://textual.textualize.io/};
+        \item FTXUI (C++): \url{https://github.com/ArthurSonzogni/FTXUI};
+    \end{itemize}
+    \item Strumenti per script e test:
+    \begin{itemize}[noitemsep]
+        \item ShellCheck: \url{https://www.shellcheck.net/};
+        \item Bats: \url{https://github.com/bats-core/bats-core};
+        \item Pester: \url{https://pester.dev/};
+        \item PSScriptAnalyzer: \url{https://github.com/PowerShell/PSScriptAnalyzer}.
+    \end{itemize}
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+
+\section{Contesto e Vincoli del Capitolato C9}
+Il capitolato C9 chiede di realizzare estensioni di OpenCode (skill, tool, comandi e almeno un plug-in) che verifichino la tracciabilità da casi d'uso a requisiti e a codice sorgente. Il prodotto finale deve essere un pacchetto unico, corredato di un sistema di installazione. La tabella seguente riassume i vincoli che orientano le scelte di questo documento.
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|}
+    \hline
+    \textbf{Indicazione del capitolato} & \textbf{Conseguenza per questo studio} \\ \hline
+    Estendere OpenCode con skill, tool, comandi e almeno un plug-in, come prodotto unico & Architettura a pacchetto: skill e comandi orchestrano, tool e sidecar verificano, il plug-in ospita la dashboard \\ \hline
+    Il confronto tra specifiche e codice non può essere affidato al solo LLM: va realizzato come plug-in o come applicativo esterno richiamato da skill e comandi (esempio citato: OpenSpec) & Giustifica il \term{sidecar} e il contratto dati (Sezione~\ref{sec:sidecar}) \\ \hline
+    Dashboard: il requisito obbligatorio ammette una visualizzazione ``a caratteri''; la dashboard grafica, anche solo una pagina HTML, è opzionale & La TUI ha priorità; report HTML e bridge sono un'estensione (Sezione~\ref{sec:presentazione}) \\ \hline
+    Sistema di installazione unitario, anche solo uno script Bash o PowerShell & Sezione~\ref{sec:deploy} \\ \hline
+    Test automatici soprattutto dall'MVP; modelli grandi con tetto di costo e modelli piccoli (Gemma 4 26B, Qwen 3.8 27B) senza limiti & Il sidecar deve essere testabile senza LLM; i test di integrazione vanno ripetuti anche con modelli piccoli \\ \hline
+    Pubblicazione su GitHub come titolo preferenziale; manuale d'uso e manuale per chi estende skill, comandi e tool & Struttura del repository, licenza open source e documentazione di estensione \\ \hline
+    Fasi: PoC (algoritmi di confronto, lettura dei diagrammi), poi MVP (requisiti obbligatori), poi opzionali & Il PoC proposto nella Sezione~\ref{sec:conclusioni} è coerente con questa sequenza \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+\subsection{Visione d'insieme dell'architettura}
+L'architettura ipotizzata ha quattro componenti principali, in corrispondenza con lo schema di massima del capitolato (skill, tool, command e plug-in per dashboard attorno a OpenCode):
+\begin{enumerate}[noitemsep]
+    \item \textbf{Agente CLI (OpenCode):} ospita il modello linguistico e il ciclo di interazione con lo sviluppatore;
+    \item \textbf{Skill e comandi:} definiscono il flusso di verifica e le regole di giudizio per l'LLM;
+    \item \textbf{Sidecar:} eseguibile separato che svolge la parte deterministica (parsing, indicizzazione, confronto, generazione dei report) e comunica con il plug-in tramite un protocollo definito;
+    \item \textbf{Livelli di presentazione:} una TUI per l'uso interattivo da terminale e, come requisito opzionale, una dashboard web/HTML per la consultazione e la condivisione dei risultati.
+\end{enumerate}
+Il flusso tipico è il seguente: lo sviluppatore invoca un comando o una skill di SpecCheck nell'agente; il plug-in inoltra la richiesta al sidecar; il sidecar produce risultati strutturati (JSON); questi vengono mostrati nella TUI e, se richiesto, pubblicati verso la dashboard tramite un bridge locale.
+
+Questa impostazione è coerente con lo studio \textit{Tracciabilità Semantica}, che propone un core deterministico in Python (CLI) richiamato da una skill OpenCode. Il sidecar descritto qui ne rappresenta il livello di integrazione e presentazione.
+
+% ------------------------------------------------------------------------------
+
+\section{Plugin e Sidecar Executables per Agenti CLI}
+\label{sec:sidecar}
+
+\subsection{Punti di estensione degli agenti CLI}
+Gli agenti a riga di comando basati su LLM (OpenCode, Claude Code, Gemini CLI e simili) condividono un'architettura simile: un ciclo che alterna ragionamento del modello e invocazione di strumenti. L'estendibilità avviene attraverso più meccanismi, con diverso grado di accoppiamento.
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|X|l|}
+    \hline
+    \textbf{Meccanismo} & \textbf{Descrizione e uso in SpecCheck} & \textbf{Accoppiamento} \\ \hline
+    Skill & Istruzioni in file che guidano un compito e vengono attivate dall'harness quando serve; definiscono il flusso di verifica & Basso \\ \hline
+    Comandi personalizzati & Prompt predefiniti richiamabili con un nome (es.\ \texttt{/speccheck}); avvio guidato di un'analisi & Basso \\ \hline
+    Tool personalizzati & Funzioni richiamabili dal modello con parametri tipizzati; espongono all'LLM le funzioni del sidecar & Medio \\ \hline
+    Plugin & Moduli caricati dall'agente che si agganciano a eventi del ciclo di vita; raccolta di contesto e dashboard & Medio-alto \\ \hline
+    Server MCP & Processi esterni che espongono tool e risorse con un protocollo standard; alternativa standardizzata al sidecar & Basso \\ \hline
+    SDK / API client-server & Controllo programmatico dell'agente da un'applicazione esterna & Basso \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+Per OpenCode, a quanto risulta dalla documentazione consultabile, i plugin sono moduli JavaScript/TypeScript caricati da directory di progetto o globali (o da pacchetti npm indicati nel file di configurazione) e possono registrare hook su eventi come l'esecuzione di un tool (prima e dopo), la gestione dei file e della sessione. Esistono inoltre tool personalizzati, agenti configurabili, comandi personalizzati e il supporto a server MCP. OpenCode adotta anche un'architettura client-server: la TUI è un client di un server locale che espone un'API HTTP, per la quale esiste un SDK. Questo permette sia di estendere l'agente dall'interno (plugin) sia di pilotarlo dall'esterno (SDK). Tali dettagli vanno verificati sulla documentazione aggiornata prima di fissare le scelte.
+
+\subsection{Progettazione di un plugin}
+Un plugin ben progettato deve essere \textbf{sottile}: contiene solo la logica di integrazione, non la logica di dominio. Le responsabilità consigliate sono:
+\begin{itemize}[noitemsep]
+    \item \textbf{Registrazione dei tool:} definire uno o più tool, ad esempio \texttt{speccheck\_analyze} e \texttt{speccheck\_report}, con uno schema esplicito dei parametri, così che il modello sappia quando e come invocarli;
+    \item \textbf{Hook sul ciclo di vita:} reagire a eventi (ad esempio dopo la modifica di un file) per segnalare che i risultati precedenti sono obsoleti;
+    \item \textbf{Gestione della configurazione:} leggere le impostazioni di SpecCheck (percorso del sidecar, file dei requisiti, soglie) da un file dedicato nel repository;
+    \item \textbf{Delega al sidecar:} avviare o raggiungere il sidecar, inoltrare la richiesta e convertire la risposta in un riassunto compatto per il modello e in un formato strutturato per la dashboard.
+\end{itemize}
+Buone pratiche di progettazione:
+\begin{itemize}[noitemsep]
+    \item \textbf{Separazione dei compiti:} il plugin non conosce i dettagli dell'analisi, il sidecar non conosce l'agente;
+    \item \textbf{Output limitato:} al modello si restituiscono riassunti compatti, perché ogni token consumato riduce il contesto disponibile; i dettagli completi vanno salvati su file e referenziati per percorso;
+    \item \textbf{Gestione esplicita degli errori:} un fallimento del sidecar diventa un messaggio chiaro per l'agente e per l'utente, non un'eccezione che interrompe la sessione;
+    \item \textbf{Determinismo e \term{idempotenza}:} due invocazioni con gli stessi input producono gli stessi artefatti, così i risultati sono confrontabili e testabili;
+    \item \textbf{Sicurezza:} il plugin esegue codice con i permessi dell'utente. Vanno evitati comandi costruiti concatenando stringhe provenienti dal modello (rischio di command injection e prompt injection); si usano argomenti passati come lista e validazione degli input.
+\end{itemize}
+
+\subsection{Il pattern Sidecar}
+Il \term{sidecar} è un eseguibile separato che affianca l'applicazione principale (qui l'agente CLI) e le fornisce funzionalità aggiuntive. È la forma di ``applicativo esterno richiamato da skill e comandi'' indicata dal capitolato, ed è l'architettura di OpenSpec (comandi, skill ed eseguibile di appoggio).
+
+\textbf{Perché un sidecar e non solo un plugin:}
+\begin{itemize}[noitemsep]
+    \item \textbf{Indipendenza dal linguaggio:} il plugin è vincolato all'ecosistema dell'agente (per OpenCode, JavaScript/TypeScript), mentre il sidecar può essere scritto nel linguaggio più adatto all'analisi (Python per il parsing e le librerie di elaborazione, Go o Rust per un binario unico);
+    \item \textbf{Isolamento:} un crash o un consumo eccessivo di memoria del sidecar non abbatte l'agente;
+    \item \textbf{Riuso:} lo stesso sidecar può essere richiamato da altri agenti, da script CI o dalla dashboard;
+    \item \textbf{Testabilità:} si può testare il sidecar in modo autonomo, senza avviare l'agente né un LLM;
+    \item \textbf{Ciclo di rilascio separato:} il sidecar può essere aggiornato senza modificare il plugin, purché il contratto resti compatibile.
+\end{itemize}
+
+\textbf{Svantaggi e costi:}
+\begin{itemize}[noitemsep]
+    \item più artefatti da distribuire e versionare;
+    \item gestione del ciclo di vita del processo (avvio, attesa di prontezza, arresto, riavvio);
+    \item necessità di un protocollo di comunicazione ben definito;
+    \item difficoltà aggiuntive su più sistemi operativi (percorsi, permessi, antivirus su Windows).
+\end{itemize}
+
+\subsection{Modalità di comunicazione plugin--sidecar}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|X|X|}
+    \hline
+    \textbf{Modalità} & \textbf{Pro} & \textbf{Contro} \\ \hline
+    Esecuzione one-shot (argomenti, lettura di stdout) & Semplicissima, nessuno stato & Costo di avvio a ogni chiamata \\ \hline
+    Processo persistente su stdin/stdout (es.\ JSON-RPC 2.0) & Nessuna porta di rete, avvio una sola volta & Gestione dei flussi, debug meno immediato \\ \hline
+    Server HTTP locale su \texttt{127.0.0.1} & Facile da testare, riusabile dalla dashboard & Gestione delle porte e dell'autenticazione locale \\ \hline
+    Server \term{MCP} & Standard, riusabile da più agenti & Maggiore complessità iniziale \\ \hline
+    Socket Unix / named pipe & Efficiente, non esposto in rete & Differenze tra Unix e Windows \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+Per SpecCheck si propone un \textbf{sidecar con interfaccia a riga di comando one-shot} per le operazioni semplici e, solo se servirà, una \textbf{modalità server locale} per sessioni interattive e dashboard, mantenendo un unico contratto dati. Se in futuro interessasse l'interoperabilità con più agenti, le stesse funzioni possono essere esposte anche come server MCP.
+
+\subsection{Contratto dati e versionamento}
+Il contratto tra i componenti è la parte più importante e va trattato come un'interfaccia pubblica:
+\begin{itemize}[noitemsep]
+    \item \textbf{schema esplicito} dei messaggi (JSON Schema o tipi condivisi) per richieste, risposte, errori e avanzamento;
+    \item \textbf{versione del protocollo} in ogni messaggio e verifica all'avvio (handshake): se plugin e sidecar non sono compatibili, il sistema segnala l'errore;
+    \item \textbf{codici di errore stabili} e messaggi leggibili;
+    \item \textbf{formati di report standard} quando possibile, ad esempio \term{SARIF} per i risultati di analisi, oppure un JSON proprietario documentato;
+    \item \textbf{versionamento semantico} (SemVer) di plugin, sidecar e protocollo.
+\end{itemize}
+Gli esiti di verifica possono riutilizzare la classificazione dello studio sulla tracciabilità semantica (\texttt{COVERED}, \texttt{PARTIAL}, \texttt{CONTRADICTION}, \texttt{MISSING}), così che sidecar e skill parlino lo stesso linguaggio.
+
+\begin{lstlisting}[caption={Esempio indicativo di richiesta e risposta del sidecar}]
+{ "protocol": "1.0", "id": "42", "method": "analyze",
+  "params": { "path": "src/", "requirements": "docs/requisiti.md" } }
+
+{ "protocol": "1.0", "id": "42", "status": "ok",
+  "result": { "covered": 18, "partial": 2, "missing": 1,
+              "reportPath": ".speccheck/report.json" } }
+\end{lstlisting}
+
+\subsection{Ciclo di vita, packaging e prestazioni}
+\begin{itemize}[noitemsep]
+    \item \textbf{Avvio e prontezza:} il plugin avvia il sidecar in modo pigro (alla prima richiesta) e attende un segnale di prontezza;
+    \item \textbf{Arresto pulito:} alla chiusura della sessione il plugin termina il sidecar, con timeout e terminazione forzata per evitare processi orfani;
+    \item \textbf{Streaming dei progressi:} per analisi lunghe il sidecar invia eventi di avanzamento, così TUI e dashboard possono mostrare lo stato;
+    \item \textbf{Packaging:} preferire un binario autonomo per piattaforma (Windows, Linux, macOS; x86-64 e ARM64) per ridurre le dipendenze sul sistema dell'utente;
+    \item \textbf{Cancellazione e timeout:} ogni operazione deve poter essere interrotta.
+\end{itemize}
+
+\subsection{Testing e qualità}
+\begin{itemize}[noitemsep]
+    \item test unitari del sidecar sulle funzioni di dominio;
+    \item test di contratto che verificano che plugin e sidecar rispettino lo stesso schema;
+    \item test di integrazione end-to-end con un agente reale o simulato (mock);
+    \item test di robustezza: sidecar assente, versione incompatibile, risposta malformata, timeout;
+    \item ripetizione dei casi d'uso principali con modelli piccoli (Gemma 4 26B, Qwen 3.8 27B), come richiesto dal capitolato per verificare la solidità delle realizzazioni.
+\end{itemize}
+
+\subsection{Rischi e mitigazioni}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|}
+    \hline
+    \textbf{Rischio} & \textbf{Mitigazione} \\ \hline
+    Le API dell'agente cambiano tra versioni & Fissare la versione supportata; isolare l'uso dell'API del plugin in un solo modulo; test di compatibilità \\ \hline
+    Sidecar non trovato o non eseguibile & Verifica all'avvio con messaggio guidato; script di installazione (Sezione~\ref{sec:deploy}) \\ \hline
+    Esecuzione di codice non attendibile proveniente dal modello & Validazione degli input, nessuna interpolazione di stringhe nei comandi, permessi minimi \\ \hline
+    Sovraccarico del contesto del modello & Riassunti compatti, dettagli su file \\ \hline
+    Differenze tra sistemi operativi & Matrice di test su Windows, Linux e macOS \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ------------------------------------------------------------------------------
+
+\section{Interfacce di Presentazione: TUI e Bridge verso Dashboard Web}
+\label{sec:presentazione}
+
+\subsection{Due livelli con peso diverso}
+Gli sviluppatori lavorano nel terminale e vogliono un riscontro immediato senza cambiare contesto: la TUI risponde a questa esigenza. La dashboard web/HTML serve a scopi diversi: panoramica, grafici, navigazione dei risultati, condivisione con chi non usa il terminale e archiviazione dei report. I due livelli devono alimentarsi dalla stessa fonte dati per evitare incoerenze.
+
+Nel capitolato i due livelli hanno peso diverso. Il requisito obbligatorio chiede di riportare lo stato di realizzazione, evidenziando quali casi d'uso sono rilevati nelle specifiche e quali specifiche nel codice, e ogni discrepanza deve essere facilmente percepibile dal programmatore. Una vista testuale è accettata, perché OpenCode privilegia il terminale. La dashboard grafica (anche una pagina HTML) è un requisito opzionale. La TUI è quindi il primo livello da realizzare; il bridge verso HTML è il primo passo opzionale.
+
+\subsection{Terminal User Interface (TUI)}
+Una TUI è un'interfaccia testuale interattiva che usa il terminale come superficie di disegno: finestre, tabelle, liste navigabili, barre di avanzamento, scorciatoie da tastiera. Tecnicamente si basa su sequenze di escape ANSI e sul controllo della modalità del terminale (modalità raw, schermo alternativo, gestione del ridimensionamento).
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|l|X|}
+    \hline
+    \textbf{Linguaggio} & \textbf{Libreria} & \textbf{Note} \\ \hline
+    Go & Bubble Tea (con Lip Gloss e Bubbles) & Architettura Model--Update--View, molto usata \\ \hline
+    Rust & Ratatui & Rendering a immediate mode, prestazioni elevate \\ \hline
+    Python & Textual, Rich & Textual offre widget e styling in stile CSS; Rich per output formattato semplice \\ \hline
+    JavaScript/TypeScript & Ink, blessed & Naturale se il plugin è già in TypeScript \\ \hline
+    C/C++ & ncurses, FTXUI & Controllo massimo; FTXUI è un'opzione moderna in C++ \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+Se il sidecar è scritto in Python, come suggerisce lo studio sulla tracciabilità semantica, Textual (o Rich per una vista più semplice) è la scelta più coerente. Per un sidecar in C++, per cui il gruppo ha competenze maturate nei corsi di programmazione a oggetti, FTXUI è un'alternativa naturale.
+
+\textbf{Principi di progettazione di una TUI efficace:}
+\begin{itemize}[noitemsep]
+    \item \textbf{separare stato e vista:} l'architettura Model--Update--View rende la TUI testabile senza un terminale;
+    \item \textbf{operazioni non bloccanti:} l'analisi gira in un altro thread o processo e la TUI mostra i progressi;
+    \item \textbf{navigazione da tastiera} coerente e documentata (frecce, tab, \texttt{/} per cercare, \texttt{q} per uscire, \texttt{?} per l'aiuto);
+    \item \textbf{degradazione elegante:} supportare terminali senza colori o con larghezza ridotta, rispettare la variabile \texttt{NO\_COLOR}, offrire una modalità non interattiva quando l'output è rediretto (rilevamento TTY);
+    \item \textbf{accessibilità:} non affidare il significato solo al colore (usare anche simboli o testo) e prevedere alternative ASCII a Unicode;
+    \item \textbf{compatibilità multipiattaforma:} Windows Terminal, PowerShell, cmd e terminali Unix si comportano in modo diverso.
+\end{itemize}
+
+\textbf{Contenuti tipici della TUI di SpecCheck:}
+\begin{itemize}[noitemsep]
+    \item elenco dei casi d'uso e delle specifiche con stato (coperto, parziale, in contraddizione, non coperto);
+    \item dettaglio di una specifica con i frammenti di codice collegati e la motivazione dell'esito;
+    \item barra di avanzamento e log dell'analisi in corso;
+    \item riepilogo finale con indicatori sintetici e comando per aprire la dashboard HTML, se presente.
+\end{itemize}
+
+\textbf{Integrazione con OpenCode:} poiché OpenCode ha una propria TUI, SpecCheck può (a) restituire testo formattato nei risultati dei tool, (b) offrire un comando separato (\texttt{speccheck tui}) che apre la propria interfaccia a schermo intero, oppure (c) collegarsi al server dell'agente tramite SDK per mostrare lo stato della sessione. La soluzione (a) è la più semplice e va realizzata comunque; la (b) è la meno invasiva per una vista interattiva.
+
+\subsection{Bridge di comunicazione verso la dashboard web/HTML}
+Il bridge trasferisce i dati dal processo locale (sidecar o plugin) alla dashboard. Sono possibili tre approcci, dal più semplice al più sofisticato.
+
+\begin{description}[noitemsep]
+    \item[Approccio A -- report statico.] Il sidecar genera un file HTML autocontenuto che incorpora i dati (JSON inline) e il codice JavaScript necessario, apribile con un doppio clic. Non richiede server, è archiviabile e allegabile alla documentazione e funziona offline. Non offre aggiornamenti in tempo reale e cresce con i dati.
+    \item[Approccio B -- server locale con aggiornamento in tempo reale.] Il sidecar avvia un server HTTP su \texttt{127.0.0.1} che serve la dashboard e un'API JSON; gli aggiornamenti arrivano al browser tramite Server-Sent Events (\term{SSE}) o WebSocket.
+    \item[Approccio C -- dashboard come client dell'agente.] La dashboard usa l'API del server dell'agente (se esposta) per leggere gli eventi di sessione. È potente, ma lega la dashboard all'API dell'agente e ne eredita le variazioni.
+\end{description}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|l|X|}
+    \hline
+    \textbf{Tecnologia} & \textbf{Direzione} & \textbf{Caratteristiche} \\ \hline
+    Polling HTTP & Client $\to$ server & Semplice, ma inefficiente e con latenza \\ \hline
+    SSE & Server $\to$ client & Unidirezionale, ricollegamento automatico, ideale per progressi e log \\ \hline
+    WebSocket & Bidirezionale & Più flessibile (comandi dalla dashboard), più complesso \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+Per una dashboard prevalentemente di consultazione SSE è in genere sufficiente. Una soluzione progressiva per il progetto è partire dall'approccio A (valore immediato, rischio minimo) e aggiungere l'approccio B come estensione.
+
+\subsection{Sicurezza del bridge locale}
+Un server locale è comunque una superficie d'attacco, anche su \texttt{localhost}:
+\begin{itemize}[noitemsep]
+    \item \textbf{binding solo su 127.0.0.1}, mai su \texttt{0.0.0.0} per impostazione predefinita;
+    \item \textbf{token di sessione} casuale generato all'avvio e richiesto dalle richieste, per impedire che altre pagine web o processi usino l'API;
+    \item \textbf{controllo di Origin e CORS} restrittivo e verifica dell'intestazione \texttt{Host} contro il DNS rebinding;
+    \item \textbf{nessun dato sensibile} (chiavi API, segreti) nei payload; attenzione a non pubblicare per errore codice sorgente riservato;
+    \item \textbf{Content Security Policy} e sanificazione di ogni contenuto proveniente dal codice analizzato o dal modello (rischio XSS): frammenti di codice e motivazioni generate dall'LLM sono input non fidato;
+    \item porta configurabile, con scelta automatica di una porta libera.
+\end{itemize}
+
+\subsection{Modello dati condiviso e sviluppo della dashboard}
+TUI e dashboard devono leggere lo stesso modello. Si propone un documento di risultato (ad esempio \texttt{report.json}) con sezioni per metadati dell'esecuzione, casi d'uso, specifiche, evidenze e metriche, validato da uno schema. In questo modo:
+\begin{itemize}[noitemsep]
+    \item TUI e dashboard sono semplici viste dello stesso dato;
+    \item il report può essere archiviato, confrontato tra versioni e consumato da altri strumenti (CI);
+    \item i test possono usare file di risultato di esempio (fixture) per verificare le interfacce senza eseguire l'analisi.
+\end{itemize}
+La dashboard HTML può essere realizzata con tecnologie web standard, con o senza framework. Senza framework (JavaScript puro, Web Components) si hanno meno dipendenze e un file singolo facilmente distribuibile, ideale per l'approccio A. Con un framework (React, Vue, Svelte) e uno strumento di build si ottiene una struttura migliore per interfacce ricche, a costo di una fase di build e di più dipendenze. Per i grafici di copertura e le matrici di tracciabilità si possono usare librerie come Chart.js o D3. I criteri di qualità sono: responsività, prestazioni, funzionamento offline e compatibilità con i browser principali.
+
+% ------------------------------------------------------------------------------
+
+\section{Automazione del Deployment: Script Unificati Bash/PowerShell}
+\label{sec:deploy}
+
+\subsection{Obiettivo}
+L'utente deve poter ottenere un toolchain funzionante (plugin, sidecar, skill, comandi, configurazione, eventuali dipendenze) con un solo comando e in modo ripetibile. Il capitolato richiede che l'insieme degli artefatti sia considerato un prodotto unico, con un sistema di installazione che può essere un semplice script Bash o PowerShell. Gli script riducono gli errori manuali e rendono riproducibili gli ambienti di sviluppo, test e dimostrazione.
+
+\subsection{Perché due linguaggi di scripting}
+Bash (o POSIX \texttt{sh}) è lo standard su Linux e macOS; su Windows è disponibile tramite WSL o Git Bash, ma non di default. PowerShell è presente su Windows (Windows PowerShell 5.1) ed è disponibile in versione multipiattaforma (PowerShell 7+). Per una distribuzione davvero multipiattaforma si forniscono due script con comportamento equivalente (\texttt{install.sh} e \texttt{install.ps1}) e un unico punto di verità per versioni, URL e checksum. ``Unificato'' significa interfaccia e semantica comuni: stessi parametri, stessi passi, stessi messaggi e stessi codici di uscita.
+
+\subsection{Passi tipici dello script di installazione}
+\begin{enumerate}[noitemsep]
+    \item \textbf{Rilevamento della piattaforma:} sistema operativo e architettura (x86-64, ARM64), per scegliere l'artefatto corretto;
+    \item \textbf{Verifica dei prerequisiti:} presenza e versione minima di OpenCode, Node.js (se richiesto dal plugin), Git ed eventuale runtime, con messaggi chiari su come risolvere;
+    \item \textbf{Scaricamento degli artefatti} dal canale di distribuzione (ad esempio GitHub Releases) in una directory temporanea;
+    \item \textbf{Verifica di integrità:} confronto del checksum SHA-256 e, se possibile, della firma; interruzione in caso di mancata corrispondenza;
+    \item \textbf{Installazione:} copia del sidecar in una directory dell'utente (senza privilegi di amministratore, se possibile), copia di skill e comandi e installazione del plugin nella posizione riconosciuta dall'agente;
+    \item \textbf{Configurazione:} creazione o aggiornamento non distruttivo dei file di configurazione, con backup dell'originale;
+    \item \textbf{Aggiornamento del PATH} o creazione di un collegamento, con indicazione all'utente se serve riaprire il terminale;
+    \item \textbf{Verifica finale (smoke test):} esecuzione di \texttt{speccheck --version} e di un controllo diagnostico;
+    \item \textbf{Riepilogo} di cosa è stato installato e dove, con il comando per la disinstallazione.
+\end{enumerate}
+
+\subsection{Buone pratiche per gli script}
+\textbf{Bash:}
+\begin{itemize}[noitemsep]
+    \item usare \texttt{set -euo pipefail} e gestire le uscite con \texttt{trap} per ripulire i file temporanei;
+    \item citare sempre le variabili e verificare i comandi con \texttt{command -v};
+    \item analizzare il codice con ShellCheck.
+\end{itemize}
+\textbf{PowerShell:}
+\begin{itemize}[noitemsep]
+    \item impostare \texttt{\$ErrorActionPreference = 'Stop'} e usare \texttt{Set-StrictMode};
+    \item gestire la Execution Policy, spesso restrittiva, con istruzioni chiare o con un'esecuzione limitata al processo;
+    \item usare \texttt{Join-Path} per i percorsi e prestare attenzione alle differenze tra PowerShell 5.1 e 7;
+    \item analizzare il codice con PSScriptAnalyzer e testarlo con Pester.
+\end{itemize}
+\textbf{Comuni a entrambi:}
+\begin{itemize}[noitemsep]
+    \item \textbf{idempotenza:} rieseguire lo script non deve rovinare un'installazione esistente;
+    \item \textbf{parametri:} versione da installare, directory di destinazione, modalità non interattiva, simulazione (\texttt{--dry-run}), disinstallazione;
+    \item \textbf{modalità silenziosa e verbosa} con log su file per la diagnostica;
+    \item \textbf{codici di uscita} coerenti e messaggi d'errore azionabili;
+    \item \textbf{nessun segreto} nello script o nei log;
+    \item \textbf{versioni pinnate} degli artefatti per installazioni riproducibili.
+\end{itemize}
+
+\subsection{Distribuzione e sicurezza della supply chain}
+Il modello \texttt{curl ... | sh} (o \texttt{irm ... | iex} in PowerShell) è comodo ma comporta il rischio di eseguire codice non verificato. Le mitigazioni proposte sono:
+\begin{itemize}[noitemsep]
+    \item offrire anche la strada ``scarica, ispeziona, esegui'' e documentarla;
+    \item servire gli script solo via HTTPS da una fonte controllata (release del repository);
+    \item pubblicare checksum e, se possibile, firme degli artefatti, e verificarli prima di installare;
+    \item fissare le versioni delle dipendenze e minimizzarne il numero;
+    \item generare gli artefatti con una pipeline CI/CD riproducibile (ad esempio GitHub Actions), con build per tutte le piattaforme e pubblicazione automatica delle release;
+    \item valutare in prospettiva un elenco dei componenti (SBOM).
+\end{itemize}
+Per chi preferisce i gestori di pacchetti sono possibili un pacchetto npm per il plugin, Homebrew, Scoop o winget per il sidecar, oppure un'immagine di container per ambienti isolati; lo script resta il percorso comune di base. La pubblicazione su GitHub, titolo preferenziale nel capitolato, rende naturale l'uso di GitHub Releases come canale.
+
+\subsection{Testing degli script e rischi}
+\begin{itemize}[noitemsep]
+    \item esecuzione automatica in CI su una matrice di sistemi (Ubuntu, macOS, Windows) e, dove utile, in container puliti per verificare le installazioni da zero;
+    \item test di idempotenza (doppia esecuzione) e di aggiornamento da versione precedente;
+    \item test dei percorsi di errore: rete assente, checksum errato, prerequisito mancante, permessi insufficienti;
+    \item analisi statica (ShellCheck, PSScriptAnalyzer) come controllo obbligatorio nella pipeline;
+    \item framework di test: Bats per Bash e Pester per PowerShell.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|}
+    \hline
+    \textbf{Rischio} & \textbf{Mitigazione} \\ \hline
+    Divergenza di comportamento tra script Bash e PowerShell & Specifica comune, test equivalenti in CI, manutenzione congiunta \\ \hline
+    Modifiche distruttive a configurazioni esistenti & Backup, modalità \texttt{dry-run}, modifica minima e reversibile \\ \hline
+    Esecuzione di artefatti manomessi & Checksum e firma, HTTPS, release controllate \\ \hline
+    Problemi di permessi e antivirus su Windows & Installazione per utente, istruzioni dedicate, eventuale firma del binario \\ \hline
+    Dipendenze non presenti sul sistema & Verifica dei prerequisiti con messaggi guidati; binari autonomi \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ------------------------------------------------------------------------------
+
+\section{Valutazione e Confronto}
+
+\subsection{Vantaggi e svantaggi dell'architettura plugin + sidecar}
+\begin{itemize}
+    \item \textbf{Pro:} separazione netta tra ragionamento dell'LLM e logica deterministica, come richiesto dal capitolato; sidecar testabile e riusabile senza LLM; indipendenza dal linguaggio; aggiornamenti separati;
+    \item \textbf{Contro:} più artefatti da distribuire, gestione del ciclo di vita del processo, necessità di un contratto dati versionato, maggiore attenzione ai sistemi operativi diversi.
+\end{itemize}
+
+\subsection{Confronto tra le soluzioni di integrazione}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+    \hline
+    \textbf{Criterio} & \textbf{Solo plugin} & \textbf{Plugin + sidecar} & \textbf{Server MCP} \\ \hline
+    Indipendenza dal linguaggio & Bassa (ecosistema dell'agente) & Alta & Alta \\ \hline
+    Isolamento dei guasti & Bassa & Alta & Alta \\ \hline
+    Riuso con altri agenti & Bassa & Media (tramite CLI o HTTP) & Alta (protocollo standard) \\ \hline
+    Aderenza al capitolato & Ammessa & Alta (modello OpenSpec) & Non citata, ammessa come estensione \\ \hline
+    Complessità iniziale & Bassa & Media & Media-Alta \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+\subsection{Confronto tra le soluzioni di presentazione}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+    \hline
+    \textbf{Criterio} & \textbf{TUI / vista testuale} & \textbf{Report HTML statico} & \textbf{Server locale + SSE} \\ \hline
+    Stato nel capitolato & Obbligatorio & Opzionale & Opzionale \\ \hline
+    Tempo reale & Sì (nel terminale) & No & Sì \\ \hline
+    Condivisione e archiviazione & Bassa & Alta (file singolo) & Media \\ \hline
+    Superficie di attacco & Nessuna & Bassa & Media (da mitigare) \\ \hline
+    Complessità & Media & Bassa & Media-Alta \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ------------------------------------------------------------------------------
+
+\section{Conclusioni e Raccomandazioni}
+\label{sec:conclusioni}
+Lo studio indica un'architettura a pacchetto in cui skill e comandi orchestrano il flusso, un sidecar deterministico svolge la verifica e un plugin integra i risultati in OpenCode. Le scelte proposte sono riassunte nella tabella seguente.
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|l|X|X|}
+    \hline
+    \textbf{Area} & \textbf{Proposta} & \textbf{Motivazione} \\ \hline
+    Estensione dell'agente & Plugin sottile, tool personalizzati e comandi dedicati & Integrazione naturale con accoppiamento contenuto \\ \hline
+    Logica di dominio & Sidecar autonomo, CLI one-shot ed eventuale modalità server locale & Isolamento, riuso, testabilità, indipendenza dal linguaggio \\ \hline
+    Contratto dati & Schema JSON versionato (o SARIF per i risultati) & Interoperabilità e verificabilità \\ \hline
+    Presentazione da terminale & Vista testuale nei risultati dei tool e TUI separata (\texttt{speccheck tui}) & Requisito obbligatorio, feedback immediato \\ \hline
+    Presentazione grafica & Report HTML autocontenuto, poi server locale con SSE & Requisito opzionale, valore immediato con rischio minimo \\ \hline
+    Deployment & \texttt{install.sh} e \texttt{install.ps1} equivalenti, con verifica dei checksum e CI & Riproducibilità e bassa barriera d'ingresso \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+\subsection{Collegamento con i requisiti del capitolato}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|}
+    \hline
+    \textbf{Requisito del capitolato} & \textbf{Dove incide questo studio} \\ \hline
+    Obbligatori 1--3: lettura di diagrammi dei casi d'uso (Mermaid, XMI, eventualmente immagini), documentazione aggiuntiva e specifiche & Tool esposti dal plugin e implementati nel sidecar \\ \hline
+    Obbligatori 4--8: confronto, verifica di rispondenza e verifica del comportamento del codice & Parte deterministica nel sidecar, con contratto dati che riporta esiti e motivazioni (Sezione~\ref{sec:sidecar}) \\ \hline
+    Obbligatorio 9: dashboard dello stato di realizzazione & TUI o vista testuale (Sezione~\ref{sec:presentazione}) \\ \hline
+    Opzionale: dashboard grafica HTML & Report HTML e bridge (Sezione~\ref{sec:presentazione}) \\ \hline
+    Opzionale: copertura delle specifiche (codice non derivato da specifiche formali) & Il report deve prevedere anche le parti di codice senza specifica corrispondente \\ \hline
+    Opzionale: lettura diretta di file PDF & Estrazione di testo e immagini in un tool del sidecar \\ \hline
+    Pacchetto unico con installazione & Script Bash e PowerShell (Sezione~\ref{sec:deploy}) \\ \hline
+    Manuale d'uso e di estensione, test automatici, pubblicazione su GitHub & Piano di Qualifica e Norme di Progetto \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+\end{document}
