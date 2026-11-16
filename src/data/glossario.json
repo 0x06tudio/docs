@@ -120,6 +120,14 @@
     "definizione": "Approssima da vicino il prodotto atteso senza essere finale. È dotato di funzionalità sufficienti per valutare la visione iniziale, consentire l'uso esplorativo e prendere decisioni fondate. Offre \"the maximum amount of validated learning about customers' needs with the least amount of effort\"."
   },
   {
+    "termine": "NLI",
+    "definizione": "Natural Language Inference: sotto-task dell'NLP che determina la relazione logica tra due porzioni di testo (premessa e ipotesi), impiegato per il rilevamento di discrepanze e coerenza semantica."
+  },
+  {
+    "termine": "NLP",
+    "definizione": "Natural Language Processing: branca dell'intelligenza artificiale e della linguistica computazionale che studia l'interazione tra sistemi informatici e linguaggio umano, applicata tramite LLM per l'analisi dei requisiti."
+  },
+  {
     "termine": "POC (Proof of concept)",
     "definizione": "Realizzato a inizio progetto, è un artefatto usa-e-getta sul piano architetturale. Serve a valutare la fattibilità tecnologica del prodotto rispetto a specifici sottoinsiemi di funzionalità. Aiuta a consolidare l'analisi dei requisiti dal lato della soluzione."
   },
@@ -144,6 +152,10 @@
     "definizione": "Ha più dimensioni: riguarda i prodotti e i processi, e interessa sia il committente che la direzione aziendale."
   },
   {
+    "termine": "Requirements Engineering",
+    "definizione": "Disciplina strutturata dell'ingegneria del software che comprende l'elicitazione, l'analisi, la specifica, la validazione e la gestione dei requisiti."
+  },
+  {
     "termine": "Requisito",
     "definizione": "Descrizione documentata di una capacità. Può derivare da un Bisogno (capacità necessaria all'utente per risolvere un problema) o essere una Soluzione (condizione che il sistema deve soddisfare per adempiere a un obbligo)."
   },
@@ -162,6 +174,10 @@
   {
     "termine": "Specifica Tecnica",
     "definizione": "Definisce l'architettura logica del prodotto (componenti, ruoli, interazioni), l'architettura di deployment, i design pattern architetturali e gli idiomi utilizzati, oltre a ogni aspetto che caratterizzi il design."
+  },
+  {
+    "termine": "Specifiche dei requisiti",
+    "definizione": "Documento formale che definisce in modo dettagliato, univoco e verificabile le funzioni, i comportamenti e i vincoli del sistema software derivanti dai casi d'uso."
   },
   {
     "termine": "Stakeholder",
