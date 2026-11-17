@@ -1,0 +1,368 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem} % Per gestire meglio la spaziatura degli elenchi
+\usepackage{listings} % Per gli snippet di codice
+\usepackage{xcolor}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% ==============================================================================
+% VARIABILI DEL DOCUMENTO (Modificare solo questi valori per ogni nuovo file)
+% ==============================================================================
+\newcommand{\DocTitle}{Studio Tecnologico: Ingestion e Parsing di Diagrammi Architetturali}
+\newcommand{\DocShortTitle}{Studio Tecnologico -- Modulo 3: Ingestion e Parsing}
+\newcommand{\DocSubtitle}{Approfondimento Tecnologico Modulo 3 -- Progetto SpecCheck (Capitolato C9)}
+\newcommand{\DocVersion}{0.1.0}
+\newcommand{\DocStatus}{In verifica} % Bozza | In verifica | Approvato
+\newcommand{\DocDate}{2026/11/17}
+\newcommand{\DocUsage}{Interno} % Interno | Esterno
+\newcommand{\DocRecipients}{0x06tudio}
+% ==============================================================================
+
+% Comandi di utilità del gruppo
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{\##1}}}
+\newcommand{\term}[1]{\textit{#1}$_G$} % Per eventuali termini da inserire nel Glossario
+
+% Configurazione stile link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!70!black,
+    pdftitle={\DocTitle},
+    pdfauthor={0x06tudio}
+}
+
+% Configurazione stile blocchi di codice
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!5},
+    rulecolor=\color{gray!40},
+    captionpos=b
+}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- \DocShortTitle}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[L]{\small Versione \DocVersion}
+\fancyfoot[R]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE PRIMA PAGINA ---
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=5.5cm]{../media/logo.png} \\[0.5em]
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    {\LARGE \textbf{\DocTitle}} \\[0.4em]
+    {\large \textit{\DocSubtitle}}
+\end{center}
+
+\vspace{0.8cm}
+
+% --- TABELLA INFORMAZIONI DEL DOCUMENTO ---
+\section*{Informazioni sul documento}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & \DocVersion \\
+    \textbf{Stato:} & \DocStatus \\
+    \textbf{Data ultimo aggiornamento:} & \DocDate \\
+    \textbf{Uso:} & \DocUsage \\
+    \textbf{Destinatari:} & \DocRecipients \\
+\end{tabularx}
+
+\vspace{0.5cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/17 & Stesura del documento & Nicolò Beltrame & / \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==============================================================================
+\section{Introduzione}
+% ==============================================================================
+
+\subsection{Scopo del documento}
+Il presente documento costituisce lo studio tecnologico di dettaglio relativo al Modulo 3: Ingestion e Parsing di Diagrammi Architetturali per il progetto SpecCheck (Capitolato C9, proposto da Zucchetti S.p.A.).
+
+L'obiettivo dell'analisi è definire formati, metodologie e librerie per l'acquisizione (\textit{ingestion}) dei diagrammi UML dei casi d'uso e per la loro conversione in una rappresentazione strutturata, deterministica e riutilizzabile dalle \textit{skill} di OpenCode. Il modulo costituisce lo stadio iniziale dell'intera catena di verifica: la qualità dei dati estratti in questa fase condiziona direttamente l'affidabilità della tracciabilità semantica tra Casi d'Uso e Specifiche (Modulo 4) e, a cascata, della verifica del codice sorgente (Modulo 5).
+
+In particolare, lo studio approfondisce tre ambiti:
+\begin{itemize}[noitemsep]
+    \item i \textbf{formati text-based} per la descrizione di diagrammi UML (Mermaid, XMI) e le relative strategie di parsing;
+    \item l'impiego di \term{Vision Language Models} (VLM) per la comprensione di diagrammi esportati in formato raster o vettoriale (PNG, JPEG);
+    \item la progettazione di una \textbf{pipeline di estrazione strutturata} che produca oggetti JSON contenenti attori, azioni e relazioni.
+\end{itemize}
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}[noitemsep]
+    \item Capitolato d'appalto C9: \href{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9-SpecCheck.pdf}{\textit{SpecCheck -- Sviluppo di Skills per OpenCode per la verifica della tracciabilità end-to-end da casi d'uso a requisiti e codice sorgente} (Zucchetti S.p.A., A.A. 2026/2027)};
+    \item \textit{Norme di Progetto}, redatte dal gruppo 0x06tudio.
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}[noitemsep]
+    \item Documentazione e architettura agenti OpenCode: \url{https://opencode.ai/};
+    \item \textbf{Formati per diagrammi:}
+        \begin{itemize}[noitemsep]
+            \item \textit{Mermaid}: \url{https://mermaid.js.org/};
+            \item \textit{PlantUML}: \url{https://plantuml.com/};
+            \item \textit{OMG, XML Metadata Interchange (XMI) Specification} e \textit{OMG, Unified Modeling Language (UML) Specification}: \url{https://www.omg.org/spec/};
+        \end{itemize}
+    \item \textbf{Librerie di parsing e validazione:}
+        \begin{itemize}[noitemsep]
+            \item \textit{lxml}: \url{https://lxml.de/};
+            \item \textit{Lark} (parsing toolkit per Python): \url{https://github.com/lark-parser/lark};
+            \item \textit{Pydantic}: \url{https://docs.pydantic.dev/};
+        \end{itemize}
+    \item \textbf{Piattaforme e modelli linguistici:} \textit{Hugging Face} (raccolta di modelli LLM, SLM e multimodali): \url{https://huggingface.co/}.
+\end{itemize}
+
+% ==============================================================================
+\section{Contesto e Sfide nel Capitolato C9}
+% ==============================================================================
+I requisiti obbligatori 1--3 del capitolato C9 prevedono che SpecCheck sia in grado di leggere diagrammi dei casi d'uso (Mermaid, XMI ed eventualmente immagini), documentazione aggiuntiva e specifiche. Nella riunione del 2026/11/13 il referente aziendale ha chiarito che l'obiettivo principale del progetto è sostituire il prompt in linguaggio naturale con la lettura di un diagramma dei casi d'uso, evitando l'ambiguità del linguaggio naturale, e verificare poi che il prodotto finale soddisfi tali casi d'uso. L'ingestion è quindi il passaggio che trasforma il diagramma in un input affidabile per l'agente.
+
+L'acquisizione dei diagrammi presenta le seguenti criticità:
+
+\begin{enumerate}
+    \item \textbf{Eterogeneità dei formati.} I diagrammi possono essere forniti in formati testuali (Mermaid, XMI), vettoriali (SVG) o raster (PNG, JPEG). Ogni formato offre un diverso livello di strutturazione e quindi richiede una strategia di estrazione dedicata, ma l'output deve essere uniforme per tutte le fasi successive.
+    \item \textbf{Variabilità dei dialetti.} Anche all'interno dello stesso standard esistono differenze: i file XMI prodotti da strumenti di modellazione diversi adottano versioni, namespace ed estensioni proprietarie differenti, mentre Mermaid non dispone di un tipo di diagramma dedicato ai casi d'uso e viene quindi utilizzato tramite convenzioni, ad esempio con la sintassi dei \textit{flowchart}.
+    \item \textbf{Perdita di informazione nei formati raster.} Un'immagine non conserva la semantica del modello: attori, frecce e stereotipi (\texttt{<<include>>}, \texttt{<<extend>>}) devono essere ricostruiti per via visiva, con rischio di errori di riconoscimento.
+    \item \textbf{Vincolo sui modelli e determinismo.} Come indicato dal proponente Zucchetti, SpecCheck deve poter operare con modelli locali di dimensioni contenute (\textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B}) senza dipendere da API cloud proprietarie. Inoltre il capitolato prescrive che le attività di analisi strutturata non siano affidate al solo ragionamento non-deterministico dell'LLM, ma supportate da applicativi esterni deterministici richiamati tramite \textit{skill} e \textit{tool}.
+\end{enumerate}
+
+% ==============================================================================
+\section{Analisi delle Tecnologie Chiave}
+% ==============================================================================
+
+\subsection{Formati text-based per diagrammi UML}
+I formati testuali rappresentano la via preferenziale per l'ingestion: il contenuto è già strutturato, è versionabile con Git, può essere analizzato con strumenti deterministici e non richiede inferenza probabilistica.
+
+\subsubsection{Mermaid}
+\term{Mermaid} è un linguaggio di descrizione di diagrammi basato su testo, supportato nativamente dai principali renderer Markdown (GitHub, GitLab, editor). Poiché le specifiche del progetto sono redatte in Markdown, i diagrammi Mermaid compaiono come blocchi di codice delimitati (\texttt{```mermaid}) all'interno dello stesso documento, rendendo naturale l'ingestion congiunta di testo e diagrammi.
+
+\begin{itemize}
+    \item \textbf{Punti di forza:} sintassi compatta e leggibile; integrazione diretta con i documenti Markdown; assenza di strumenti di modellazione proprietari.
+    \item \textbf{Limiti:} la semantica UML è debole, perché Mermaid descrive principalmente la rappresentazione grafica e non un modello formale; per i casi d'uso si ricorre a convenzioni (nodi con forma di attore, sottografi come confine di sistema, etichette sugli archi per \textit{include} ed \textit{extend}) che il parser deve conoscere ed applicare in modo coerente.
+    \item \textbf{Strategie di parsing:} (i) parser basato su grammatica formale (ad esempio con la libreria \textit{Lark}), che garantisce errori di sintassi espliciti; (ii) espressioni regolari per sottoinsiemi ristretti e controllati della sintassi, più rapide da realizzare ma più fragili; (iii) utilizzo del parser ufficiale in JavaScript (richiede un runtime Node.js, da valutare rispetto al vincolo di distribuzione del Modulo 6).
+\end{itemize}
+
+\subsubsection{PlantUML}
+\term{PlantUML} dispone di una sintassi dedicata ai diagrammi dei casi d'uso (attori, casi d'uso, confine di sistema, relazioni \textit{include}/\textit{extend}/generalizzazione), più vicina alla semantica UML rispetto a Mermaid. Pur non essendo richiesto esplicitamente dal capitolato, il suo supporto è un'estensione a basso costo se il parser è progettato in modo modulare.
+
+\subsubsection{XMI (XML Metadata Interchange)}
+\term{XMI} è lo standard OMG per la serializzazione di modelli UML in XML e rappresenta il formato di scambio supportato dai principali strumenti di modellazione (ad esempio Papyrus, StarUML, Visual Paradigm).
+
+\begin{itemize}
+    \item \textbf{Punti di forza:} contiene il modello UML completo e non solo la sua rappresentazione grafica; ogni elemento è identificato da un identificativo univoco (\texttt{xmi:id}) e le relazioni tra elementi sono espresse tramite riferimenti espliciti.
+    \item \textbf{Limiti:} verbosità elevata; esistenza di più versioni dello standard e di varianti specifiche di ciascuno strumento; le informazioni grafiche (posizione, dimensione) possono essere separate dal modello o assenti.
+    \item \textbf{Strategie di parsing:} lettura con parser XML (\textit{lxml} o \texttt{xml.etree}), gestione esplicita dei namespace, selezione degli elementi di interesse tramite XPath (attori, casi d'uso, associazioni, relazioni \textit{include}/\textit{extend}/generalizzazione) e risoluzione dei riferimenti incrociati tramite l'identificativo. Il parser deve essere tollerante rispetto a elementi sconosciuti, che vanno ignorati e segnalati senza interrompere l'estrazione.
+\end{itemize}
+
+\subsection{Vision Language Models (VLM)}
+Quando il diagramma è disponibile solo come immagine (PNG, JPEG), l'unica via di ingestion è la comprensione visiva. I \term{Vision Language Models} sono modelli multimodali in grado di ricevere in ingresso un'immagine e un prompt testuale e di produrre una descrizione o un output strutturato.
+
+\begin{itemize}
+    \item \textbf{Immagini vettoriali (SVG).} Un file SVG è in realtà un documento XML: il testo delle etichette è direttamente leggibile e la geometria degli elementi consente di ricostruire connessioni e posizioni senza inferenza visiva. Prima di ricorrere a un VLM, è quindi opportuno verificare se il formato vettoriale consenta un parsing deterministico.
+    \item \textbf{Immagini raster.} Il VLM deve riconoscere attori, casi d'uso, confini di sistema, direzione delle frecce e stereotipi. Si tratta del caso più incerto e il rischio principale è quello delle \textit{allucinazioni}: relazioni inventate, frecce invertite, etichette lette in modo errato o elementi omessi.
+    \item \textbf{Strategie di mitigazione:} (i) vincolare l'output a uno schema JSON; (ii) fornire immagini ad alta risoluzione o suddivise in porzioni (\textit{tiling}) per le etichette di piccole dimensioni; (iii) associare a ogni elemento estratto un grado di confidenza e un'indicazione del metodo di estrazione; (iv) eseguire più passaggi indipendenti e confrontarne i risultati (\textit{self-consistency}); (v) segnalare all'utente gli elementi a bassa confidenza affinché li confermi.
+    \item \textbf{Disponibilità sui modelli del progetto.} I modelli locali messi a disposizione (Gemma 4 26B, Qwen 3.8 27B) sono in grado di ricevere immagini in ingresso, quindi l'ingestion dei diagrammi raster può essere svolta direttamente in locale. Resta da verificare sperimentalmente durante il PoC la qualità effettiva del riconoscimento sui diagrammi UML; in caso di risultati insufficienti, l'ingestion di immagini può essere delegata ai modelli frontier (soggetti a tetto di spesa) oppure considerata una funzionalità opzionale a basso grado di affidabilità.
+\end{itemize}
+
+\subsection{Pipeline di estrazione strutturata}
+Indipendentemente dal formato di partenza, l'obiettivo è produrre un'unica \term{rappresentazione intermedia} (IR) in formato JSON, indipendente dalla sorgente, che le \textit{skill} dei Moduli 4 e 5 possano consumare senza conoscere i dettagli dell'ingestion. Le entità chiave da estrarre sono:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Attori:} soggetti, umani o sistemi esterni, che interagiscono con il sistema;
+    \item \textbf{Casi d'uso (azioni):} funzionalità offerte dal sistema;
+    \item \textbf{Relazioni:} associazione attore--caso d'uso, \textit{include}, \textit{extend}, generalizzazione;
+    \item \textbf{Confine di sistema} (\textit{system boundary}), quando presente;
+    \item \textbf{Metadati di provenienza:} file sorgente, posizione nel file, formato originale, metodo di estrazione, confidenza.
+\end{itemize}
+
+I passi della pipeline sono i seguenti:
+
+\begin{enumerate}
+    \item \textbf{Rilevamento del formato:} basato su estensione e contenuto (blocco \texttt{mermaid} in Markdown, radice XML con namespace XMI, firma di un file immagine).
+    \item \textbf{Selezione del parser:} dispatch verso il parser deterministico (Mermaid, PlantUML, XMI, SVG) oppure verso il percorso VLM per i formati raster.
+    \item \textbf{Normalizzazione:} conversione dell'output nella rappresentazione intermedia, con identificativi stabili e nomi normalizzati (spaziatura, maiuscole, sinonimi del confine di sistema).
+    \item \textbf{Validazione:} controllo dell'output rispetto a uno schema formale (JSON Schema o modelli Pydantic) e verifica di coerenza (ogni relazione deve riferirsi a elementi esistenti, nessun identificativo duplicato).
+    \item \textbf{Persistenza e consegna:} salvataggio dell'artefatto JSON e restituzione all'agente tramite il tool del Sidecar.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python, caption={Schema concettuale della rappresentazione intermedia dei diagrammi.}]
+from pydantic import BaseModel
+from typing import Literal, List, Optional
+
+class Provenance(BaseModel):
+    source_file: str
+    source_format: Literal["mermaid", "plantuml", "xmi", "svg", "raster"]
+    extraction_method: Literal["parser", "vlm"]
+    confidence: float          # 1.0 per i parser deterministici
+
+class Actor(BaseModel):
+    id: str
+    name: str
+    provenance: Provenance
+
+class UseCase(BaseModel):
+    id: str
+    name: str
+    description: Optional[str] = None
+    provenance: Provenance
+
+class Relation(BaseModel):
+    source_id: str
+    target_id: str
+    kind: Literal["association", "include", "extend", "generalization"]
+    provenance: Provenance
+
+class DiagramIR(BaseModel):
+    system_name: Optional[str] = None
+    actors: List[Actor]
+    use_cases: List[UseCase]
+    relations: List[Relation]
+\end{lstlisting}
+
+\subsection{Collegamento con gli altri moduli}
+Il modulo di ingestion non produce un risultato finale, ma un artefatto intermedio. Nell'architettura di integrazione del Modulo 6 la funzionalità è esposta da un tool deterministico del Sidecar (\texttt{speccheck\_parse\_artifacts}), invocato dalla skill di OpenCode, che restituisce l'IR in formato JSON. Tale artefatto costituisce l'ingresso della pipeline di tracciabilità del Modulo 4 (confronto Casi d'Uso -- Specifiche) ed evita di caricare i diagrammi grezzi nel contesto dell'LLM, in linea con le raccomandazioni di gestione del contesto (Modulo 1).
+
+% ==============================================================================
+\section{Architettura Proposta e Proof of Concept (PoC)}
+% ==============================================================================
+In conformità con la separazione tra ragionamento probabilistico dell'LLM ed esecuzione deterministica richiesta dal capitolato, l'ingestion è implementata come componente del Sidecar, con i soli passi non deterministici (VLM) isolati e chiaramente marcati nell'output.
+
+Il referente aziendale ha inoltre precisato la differenza tra \textit{skill} e \textit{tool}: la skill è un file \texttt{.md} in linguaggio naturale che entra nel contesto dell'LLM, che la interpreta liberamente (risultato non deterministico), e di cui viene normalmente iniettata solo una breve descrizione; il tool è invece uno strumento descritto in modo strutturato, con parametri definiti, la cui esecuzione è deterministica, anche se è l'LLM a decidere quando e con quali parametri invocarlo. Per questo motivo il parsing dei diagrammi è collocato in un tool del Sidecar e non nelle istruzioni di una skill, mentre la skill si limita a descrivere quando e come invocarlo.
+
+\subsection{Flusso operativo del PoC}
+\begin{enumerate}
+    \item L'agente OpenCode riceve il comando di analisi e individua i file dei diagrammi indicati dall'utente (Markdown con blocchi Mermaid, file XMI, immagini);
+    \item la skill invoca il tool \texttt{speccheck\_parse\_artifacts} del Sidecar;
+    \item il Sidecar rileva il formato di ciascun file e seleziona il parser corrispondente;
+    \item per i formati testuali il parsing è interamente deterministico e produce la rappresentazione intermedia con confidenza massima;
+    \item per le immagini raster il Sidecar invia l'immagine al VLM con un prompt strutturato e con output vincolato allo schema JSON; gli elementi estratti sono marcati con il metodo \texttt{vlm} e con la relativa confidenza;
+    \item l'output viene validato, persistito e restituito all'agente sotto forma di JSON compatto, pronto per le fasi di tracciabilità.
+\end{enumerate}
+
+\subsection{Esempio di diagramma in ingresso}
+\begin{lstlisting}[caption={Esempio di caso d'uso espresso in Mermaid tramite convenzioni su flowchart.}]
+flowchart LR
+    Utente([Utente])
+    Admin([Amministratore])
+    subgraph Sistema
+        UC1(UC-01 Effettua login)
+        UC2(UC-02 Gestisci utenti)
+    end
+    Utente --> UC1
+    Admin --> UC2
+    UC2 -.->|include| UC1
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Estratto della rappresentazione intermedia ottenuta dal diagramma precedente (JSON).}]
+{
+  "system_name": "Sistema",
+  "actors": [
+    {"id": "Utente", "name": "Utente"},
+    {"id": "Admin", "name": "Amministratore"}
+  ],
+  "use_cases": [
+    {"id": "UC1", "name": "UC-01 Effettua login"},
+    {"id": "UC2", "name": "UC-02 Gestisci utenti"}
+  ],
+  "relations": [
+    {"source_id": "Utente", "target_id": "UC1", "kind": "association"},
+    {"source_id": "Admin",  "target_id": "UC2", "kind": "association"},
+    {"source_id": "UC2",    "target_id": "UC1", "kind": "include"}
+  ]
+}
+\end{lstlisting}
+
+% ==============================================================================
+\section{Valutazione Comparativa e Analisi dei Rischi}
+% ==============================================================================
+
+\subsection{Confronto tra Strategie di Ingestion}
+
+\vspace{0.3cm}
+\noindent
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+    \hline
+    \textbf{Criterio} & \textbf{Parser Deterministico (Mermaid / XMI)} & \textbf{Solo VLM (su immagini)} & \textbf{Pipeline Ibrida (Parser + VLM come fallback)} \\ \hline
+    Accuratezza & Alta (estrazione esatta se il formato è valido) & Media-Bassa (soggetta ad allucinazioni) & Alta sui formati testuali, media sulle immagini \\ \hline
+    Determinismo e riproducibilità & Totale & Bassa & Alta (la parte non deterministica è isolata e marcata) \\ \hline
+    Copertura dei formati & Limitata ai formati supportati & Ampia (qualsiasi immagine) & Ampia \\ \hline
+    Costo e risorse & Trascurabile & Alto (inferenza multimodale) & Basso (VLM invocato solo quando necessario) \\ \hline
+    Spiegabilità & Alta (ogni elemento è riconducibile al sorgente) & Bassa & Alta (provenienza e confidenza per ogni elemento) \\ \hline
+    Complessità implementativa & Media (un parser per formato) & Bassa & Media-Alta \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+\subsection{Matrice dei Rischi e Mitigazioni}
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|c|c|X|}
+    \hline
+    \textbf{N.} & \textbf{Rischio} & \textbf{Impatto} & \textbf{Probabilità} & \textbf{Strategia di Mitigazione} \\ \hline
+    1 & Allucinazioni del VLM su diagrammi raster (relazioni inventate o frecce invertite) & Alto & Media & Output vincolato a schema JSON, campo di confidenza per ogni elemento, conferma esplicita dell'utente sugli elementi a bassa confidenza; preferire sempre il formato testuale quando disponibile. \\ \hline
+    2 & Varianti e dialetti di XMI prodotti da strumenti diversi & Medio & Alta & Parser tollerante con gestione dei namespace, ignorando e segnalando gli elementi sconosciuti; test su file reali esportati da più strumenti. \\ \hline
+    3 & Uso non uniforme delle convenzioni Mermaid per i casi d'uso & Medio & Media & Definire e documentare nelle Norme di Progetto una convenzione unica per attori, confine di sistema e relazioni; segnalare le costruzioni non riconosciute. \\ \hline
+    4 & Qualità insufficiente del riconoscimento visivo dei modelli locali sui diagrammi UML & Medio & Media & Verifica sperimentale della qualità nel PoC; in alternativa, delegare ai modelli frontier o considerare il percorso raster come funzionalità opzionale. \\ \hline
+    5 & Diagrammi di grandi dimensioni che saturano il contesto & Medio & Bassa & Restituire all'agente solo la rappresentazione intermedia compatta e non il sorgente del diagramma. \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ==============================================================================
+\section{Conclusioni e Raccomandazioni per il Progetto}
+% ==============================================================================
+Lo studio condotto evidenzia che l'acquisizione dei diagrammi deve privilegiare, ovunque possibile, il parsing deterministico dei formati testuali, riservando l'inferenza visiva ai soli casi in cui il diagramma sia disponibile esclusivamente come immagine.
+
+Si raccomanda al gruppo 0x06tudio di adottare le seguenti linee guida per il Proof of Concept (PoC) e per il Minimum Viable Product (MVP):
+
+\begin{enumerate}
+    \item \textbf{Priorità ai formati testuali:} implementare per primi i parser per Mermaid (blocchi in Markdown) e XMI, che coprono i requisiti obbligatori del capitolato in modo deterministico e riproducibile;
+    \item \textbf{Rappresentazione intermedia unica:} adottare uno schema JSON condiviso (attori, casi d'uso, relazioni, provenienza) validato formalmente, da concordare con i Moduli 4 e 6 per garantire l'interoperabilità;
+    \item \textbf{VLM come fallback marcato:} trattare l'ingestion di immagini come percorso a minore affidabilità, con confidenza esplicita per ogni elemento e conferma dell'utente sugli elementi incerti;
+    \item \textbf{Architettura estendibile:} strutturare il Sidecar con un parser per formato dietro un'interfaccia comune, così da poter aggiungere in seguito PlantUML, SVG o altri formati senza modificare le fasi successive;
+    \item \textbf{Convenzioni di progetto:} definire nelle Norme di Progetto le convenzioni per rappresentare i casi d'uso in Mermaid, riducendo l'ambiguità a monte.
+\end{enumerate}
+
+\end{document}
