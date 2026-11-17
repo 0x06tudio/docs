@@ -164,6 +164,10 @@
     "definizione": "Protocollo standard con cui un processo esterno espone strumenti e risorse a un agente basato su LLM."
   },
   {
+    "termine": "Mermaid",
+    "definizione": "Linguaggio testuale per descrivere diagrammi (flowchart, diagrammi di sequenza, di classi e altri) che vengono disegnati automaticamente da un renderer, supportato dai principali visualizzatori Markdown come GitHub e GitLab."
+  },
+  {
     "termine": "Milestones",
     "definizione": "Punto del calendario che sia significativo per la pianificazione."
   },
@@ -194,6 +198,10 @@
   {
     "termine": "OpenCode",
     "definizione": "Agente di harness da riga di comando, estendibile con skill, tool, comandi e plugin, che SpecCheck estende."
+  },
+  {
+    "termine": "PlantUML",
+    "definizione": "Strumento che genera diagrammi UML a partire da una descrizione testuale, dotato di una sintassi dedicata anche ai diagrammi dei casi d'uso."
   },
   {
     "termine": "Plugin",
@@ -230,6 +238,10 @@
   {
     "termine": "RAG (Retrieval-Augmented Generation)",
     "definizione": "Tecnica che recupera i passaggi pertinenti da una base documentale e li fornisce all'LLM per generare la risposta."
+  },
+  {
+    "termine": "Rappresentazione intermedia",
+    "definizione": "Formato dati comune e indipendente dalla sorgente (nel progetto, un JSON con attori, casi d'uso e relazioni) in cui vengono convertiti i diagrammi, così che le fasi successive non dipendano dal formato di partenza."
   },
   {
     "termine": "Requirements Engineering",
@@ -333,8 +345,16 @@
     "definizione": "Approccio allo sviluppo in cui lo sviluppatore descrive l'intento funzionale in linguaggio naturale affidando all'LLM la generazione diretta del codice sorgente."
   },
   {
+    "termine": "Vision Language Model (VLM)",
+    "definizione": "Modello di intelligenza artificiale multimodale in grado di ricevere in ingresso un'immagine insieme a un testo e di produrre una descrizione o un output strutturato."
+  },
+  {
     "termine": "Way of Working",
     "definizione": "La maniera di organizzare al meglio le attività di progetto."
+  },
+  {
+    "termine": "XMI (XML Metadata Interchange)",
+    "definizione": "Standard dell'OMG per serializzare in formato XML modelli UML, usato per scambiare modelli tra strumenti di modellazione diversi."
   },
   {
     "termine": "XSS (Cross-Site Scripting)",
