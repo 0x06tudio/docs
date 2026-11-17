@@ -1,0 +1,163 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+\newcommand{\linksott}[2]{\href{#1}{\uline{#2}}}
+\newcommand{\verbale}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/verbali/esterni/ve_2026_11_13.pdf}
+\newcommand{\ddb}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/diari_di_bordo/DiarioDiBordo4_ZeroSixStudio.pdf}
+
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Stato:} & Non Approvato \\
+    \textbf{Data:} & 2026/11/13 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Catalin Chirilov, Davide Colabove, Andrea Maggio, Alberto Cavalletto \\
+    \textbf{Destinatari:} & 0x06tudio \\
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Ora inizio:} & 16:00 \\
+    \textbf{Ora fine:} & 16:45 \\
+    \textbf{Durata totale:} & 45 minuti \\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Suddivisione topic di approfondimento tecnologie in macro-argomenti\vspace{-0.2cm}
+    \item Assegnazione macro-argomenti ad ogni membro\vspace{-0.2cm}
+    \item Creazione template per documenti di approfondimento tecnologie\vspace{-0.2cm}
+    \item Revisione prima bozza piano di sviluppo per PoC\vspace{-0.2cm}
+    \item Prima stesura Diario Di Bordo 4
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Verificatore} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/11/16 & Stesura iniziale del documento & / & Davide Colabove \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Suddivisione topic di approfondimento tecnologie in macro-argomenti} \label{PuntoUno}
+Dopo aver collettivamente individuato i topic da approfondire, che riportiamo di seguito:
+\begin{itemize}
+    \item Architettura degli agenti di Harness (es. OpenCode, Claude Code) e gestione del contesto persistente tramite file strutturali (come AGENTS.md)\vspace{-0.2cm}
+    \item Funzionamento, sintassi e definizione di "Skills", Tool e comandi personalizzati per estendere le capacità degli LLM.\vspace{-0.2cm}
+    \item Criticità del "Vibe Coding" puro e passaggio a framework Spec-Driven e metodologie orientate alle specifiche formali (es. OpenSpec, Spec-kit, BMAD).\vspace{-0.2cm}
+    \item Metriche di valutazione agentica tramite benchmark moderni (SWE-Bench, Terminal-bench) rispetto ai tradizionali test statici di ragionamento (es. MMLU, GSM8K).\vspace{-0.2cm}
+    \item Serializzazione e parsing di diagrammi UML utilizzando formati testuali standardizzati come Mermaid e XMI.\vspace{-0.2cm}
+    \item Impiego di Vision Language Models (VLM) per la lettura e l'estrazione diretta di informazioni da diagrammi esportati come immagini (PNG, JPEG).\vspace{-0.2cm}
+    \item Applicazione di tecniche NLP per la scomposizione atomica e la normalizzazione dei requisiti con prompting vincolato (JSON Schema/Pydantic).\vspace{-0.2cm}
+    \item Sviluppo di pipeline RAG (Retrieval-Augmented Generation) ibride orientate al matching semantico tra casi d'uso e requisiti.\vspace{-0.2cm}
+    \item Implementazione e interrogazione di database vettoriali locali e serverless (es. LanceDB, SQLite-vec, Chroma) adatti ad agenti standalone.\vspace{-0.2cm}
+    \item Utilizzo di logiche derivate dalla Natural Language Inference (NLI) per l'identificazione formale di contraddizioni, mancanze (Orphan Use Case) o specifiche ridondanti.\vspace{-0.2cm}
+    \item Analisi statica deterministica del codice sorgente tramite Abstract Syntax Tree (AST) utilizzando parser multi-linguaggio come Tree-sitter.\vspace{-0.2cm}
+    \item Inferenza semantica neurale per dedurre il comportamento del codice a partire dallo scheletro AST, mitigando i problemi di context window (Lost-in-the-Middle) e allucinazioni sui modelli SLM locali.\vspace{-0.2cm}
+    \item Progettazione architetturale del pattern "Sidecar Executable" per l'isolamento del motore deterministico di verifica rispetto all'agente OpenCode.\vspace{-0.2cm}
+    \item Protocolli di comunicazione locale (es. API JSON, esecuzione one-shot CLI, server locale su 127.0.0.1) tra plugin JavaScript/TypeScript e processi nativi.\vspace{-0.2cm}
+    \item Sviluppo di interfacce interattive da riga di comando (TUI - Terminal User Interface) in ambienti terminale sfruttando librerie dedicate (es. Textual, Bubble Tea, FTXUI).\vspace{-0.2cm}
+    \item Creazione di bridge locali tramite Server-Sent Events (SSE) per alimentare dashboard grafiche web (HTML) generate staticamente o aggiornate in tempo reale.\vspace{-0.2cm}
+    \item Automazione e sicurezza del deployment multipiattaforma (Linux, Windows, macOS) tramite script di installazione unitari in Bash e PowerShell.
+\end{itemize}
+Abbiamo deciso di raggrupparli in sei macro-argomenti che legano i vari topic per affinità concettuale.
+
+\subsection{Punto 2: Assegnazione macro-argomenti ad ogni membro}
+I sei macro-argomenti individuati, con i relativi assegnatari estratti tramite algoritmo casuale:
+\begin{itemize}
+    \item Sistemi di Harness e Gestione del Contesto AI - Davide Colabove \vspace{-0.2cm}
+    \item Benchmark per Agenti Software e Metodologie - Catalin Chirilov\vspace{-0.2cm}
+    \item Ingestion e Parsing di Diagrammi Architetturali - Nicolò Beltrame\vspace{-0.2cm}
+    \item Tracciabilità Semantica (Casi d'Uso vs Specifiche) - Andrea Maggio \vspace{-0.2cm}
+    \item Comprensione Comportamentale del Codice (AI Code Analysis) - Alberto Cavalletto \vspace{-0.2cm}
+    \item Architettura di Integrazione, Tooling e Dashboarding - Pietro Brocadello
+\end{itemize}
+La suddivisione dei topic in macro-argomenti è stata decisa per agevolare la comprensione da parte di ogni membro di tutte le tecnologie tramite esposizione vicendevole ed evitare colli di bottiglia in fase di sviluppo.
+\subsection{Punto 3: Creazione template per documenti di approfondimento tecnologie}
+Al fine di uniformare la presentazione dei documenti di approfondimento tecnologie è stato deciso all'uninanimità di predisporre un template di struttura da adottare per la stesura degli stessi.
+\subsection{Punto 4: Revisione prima bozza piano di sviluppo per PoC}
+A causa dell'esaurimento della quantità di tempo disponibile al referente per la riunione, come riportato nel \linksott{\verbale}{verbale esterno (ve\_2026\_11\_13)}, abbiamo espanso, approfondito e revisionato il piano di azione per la realizzazione del PoC per poterlo inviare tramite e-mail al referente esterno.
+\subsection{Punto 5: Prima stesura Diario Di Bordo 4}
+In conclusione della call abbiamo delineato i punti principali da esporre nel successivo \linksott{\ddb}{Diario di Bordo}, delegando l'effettiva stesura a Catalin Chirilov.
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} & \textbf{Motivazione} \\ \hline
+    D 7.1 & Suddivisione dei topic in macro-argomenti & Raggruppamento per affinità logica \\ \hline
+    D 7.2 & Assegnazione macro-argomenti ai membri & Suddivisione equa e lock-free del lavoro \\ \hline
+    D 7.3 & Template per documenti di approfondimento tecnologie & Alleggerire overhead di stesura in .tex e uniformazione della documentazione \\ \hline
+    D 7.4 & Invio piano d'azione per sviluppo PoC tramite e-mail & Tempo limitato in call \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|X|c|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} & \textbf{Scadenza} & \textbf{Issue} \\ \hline
+    TD 7.1 & Preparare e revisionare Diario di bordo 4 & Catalin Chirlov, Nicolò Beltrame & 2026/11/16 & \issue{58} \\ \hline
+    TD 7.2 & Creazione template per documenti di studio tecnologie & Davide Colabove & Conclusa in riunione & \issue{57} \\ \hline
+    TD 7.3 & Redigere e verificare Verbale Esterno 2026/11/13 & Andrea Maggio, Nicolò Beltrame & 2026/11/17 & \issue{55} \\ \hline
+    TD 7.4 & Stesura documento - Ingestion e Parsing di Diagrammi Architetturali & Nicolò Beltrame & 2026/11/20 & \issue{54} \\ \hline
+    TD 7.5 & Stesura documento - Benchmark per Agenti Software e Metodologie & Catalin Chirilov & 2026/11/20 & \issue{53} \\ \hline
+    TD 7.6 & Stesura documento - Architettura di Integrazione, Tooling e Dashboarding & Pietro Brocadello & 2026/11/20 & \issue{52} \\ \hline
+    TD 7.7 & Stesura documento - Tracciabilità Semantica (Casi d'Uso vs Specifiche) & Andrea Maggio & 2026/11/20 & \issue{51} \\ \hline
+    TD 7.8 & Stesura documento - Comprensione comportamentale del codice e AI Code Analysis & Alberto Cavalletto & 2026/11/20 & \issue{50} \\ \hline
+    TD 7.8 & Stesura documento - Sistemi di Harness e gestione del contesto AI & Davide Colabove & 2026/11/20 & \issue{49} \\ \hline
+\end{tabularx}
+
+\end{document}
