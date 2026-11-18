@@ -12,6 +12,10 @@
     "definizione": "Modo di sviluppare in cui un agente basato su LLM pianifica, scrive e modifica il codice con un certo grado di autonomia."
   },
   {
+    "termine": "AGENTS.md",
+    "definizione": "File strutturale e persistente utilizzato dai sistemi di harness (es. OpenCode) per istruire l'agente sulle convenzioni architetturali, sulle librerie e sui vincoli di dominio del progetto."
+  },
+  {
     "termine": "Amministratore",
     "definizione": "Ruolo di progetto responsabile di repository, pipeline CI/CD, ambienti di lavoro e strumenti di supporto."
   },
@@ -64,6 +68,10 @@
     "definizione": "Gli stati che il prodotto SW assume tra concepimento e ritiro in conseguenza delle attività svolte su di esso."
   },
   {
+    "termine": "CLI (Command Line Interface)",
+    "definizione": "Interfaccia a riga di comando. Nel contesto del progetto, spesso riferita all'interfaccia utilizzata dall'agente o a eseguibili ausiliari esterni (Sidecar CLI) che eseguono task deterministici."
+  },
+  {
     "termine": "Command injection",
     "definizione": "Attacco che fa eseguire comandi arbitrari al sistema tramite input non validato."
   },
@@ -71,7 +79,6 @@
     "termine": "Committente",
     "definizione": "Chi ordina qualcosa, vaglia le proposte e le espone ai fornitori."
   },
-
   {
     "termine": "Controllo di configurazione",
     "definizione": "Ci dice come si fa a comporre il prodotto a partire dalle sue parti."
@@ -86,7 +93,8 @@
   },
   {
     "termine": "Deployment",
-    "definizione": "Insieme delle operazioni che portano il prodotto dal repository all'ambiente dell'utente: installazione, configurazione e distribuzione."  },
+    "definizione": "Insieme delle operazioni che portano il prodotto dal repository all'ambiente dell'utente: installazione, configurazione e distribuzione."
+  },
   {
     "termine": "Economicità",
     "definizione": "L'insieme di efficienza ed efficacia."
@@ -110,6 +118,10 @@
   {
     "termine": "Fase",
     "definizione": "Designa un segmento temporale contiguo con caratteristiche coerenti."
+  },
+  {
+    "termine": "Gestione del Contesto AI",
+    "definizione": "Metodologia impiegata dai sistemi di harness per mantenere la coerenza architetturale a lungo termine in progetti software assistiti da LLM, tipicamente tramite file strutturali persistenti e system prompt dinamici."
   },
   {
     "termine": "Glossario",
@@ -311,7 +323,6 @@
     "termine": "Supply chain",
     "definizione": "Insieme dei passaggi e dei componenti che portano un artefatto dal repository all'utente."
   },
-
   {
     "termine": "Tool",
     "definizione": "Funzione con parametri tipizzati che il modello può invocare per svolgere un'azione."
