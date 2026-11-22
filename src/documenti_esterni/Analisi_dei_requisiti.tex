@@ -1,0 +1,241 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[italian]{babel}
+    \usepackage{lmodern}
+\else
+    \usepackage{fontspec}
+    \usepackage[italian, bidi=basic, provide=*]{babel}
+    \babelprovide[import, onchar=ids fonts]{english}
+    \babelfont{rm}{Noto Sans}
+\fi
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+
+% Colonne centrate per tabelle
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% Palette coerente con l'identità visiva di 0x06tudio
+\definecolor{primaryColor}{HTML}{1B365D}
+\definecolor{accentColor}{HTML}{2B6CB0}
+\definecolor{mutedText}{HTML}{4A5568}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryColor,
+    urlcolor=accentColor,
+    pdftitle={Analisi dei Requisiti - SpecCheck},
+    pdfauthor={0x06tudio}
+}
+
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textcolor{mutedText}{0x06tudio -- Analisi dei Requisiti (SpecCheck)}}
+\rhead{\small\textcolor{mutedText}{A.A. 2026/2027}}
+\cfoot{\small Pagina \thepage}
+
+% Macro redazionali di gruppo
+\newcommand{\glossario}[1]{\textit{#1}\textsubscript{G}}
+\newcommand{\uc}[1]{\textbf{#1}}
+\newcommand{\req}[1]{\texttt{#1}}
+
+% Ambiente standard per le schede dei Casi d'Uso
+\newenvironment{schedauc}[2]{%
+    \subsubsection{#1: #2}%
+    \begin{itemize}[leftmargin=1.5em, itemsep=0.3em]%
+}{%
+    \end{itemize}%
+    \vspace{0.6em}%
+}
+
+\begin{document}
+
+% ==============================================================================
+% FRONTESPIZIO
+% ==============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.2cm}
+    {\includegraphics[width=0.28\textwidth]{../media/logo.png}\\[0.8cm]}
+    {\Large \textbf{0x06tudio} --- ZEROSIX STUDIO \par}
+    {\small \href{mailto:0x06tudio@gmail.com}{\texttt{0x06tudio@gmail.com}} \par}
+    \vspace{0.5cm}
+    {\large Università degli Studi di Padova -- Laurea in Informatica \par}
+    {\normalsize Corso di Ingegneria del Software -- Anno Accademico 2026/2027 \par}
+    \vspace{1.8cm}
+    {\Huge \textbf{\textcolor{primaryColor}{Analisi dei Requisiti}} \par}
+    \vspace{0.4cm}
+    {\Large Capitolato C9: \textit{SpecCheck} \par}
+    \vspace{1.8cm}
+
+    \renewcommand{\arraystretch}{1.35}
+    \begin{tabularx}{0.92\textwidth}{|c|C|}
+        \hline
+        \textbf{Versione} & 0.1.0 \\ \hline
+        \textbf{Stato} & Bozza \\ \hline
+        \textbf{Uso} & Esterno \\ \hline
+        \textbf{Committente} & Zucchetti S.p.A. \\ \hline
+        \textbf{Destinatari} & Zucchetti S.p.A., Prof. Tullio Vardanega, Prof. Riccardo Cardin \\ \hline
+        \textbf{Redattori} &  Catalin Chirilov \\ \hline
+        \textbf{Verificatori} & \textit{/} \\ \hline
+    \end{tabularx}
+    \vfill
+\end{titlepage}
+
+% ==============================================================================
+% REGISTRO DELLE MODIFICHE
+% ==============================================================================
+\section*{Registro delle modifiche}
+\begin{longtable}{|P{1.3cm}|P{2.2cm}|P{3.0cm}|P{2.6cm}|P{4.5cm}|}
+    \hline
+    \textbf{Vers.} & \textbf{Data} & \textbf{Autore} & \textbf{Verificatore} & \textbf{Descrizione} \\ \hline
+    \endhead
+    0.1.0 & 2026/11/24 & Team 0x06tudio & -- & Prima stesura dell'Analisi dei Requisiti: impianto generale, introduzione e attori \\ \hline
+\end{longtable}
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\listoftables
+\newpage
+
+% ==============================================================================
+% CAPITOLO 1: INTRODUZIONE
+% ==============================================================================
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Il presente documento di \glossario{AdR} (\textit{Analisi dei Requisiti}) definisce in modo strutturato, non ambiguo e verificabile i requisiti funzionali, di qualità e di vincolo del prodotto software \textbf{SpecCheck}, relativo al \glossario{Capitolato} d'appalto C9 proposto da \textbf{Zucchetti S.p.A.} nell'ambito del corso di \glossario{Ingegneria del software}.
+
+Il documento individua gli \glossario{Stakeholder}, descrive gli attori e i \glossario{Casi d'uso} del sistema e stabilisce la matrice di \glossario{Tracciabilità} tra i casi d'uso e i requisiti da essi derivati. Esso costituisce il riferimento contrattuale per la revisione RTB (\textit{Requirements and Technology Baseline}) e la base per la successiva progettazione architetturale nella \glossario{Specifica Tecnica} e la validazione verso l'\glossario{MVP} e la PB (\textit{Product Baseline}).
+
+Ogni \glossario{Requisito} è classificato secondo tre livelli di priorità:
+\begin{itemize}
+    \item \textbf{Obbligatorio (\texttt{OB})}: indispensabile per soddisfare gli obiettivi essenziali del capitolato e gli accordi formalizzati con il \glossario{Committente};
+    \item \textbf{Desiderabile (\texttt{DE})}: non strettamente necessario per il funzionamento minimo, ma rilevante per completezza funzionale e usabilità;
+    \item \textbf{Opzionale (\texttt{OP})}: estensione aggiuntiva realizzabile compatibilmente con i tempi e le risorse di progetto.
+\end{itemize}
+
+\subsection{Prospettiva del prodotto}
+\textbf{SpecCheck} si inserisce nel contesto dell'\glossario{Agentic Coding} assistito da \glossario{LLM} (\textit{Large Language Model}), con l'obiettivo di superare i limiti di informalità, ambiguità e scarsa riproducibilità tipici del \glossario{Vibe Coding}, in cui lo sviluppo è guidato esclusivamente da istruzioni libere in linguaggio naturale.
+
+Il sistema opera come estensione integrata in un ambiente di \glossario{Harness} per agenti da riga di comando (\glossario{Agente CLI}), con riferimento principale a \textbf{\glossario{OpenCode}} e compatibilità con strumenti analoghi quali \textit{Claude Code}. \textbf{SpecCheck} sostituisce il prompt destrutturato con l'acquisizione di specifiche dei casi d'uso, orchestra in modo deterministico il flusso di pianificazione e generazione del codice attraverso una \glossario{Toolchain} dedicata (composta da \glossario{Plugin}, \glossario{Sidecar}, \glossario{Skill}, \glossario{Tool} e comandi strutturati) e verifica infine la conformità del prodotto realizzato rispetto ai casi d'uso dichiarati.
+
+\subsection{Funzioni del prodotto}
+In accordo con il Capitolato C9 e con quanto emerso negli incontri con il referente aziendale di Zucchetti S.p.A., \textbf{SpecCheck} dovrà fornire le seguenti macro-funzionalità:
+\begin{itemize}
+    \item \textbf{Acquisizione e normalizzazione delle specifiche}: lettura di descrizioni dei casi d'uso in formato testuale (con preferenza per Markdown, oltre a sintassi strutturate come \glossario{Mermaid}, \glossario{PlantUML} e \glossario{XMI}) e supporto sperimentale all'analisi di diagrammi in formato immagine (\texttt{.png}, eventualmente tramite \glossario{Vision Language Model}), convertendo gli ingressi in una \glossario{Rappresentazione intermedia} comune;
+    \item \textbf{Mappatura e tracciamento deterministico}: associazione strutturata e persistente tra gli identificativi dei casi d'uso e i relativi requisiti per monitorare lo stato di avanzamento del progetto;
+    \item \textbf{Orchestrazione del flusso Spec-Driven}: coordinamento deterministico delle invocazioni all'LLM tramite comandi dedicati (ispirati al flusso \textit{OpenSpec}, ad esempio \texttt{/\allowbreak opsx-propose}) che impongono la produzione di artefatti di pianificazione prima della scrittura o modifica del codice;
+    \item \textbf{Verifica di conformità}: valutazione della rispondenza tra il software prodotto e i casi d'uso specificati, condotta tramite verifica informale data la natura testuale delle descrizioni dei casi d'uso;
+    \item \textbf{Visualizzazione su dashboard}: esposizione dello stato di avanzamento, del tracciamento e degli esiti delle verifiche tramite una \glossario{Dashboard} (in formato \glossario{TUI} o web) alimentata tramite un componente \glossario{Bridge}.
+\end{itemize}
+
+\subsection{Caratteristiche dell'utente}
+Il sistema è progettato per essere utilizzato principalmente dal seguente profilo operativo:
+\begin{itemize}
+    \item \textbf{Sviluppatore / \glossario{Analista}}: utente tecnico che opera mediante un \glossario{Agente CLI} su repository software, possiede familiarità con la modellazione tramite casi d'uso e utilizza \textbf{SpecCheck} per guidare e verificare lo sviluppo assistito da LLM.
+\end{itemize}
+Eventuali profili secondari (quali l'\glossario{Amministratore} dell'ambiente o del repository) verranno dettagliati a valle dell'analisi completa del Capitolato C9.
+
+\subsection{Definizioni, acronimi e abbreviazioni}
+Per evitare ambiguità terminologiche tra i membri del gruppo e gli \glossario{Stakeholder} esterni, tutti i termini tecnici, gli acronimi e le definizioni di dominio sono raccolti nel documento \textbf{\glossario{Glossario}}. Nel presente documento ogni prima occorrenza rilevante di un termine censito nel Glossario è contrassegnata dal pedice \textsubscript{G} (es. \glossario{Harness}).
+
+Nel dominio applicativo di \textbf{SpecCheck} assumono inoltre rilievo le seguenti distinzioni operative concordate con il referente di Zucchetti S.p.A.:
+\begin{itemize}
+    \item \textbf{\glossario{Skill}}: documento scritto in linguaggio naturale (tipicamente in formato Markdown) che fornisce all'LLM procedure, regole e \glossario{Best practice}; viene interpretato in modo non deterministico e caricato nel contesto solo quando il modello lo ritiene necessario;
+    \item \textbf{\glossario{Tool}}: funzione deterministica esposta all'LLM tramite uno schema strutturato (es. \glossario{JSON Schema}), sempre presente nel contesto del prompt affinché l'agente conosca le azioni invocabili e i relativi parametri;
+    \item \textbf{Comando}: \glossario{Skill} attivata esplicitamente dall'utente tramite sintassi dedicata (es. \texttt{/opsx-nome}) per vincolare l'agente a seguire uno specifico flusso operativo di pianificazione o esecuzione.
+\end{itemize}
+
+\subsection{Riferimenti}
+
+\subsubsection{Riferimenti normativi}
+\begin{itemize}
+    \item \textbf{Norme di Progetto} (Gruppo 0x06tudio, versione corrente);
+    \item \textbf{Capitolato d'appalto C9 -- SpecCheck}, Zucchetti S.p.A.;
+    \item \textbf{\glossario{Verbali} esterni con Zucchetti S.p.A.}:
+    \begin{itemize}
+        \item Verbale esterno del 2026/10/20 (\texttt{ve\_2026\_10\_20.pdf}), colloquio con Gregorio Piccoli;
+        \item Verbale esterno del 2026/11/13 (\texttt{ve\_2026\_11\_13.pdf}), colloquio con Gregorio Piccoli.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}
+    \item \textbf{\glossario{Glossario}} (Gruppo 0x06tudio, versione corrente);
+    \item \textbf{Dispense del corso di Ingegneria del Software -- Analisi dei Requisiti (T05)}, Prof. Tullio Vardanega, Università degli Studi di Padova;
+    \item \textbf{Standard ISO/IEC/IEEE 29148:2018} (\textit{Systems and software engineering -- Life cycle processes -- Requirements engineering});
+    \item \textbf{Documentazione tecnica OpenCode e OpenSpec} (riferimenti forniti dal committente durante gli incontri esterni).
+\end{itemize}
+
+\newpage
+
+% ==============================================================================
+% CAPITOLO 2: CASI D'USO (STRUTTURA E SCHEDE)
+% ==============================================================================
+\section{Casi d'Uso}
+
+\subsection{Scopo e convenzioni}
+Questo capitolo descrive le interazioni tra gli attori e il sistema \textbf{SpecCheck} attraverso i \glossario{Casi d'uso}. Ogni caso d'uso è identificato dal codice \texttt{UC-XX} (con eventuali sottocasi \texttt{UC-XX.Y} per inclusioni, estensioni o specializzazioni) ed è strutturato secondo il formato standard adottato dal gruppo:
+\begin{itemize}
+    \item \textbf{Attori principali e secondari};
+    \item \textbf{Precondizioni e Postcondizioni};
+    \item \textbf{Scenario principale} (flusso nominale dei passi);
+    \item \textbf{Scenari alternativi / Estensioni} (gestione errori, formati non validi, varianti operative);
+    \item \textbf{Inclusioni} (eventuali casi d'uso richiamati).
+\end{itemize}
+
+\subsection{Attori}
+Dall'analisi dei colloqui con il committente emergono due attori principali:
+\begin{itemize}
+    \item \textbf{Sviluppatore (Attore Principale)}: utente umano che interagisce con \textbf{SpecCheck} attraverso l'\glossario{Agente CLI} (es. \glossario{OpenCode}) e la \glossario{Dashboard}; fornisce le specifiche dei casi d'uso, avvia i comandi di pianificazione e generazione, consulta il tracciamento e richiede la verifica di conformità;
+    \item \textbf{LLM / Agente AI (Attore Secondario)}: modello linguistico (locale o remoto) orchestrato dal sistema, che riceve contesto, \glossario{Tool} e \glossario{Skill} per generare documentazione di pianificazione, codice sorgente e valutazioni informali di conformità.
+\end{itemize}
+
+\subsection{Macro-aree dei Casi d'Uso}
+Per mantenere una granularità orientata agli obiettivi dell'utente ed evitare frammentazioni eccessive, i casi d'uso sono organizzati nelle seguenti cinque macro-aree (da dettagliare con le schede operative a partire dal Capitolato C9):
+\begin{enumerate}
+    \item \textbf{Area 1 -- Acquisizione e validazione delle specifiche}: inizializzazione del progetto, caricamento di specifiche in formato testuale (Markdown e sintassi di diagrammi supportate) e caricamento sperimentale di diagrammi in formato PNG;
+    \item \textbf{Area 2 -- Mappatura e tracciamento deterministico}: estrazione degli identificativi dei casi d'uso, associazione con i requisiti e persistenza dello stato;
+    \item \textbf{Area 3 -- Orchestrazione del flusso Spec-Driven}: invocazione dei comandi strutturati, generazione della documentazione di pianificazione pre-codice ed esecuzione controllata tramite tool e skill;
+    \item \textbf{Area 4 -- Verifica di conformità}: avvio del controllo informale tra codice prodotto e casi d'uso, consultazione dei rilievi e gestione delle non conformità;
+    \item \textbf{Area 5 -- Dashboard e configurazione}: visualizzazione dello stato di avanzamento e della copertura sulla dashboard, selezione dei modelli LLM (locali o remoti).
+\end{enumerate}
+
+% Template di esempio per la prima scheda UC (da compilare con i dettagli del Capitolato C9)
+\begin{schedauc}{UC-01}{Caricamento specifica dei Casi d'Uso in formato Markdown}
+    \item \textbf{Attore principale}: Sviluppatore.
+    \item \textbf{Precondizioni}: L'ambiente di \glossario{Harness} con l'estensione \textbf{SpecCheck} è attivo nella directory del progetto target.
+    \item \textbf{Postcondizioni}: Il sistema ha acquisito il file Markdown, estratto gli elementi strutturali e aggiornato la \glossario{Rappresentazione intermedia} del progetto.
+    \item \textbf{Scenario principale}:
+    \begin{enumerate}
+        \item Lo Sviluppatore indica al sistema il percorso del file Markdown contenente i casi d'uso.
+        \item Il sistema verifica l'esistenza e la leggibilità del file.
+        \item Il sistema analizza il contenuto del documento e ne valida la struttura sintattica.
+        \item Il sistema salva i casi d'uso estratti nella rappresentazione intermedia e notifica l'esito positivo allo Sviluppatore.
+    \end{enumerate}
+    \item \textbf{Scenari alternativi}:
+    \begin{itemize}
+        \item \textbf{4a. File non trovato o formato non valido}: il sistema interrompe l'acquisizione e restituisce un messaggio diagnostico che segnala l'errore di lettura o sintassi.
+    \end{itemize}
+\end{schedauc}
+
+\end{document}
