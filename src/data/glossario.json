@@ -72,6 +72,10 @@
     "definizione": "Interfaccia a riga di comando. Nel contesto del progetto, spesso riferita all'interfaccia utilizzata dall'agente o a eseguibili ausiliari esterni (Sidecar CLI) che eseguono task deterministici."
   },
   {
+    "termine": "Comando",
+    "definizione": "Skill attivata esplicitamente dall'utente tramite sintassi dedicata (es. /opsx-nome) per vincolare l'agente a seguire uno specifico flusso operativo di pianificazione o esecuzione."
+  },
+  {
     "termine": "Command injection",
     "definizione": "Attacco che fa eseguire comandi arbitrari al sistema tramite input non validato."
   },
@@ -104,12 +108,12 @@
     "definizione": "Misura della capacità di raggiungere l'obiettivo prefissato. In ottica di processo, è un insieme di attività che raggiungono gli obiettivi attesi."
   },
   {
-    "termine": "Efficienza",
-    "definizione": "Misura dell'abilità di raggiungere l'obiettivo impiegando le risorse minime indispensabili."
-  },
-  {
     "termine": "Efficiente",
     "definizione": "Insieme di attività fatte senza spreco di risorse."
+  },
+  {
+    "termine": "Efficienza",
+    "definizione": "Misura dell'abilità di raggiungere l'obiettivo impiegando le risorse minime indispensabili."
   },
   {
     "termine": "Engineering",
@@ -128,12 +132,12 @@
     "definizione": "Spiega ogni termine specializzato del dominio di progetto."
   },
   {
-    "termine": "Harness",
-    "definizione": "Infrastruttura operativa e di orchestrazione attorno a un LLM (come OpenCode) che gestisce contesto, memoria persistente, skill, tool e componenti deterministici di supporto."
-  },
-  {
     "termine": "Handshake",
     "definizione": "Scambio iniziale con cui due componenti verificano la compatibilità delle versioni del protocollo."
+  },
+  {
+    "termine": "Harness",
+    "definizione": "Infrastruttura operativa e di orchestrazione attorno a un LLM (come OpenCode) che gestisce contesto, memoria persistente, skill, tool e componenti deterministici di supporto."
   },
   {
     "termine": "Hook",
@@ -210,6 +214,10 @@
   {
     "termine": "OpenCode",
     "definizione": "Agente di harness da riga di comando, estendibile con skill, tool, comandi e plugin, che SpecCheck estende."
+  },
+  {
+    "termine": "OpenSpec",
+    "definizione": "Framework e flusso di lavoro per lo Spec-Driven Development che struttura l'interazione con gli agenti di codifica tramite fasi e comandi dedicati (es. /opsx-propose) prima della generazione del codice."
   },
   {
     "termine": "PlantUML",
@@ -300,16 +308,20 @@
     "definizione": "Disciplina per la realizzazione di prodotti SW così impegnativi da richiedere il dispiego di attività collaborative. Richiede la capacità di produrre \"in grande\" ed \"in piccolo\", garantendo qualità ed efficienza lungo l'intero ciclo di vita."
   },
   {
+    "termine": "Spec-Driven Development",
+    "definizione": "Paradigma di sviluppo assistito da LLM in cui la generazione e la verifica del codice sono guidate da specifiche formali o strutturate (come diagrammi e descrizioni dei casi d'uso) anziché da prompt liberi in linguaggio naturale."
+  },
+  {
     "termine": "Specifica Tecnica",
     "definizione": "Definisce l'architettura logica del prodotto (componenti, ruoli, interazioni), l'architettura di deployment, i design pattern architetturali e gli idiomi utilizzati, oltre a ogni aspetto che caratterizzi il design."
   },
   {
-    "termine": "SSE (Server-Sent Events)",
-    "definizione": "Canale unidirezionale dal server al browser su HTTP, usato per aggiornamenti in tempo reale."
-  },
-  {
     "termine": "Specifiche dei requisiti",
     "definizione": "Documento formale che definisce in modo dettagliato, univoco e verificabile le funzioni, i comportamenti e i vincoli del sistema software derivanti dai casi d'uso."
+  },
+  {
+    "termine": "SSE (Server-Sent Events)",
+    "definizione": "Canale unidirezionale dal server al browser su HTTP, usato per aggiornamenti in tempo reale."
   },
   {
     "termine": "Stakeholder",
@@ -328,6 +340,14 @@
     "definizione": "Funzione con parametri tipizzati che il modello può invocare per svolgere un'azione."
   },
   {
+    "termine": "Tool",
+    "definizione": "Strumento invocabile da un agente software per interagire con l'ambiente esterno (es. leggere file, eseguire comandi di sistema o interrogare plugin)."
+  },
+  {
+    "termine": "Tool",
+    "definizione": "Nel contesto dell'agentic coding, funzione software deterministica, esposta a un LLM tramite uno schema strutturato, che permette all'agente di interagire con l'ambiente esterno ed eseguire azioni concrete (es. leggere file, eseguire comandi o interrogare API)."
+  },
+  {
     "termine": "Toolchain",
     "definizione": "Insieme coordinato di strumenti (skill, tool, comandi, plugin, sidecar) che compongono il prodotto."
   },
@@ -338,14 +358,6 @@
   {
     "termine": "TUI (Terminal User Interface)",
     "definizione": "Interfaccia testuale interattiva che usa il terminale come superficie di disegno."
-  },
-  {
-    "termine": "Tool",
-    "definizione": "Strumento invocabile da un agente software per interagire con l'ambiente esterno (es. leggere file, eseguire comandi di sistema o interrogare plugin)."
-  },
-  {
-    "termine": "Tool",
-    "definizione": "Nel contesto dell'agentic coding, funzione software deterministica, esposta a un LLM tramite uno schema strutturato, che permette all'agente di interagire con l'ambiente esterno ed eseguire azioni concrete (es. leggere file, eseguire comandi o interrogare API)."
   },
   {
     "termine": "Verbali",
