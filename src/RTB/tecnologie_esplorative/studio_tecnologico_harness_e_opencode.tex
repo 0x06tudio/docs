@@ -1,0 +1,294 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definizione di una palette colori moderna e leggibile
+\definecolor{codebackground}{rgb}{0.96, 0.96, 0.97}
+\definecolor{codecomment}{rgb}{0.30, 0.50, 0.30}
+\definecolor{codekeyword}{rgb}{0.00, 0.34, 0.70}
+\definecolor{codestring}{rgb}{0.75, 0.10, 0.10}
+\definecolor{codenumber}{rgb}{0.50, 0.50, 0.50}
+
+\lstdefinestyle{gostyle}{
+    language=Go,
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=8pt,                   
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,                    
+    rulecolor=\color{gray!30},       
+}
+
+\lstdefinestyle{yamlstyle}{
+    language=bash, % Usato come fallback per YAML
+    backgroundcolor=\color{codebackground},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                 
+    captionpos=b,                    
+    numbers=left,                    
+    numbersep=8pt,                   
+    frame=single,                    
+    rulecolor=\color{gray!30},       
+}
+
+% Imposta lo stile come predefinito
+\lstset{style=gostyle}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% ==============================================================================
+% VARIABILI DEL DOCUMENTO
+% ==============================================================================
+\newcommand{\DocTitle}{Sistemi di Harness e Gestione del Contesto AI}
+\newcommand{\DocSubtitle}{Studio Tecnologico -- Capitolato C9: SpecCheck (Zucchetti S.p.A.)}
+\newcommand{\DocVersion}{0.1.0}
+\newcommand{\DocStatus}{Approvato}
+\newcommand{\DocDate}{2026/11/18}
+\newcommand{\DocUsage}{Interno}
+\newcommand{\DocRecipients}{0x06tudio}
+% ==============================================================================
+
+% Comandi di utilità del gruppo
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{\##1}}}
+\newcommand{\term}[1]{\textit{#1}$_G$}
+
+% Configurazione stile link
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue!70!black,
+    pdftitle={\DocTitle},
+    pdfauthor={0x06tudio}
+}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- \DocTitle}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[L]{\small Versione \DocVersion}
+\fancyfoot[R]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+% --- INTESTAZIONE PRIMA PAGINA ---
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=5.5cm]{../media/logo.png} \\[0.5em]
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{1cm}
+
+\begin{center}
+    {\LARGE \textbf{\DocTitle}} \\[0.4em]
+    {\large \textit{\DocSubtitle}}
+\end{center}
+
+\vspace{0.8cm}
+
+% --- TABELLA INFORMAZIONI DEL DOCUMENTO ---
+\section*{Informazioni sul documento}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & \DocVersion \\
+    \textbf{Stato:} & \DocStatus \\
+    \textbf{Data ultimo aggiornamento:} & \DocDate \\
+    \textbf{Uso:} & \DocUsage \\
+    \textbf{Destinatari:} & \DocRecipients \\
+\end{tabularx}
+
+\vspace{0.5cm}
+
+% --- REGISTRO DELLE MODIFICHE ---
+\section*{Registro delle modifiche}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Autore} & \textbf{Verificatore} \\ \hline
+    0.1.0 & 2026/11/18 & Prima stesura del documento & Davide Colabove & Nicolò Beltrame \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ==============================================================================
+\section{Introduzione}
+% ==============================================================================
+
+\subsection{Scopo del documento}
+Il presente studio tecnologico analizza l'architettura dei sistemi di \term{Harness} e le metodologie di \term{Gestione del Contesto AI}, con un focus specifico sull'estensione dell'agente a riga di comando \textbf{OpenCode}. L'obiettivo è definire l'infrastruttura tecnologica locale, i pattern di integrazione e l'architettura delle \textit{Skill} necessarie per implementare il modulo di tracciabilità end-to-end richiesto dal progetto \textit{SpecCheck}. 
+
+Il documento stabilisce le basi per superare i limiti dell'approccio generativo non strutturato, fornendo all'agente gli strumenti per governare progetti software complessi attraverso vincoli architetturali persistenti e tool di validazione deterministica.
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}[noitemsep]
+    \item Capitolato d'appalto C9: \href{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C9-SpecCheck.pdf}{\textit{SpecCheck -- Sviluppo di Skills per OpenCode per la verifica della tracciabilità end-to-end da casi d'uso a requisiti e codice sorgente} (Zucchetti S.p.A., A.A. 2026/2027)};
+    \item \textit{Norme di Progetto} del gruppo \textit{0x06tudio}.
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}[noitemsep]
+    \item \textbf{Agente OpenCode:} \url{https://opencode.ai/};
+    \item \textbf{Ecosistema Harness:} \textit{Claude Code} (\url{https://claude.com/it/product/claude-code}), \textit{Deepseek harness};
+    \item \textbf{Benchmark:} \textit{SWE-Bench} (\url{https://github.com/swe-bench/SWE-bench}) e \textit{Terminal-bench} (\url{https://www.tbench.ai/});
+    \item \textbf{Agent Skills \& Framework:} \textit{Agent-skills} (Addy Osmani), \textit{SuperPowers}, \textit{OpenSpec}.
+\end{itemize}
+
+\newpage
+% ==============================================================================
+\section{Contesto e Sfide dell'Infrastruttura AI}
+% ==============================================================================
+
+Il capitolato C9 evidenzia una transizione fondamentale nell'ingegneria del software assistita dall'Intelligenza Artificiale. Questa transizione pone tre criticità architetturali primarie per il team di sviluppo:
+
+\begin{enumerate}
+    \item \textbf{Fallimento del "Vibe Coding":} L'approccio puramente generativo (trasmettere idee e sensazioni a un LLM via chatbot) si è dimostrato inadeguato. Produce infatti codice affetto da errori, disconnesso dai requisiti formali, a causa dell'incapacità di mantenere la struttura del flusso di informazioni nel tempo.
+    \item \textbf{Ritenzione del Contesto Architetturale:} A differenza della singola interazione generativa, le scelte architetturali di un progetto reale devono essere documentate e vincolate a lungo termine. I sistemi di Harness moderni incidono per circa il 30\% sulle performance di benchmark complessi (es. SWE-bench) proprio grazie alla loro capacità di mantenere questa impalcatura di regole intatta.
+    \item \textbf{Esecuzione Locale e Vincoli di Modello:} L'azienda committente richiede la compatibilità del sistema di tracciabilità anche con modelli ridotti (SLM) come \textbf{Gemma 4 26B} e \textbf{Qwen 3.8 27B}, utilizzabili senza limitazioni di costo. Ciò impone la progettazione di un'infrastruttura capace di interfacciarsi con motori di inferenza locali, riducendo il carico cognitivo dell'LLM tramite deleghe di precisione a eseguibili esterni.
+\end{enumerate}
+
+% ==============================================================================
+\section{Analisi delle Tecnologie Chiave}
+% ==============================================================================
+
+\subsection{Architettura dei Sistemi di Harness}
+Un sistema di Harness funge da livello di orchestrazione tra il \term{Large Language Model (LLM)}, il file system del progetto e gli strumenti del sistema operativo. OpenCode opera nativamente tramite un'interfaccia a riga di comando (CLI/TUI) che pianifica ed esegue attività in autonomia. Per ottimizzare le prestazioni con i modelli locali richiesti dal capitolato (es. Qwen 3.8), l'infrastruttura del nostro progetto dovrà sfruttare motori di inferenza open-source (come \texttt{llama-server} o \texttt{oMLX}) configurati per la quantizzazione avanzata della KV cache. Questo approccio architetturale garantisce un'allocazione della memoria rigorosa e un throughput elevato.
+
+\subsection{Gestione del Contesto a Lungo Termine}
+La memoria di un progetto software non può risiedere esclusivamente nella *context window* dell'LLM. L'approccio consolidato di OpenCode prevede l'uso di file strutturali persistenti:
+\begin{itemize}
+    \item \textbf{\texttt{\term{AGENTS.md}}:} Un file guida che istruisce il sistema sulle convenzioni architetturali, sulle librerie in uso e sui vincoli del dominio, mantenendo integre le scelte durante tutto il ciclo di sviluppo.
+    \item \textbf{System Prompt Dinamici:} Il sistema di harness è in grado di iniettare porzioni specifiche di contesto (ad esempio, l'esito di una validazione di tracciabilità) direttamente nel prompt di sistema dell'agente prima di una nuova operazione di sviluppo.
+\end{itemize}
+
+\subsection{Architettura delle Skills e Sidecar Executables}
+L'estensibilità è il cuore pulsante di OpenCode. Il sistema viene potenziato tramite la tecnica delle \term{Skills}: file di risorse che definiscono in linguaggio naturale e formale i passaggi necessari per completare un task non supportato nativamente (come la validazione dei requisiti del nostro capitolato). 
+
+    Poiché attività come il parsing preciso di diagrammi o il rilevamento di discrepanze logiche tra specifiche e codice non possono essere affidate al determinismo fluttuante di un LLM, le skill devono necessariamente interfacciarsi con dei \textbf{\term{Sidecar Executables}}. Si tratta di binari \term{CLI} esterni, sviluppati ad hoc (ideali linguaggi compilati a zero dipendenze e alte performance come Go o Rust), che vengono richiamati dall'agente per eseguire algoritmi di *Semantic Matching* rigidi.
+
+% ==============================================================================
+\section{Architettura Proposta e Proof of Concept (PoC)}
+% ==============================================================================
+
+Per implementare la pipeline di tracciabilità richiesta dal capitolato, si propone un'architettura disaccoppiata basata su \textbf{YAML/JSON per le definizioni delle Skill} e \textbf{Python/Go per gli eseguibili Sidecar}. Questo stack garantisce esecuzioni a terminale estremamente rapide, un requisito essenziale per mantenere la reattività della \term{TUI} di OpenCode.
+
+\begin{lstlisting}[style=yamlstyle, caption={Definizione concettuale di una Skill OpenCode per la validazione della tracciabilità (\texttt{speccheck-validation-skill.yaml}).}]
+name: "speccheck-validation-skill"
+description: "Avvia il Sidecar CLI per verificare la tracciabilita tra i requisiti formali e il codice sorgente."
+trigger: "post_code_generation"
+required_context:
+  - "docs/requisiti.md"
+  - "src/**/*.go"
+execution:
+  type: "local_command"
+  command: "./speccheck-cli"
+  args: ["verify", "--target", "src", "--specs", "docs/requisiti.md", "--output", "json"]
+on_result:
+  success: "Update AGENTS.md status and output OK to TUI"
+  failure: "Render TUI warning via OpenCode API and log Discrepancies"
+\end{lstlisting}
+
+\begin{lstlisting}[style=gostyle, caption={Struttura base del Sidecar Executable (CLI) scritto in Go e invocato dalla Skill OpenCode.}]
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+)
+
+// Result definisce la struttura dati strutturata restituita all'Harness OpenCode
+type Result struct {
+	Compliant     bool     `json:"compliant"`
+	Discrepancies []string `json:"discrepancies"`
+}
+
+func main() {
+	// 1. Parsing degli argomenti (flag CLI) iniettati automaticamente da OpenCode
+	// 2. Lettura deterministica dell'AST del codice sorgente analizzato
+	// 3. (Opzionale) Chiamata API locale al modello Qwen/Gemma per inferenza semantica incrociata
+	
+	// Mockup del risultato della validazione
+	result := Result{
+		Compliant: false,
+		Discrepancies: []string{"Fallimento tracciabilita: UC-03 risulta assente nell'implementazione di auth.go"},
+	}
+	
+	// Stampa in stdout formattata (JSON) per essere parsata e consumata dall'Agente OpenCode
+	jsonOut, _ := json.Marshal(result)
+	fmt.Println(string(jsonOut))
+	
+	// Segnala formalmente il fallimento dell'azione alla Skill
+	os.Exit(1) 
+}
+\end{lstlisting}
+
+% ==============================================================================
+\section{Valutazione Comparativa delle Metodologie}
+% ==============================================================================
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|X|X|X|X|}
+    \hline
+    \textbf{Criterio} & \textbf{Vibe Coding (Chatbot Puro)} & \textbf{Scripting Tradizionale (CI/CD)} & \textbf{Harness + Skills (Approccio SpecCheck)} \\ \hline
+    \textbf{Ritenzione del Contesto} & Volatile (fortemente limitata alla context window corrente). & Nulla (limitata alla pura esecuzione di unit test e linter). & \textbf{Permanente} e garantita da file strutturali come \texttt{AGENTS.md}. \\ \hline
+    \textbf{Determinismo} & Basso (elevato rischio di allucinazioni architetturali e invenzioni). & Assoluto (ma incapace di eseguire analisi semantica sui requisiti in linguaggio naturale). & \textbf{Ibrido} (Sfrutta l'astrazione semantica dell'LLM combinata alla logica di un Sidecar). \\ \hline
+    \textbf{Estensibilità} & Vincolata unicamente ai plugin forniti dal vendor o dalla piattaforma. & Alta (ma richiede manutenzione manuale costante delle pipeline). & \textbf{Totale} (integrazione fluida e dinamica di Tool esterni e Skill native). \\ \hline
+    \textbf{Costi di Inferenza} & Alti (necessità di continui re-prompting per aggiustare il tiro). & Nulli. & \textbf{Ottimizzati} (grazie a chiamate LLM mirate e all'uso di SLM locali gratuiti). \\ \hline
+\end{tabularx}
+\vspace{0.3cm}
+
+% ==============================================================================
+\section{Conclusioni e Raccomandazioni per il Progetto}
+% ==============================================================================
+
+Lo strumento OpenCode, operando come orchestratore di contesto, rappresenta l'impalcatura ideale per risolvere il problema della tracciabilità end-to-end posto dal capitolato. Per garantire l'efficacia, la modularità e la facilità di installazione del prodotto finale richiesto da Zucchetti, si delineano le seguenti raccomandazioni per le fasi di sviluppo:
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Fase PoC (Proof of Concept):} Concentrare gli sforzi iniziali sull'ingegnerizzazione dei file di configurazione delle \textit{Skills} (in YAML) e sulla solidificazione della comunicazione bidirezionale (I/O in formato JSON) tra OpenCode e i primi script Sidecar, delegati alla lettura e al parsing dei diagrammi UML testuali.
+    \item \textbf{Fase MVP (Minimum Viable Product):} Consolidare i Sidecar CLI (utilizzando preferibilmente linguaggi compilati per massimizzare le prestazioni) e sviluppare lo script unificato di automazione (\texttt{bash}/\texttt{powershell}). Questo script si occuperà dell'installazione automatizzata e trasparente dell'intero pacchetto \term{toolchain} \textit{SpecCheck} nell'ambiente OpenCode dell'utente finale.
+    \item \textbf{Integrazione Dashboard (Requisito Opzionale):} Poiché la CLI/TUI nativa di OpenCode presenta limitazioni fisiologiche per l'esplorazione complessa delle discrepanze rilevate, il Sidecar dovrà essere progettato per generare file di stato strutturati. Questi file saranno successivamente intepretati da un'interfaccia HTML/Web esterna, soddisfacendo così in modo elegante il requisito opzionale di dashboarding richiesto dal committente.
+\end{enumerate}
+
+\end{document}

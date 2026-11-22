@@ -69,7 +69,7 @@ MEMBRI = [
 TIMELINE_RUOLI = [
     {
         "sprint": "S01",
-        "periodo": "Inizio Progetto - Ottobre 2026",
+        "periodo": "09/11 - 22/11",
         "ruoli": {
             "Responsabile": "Davide Colabove",
             "Amministratore": "Catalin Chirilov",
@@ -77,6 +77,18 @@ TIMELINE_RUOLI = [
             "Progettista": "Pietro Brocadello",
             "Programmatore": "Alberto Cavalletto",
             "Verificatore": "Nicolò Beltrame",
+        },
+    },
+    {
+        "sprint": "S02",
+        "periodo": "23/11 - 06/12",
+        "ruoli": {
+            "Responsabile": "Nicolò Beltrame",
+            "Amministratore": "Davide Colabove",
+            "Analista": "Catalin Chirilov",
+            "Progettista": "Andrea Maggio",
+            "Programmatore": "Pietro Brocadello",
+            "Verificatore": "Alberto Cavalletto",
         },
     },
 ]
@@ -260,6 +272,16 @@ def voci_diari():
     return voci
 
 
+def voci_tecnologie_esplorative():
+    voci = []
+    for f in sorted(
+        raccogli("RTB/tecnologie_esplorative"),
+        key=lambda elemento: titolo_da_nome(elemento.stem).casefold(),
+    ):
+        voci.append(voce(link_risorsa(f), titolo_da_nome(f.stem)))
+    return voci
+
+
 
 def testata(attiva: str, logo_tag: str) -> str:
     def voce_menu(href: str, titolo: str) -> str:
@@ -370,6 +392,12 @@ def pagina_documenti(logo_tag: str, favicon_tag: str = "") -> int:
             "Diari di bordo",
             "Le presentazioni settimanali ai docenti.",
             [(None, voci_diari())],
+        ),
+        sezione(
+            "tecnologie_esplorative",
+            "Studio di tecnologie",
+            "Documenti di studio sulle tecnologie esplorative.",
+            [(None, voci_tecnologie_esplorative())],
         ),
     ]
     sezioni = [s for s in sezioni if s]
