@@ -1,0 +1,334 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[italian]{babel}
+    \usepackage{lmodern}
+\else
+    \usepackage{fontspec}
+    \usepackage[italian, bidi=basic, provide=*]{babel}
+    \babelprovide[import, onchar=ids fonts]{english}
+    \babelfont{rm}{Noto Sans}
+\fi
+\usepackage{amsmath}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Colonne centrate per tabelle
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% Palette coerente con l'identità visiva di 0x06tudio
+\definecolor{primaryColor}{HTML}{1B365D}
+\definecolor{accentColor}{HTML}{2B6CB0}
+\definecolor{mutedText}{HTML}{4A5568}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryColor,
+    urlcolor=accentColor,
+    pdftitle={Piano di Qualifica - SpecCheck},
+    pdfauthor={0x06tudio}
+}
+
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textcolor{mutedText}{0x06tudio -- Piano di Qualifica (SpecCheck)}}
+\rhead{\small\textcolor{mutedText}{A.A. 2026/2027}}
+\cfoot{\small Pagina \thepage}
+
+% Macro redazionali di gruppo
+\newcommand{\glossario}[1]{\textit{#1}\textsubscript{G}}
+\newcommand{\uc}[1]{\textbf{#1}}
+\newcommand{\req}[1]{\texttt{#1}}
+
+% Ambiente standard per le schede dei Casi d'Uso
+\newenvironment{schedauc}[2]{%
+    \subsubsection{#1: #2}%
+    \begin{itemize}[leftmargin=1.5em, itemsep=0.3em]%
+}{%
+    \end{itemize}%
+    \vspace{0.6em}%
+}
+
+\begin{document}
+
+% ==============================================================================
+% FRONTESPIZIO
+% ==============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.2cm}
+    {\includegraphics[width=0.28\textwidth]{../media/logo.png}\\[0.8cm]}
+    {\Large \textbf{0x06tudio} --- ZEROSIX STUDIO \par}
+    {\small \href{mailto:0x06tudio@gmail.com}{\texttt{0x06tudio@gmail.com}} \par}
+    \vspace{0.5cm}
+    {\large Università degli Studi di Padova -- Laurea in Informatica \par}
+    {\normalsize Corso di Ingegneria del Software -- Anno Accademico 2026/2027 \par}
+    \vspace{1.8cm}
+    {\Huge \textbf{\textcolor{primaryColor}{Piano di Qualifica}} \par}
+    \vspace{0.4cm}
+    {\Large Capitolato C9: \textit{SpecCheck} \par}
+    \vspace{1.8cm}
+
+    \renewcommand{\arraystretch}{1.35}
+    \begin{tabularx}{0.92\textwidth}{|c|C|}
+        \hline
+        \textbf{Versione} & 0.1.0 \\ \hline
+        \textbf{Stato} & Bozza \\ \hline
+        \textbf{Uso} & Esterno \\ \hline
+        \textbf{Committente} & Zucchetti S.p.A. \\ \hline
+        \textbf{Destinatari} & Zucchetti S.p.A., Prof. Tullio Vardanega, Prof. Riccardo Cardin \\ \hline
+        \textbf{Redattori} & Davide Colabove \\ \hline
+        \textbf{Verificatori} & / \\ \hline
+    \end{tabularx}
+    \vfill
+\end{titlepage}
+
+% ==============================================================================
+% REGISTRO DELLE MODIFICHE
+% ==============================================================================
+\section*{Registro delle modifiche}
+\begin{longtable}{|P{1.3cm}|P{2.2cm}|P{3.0cm}|P{2.6cm}|P{4.5cm}|}
+    \hline
+    \textbf{Vers.} & \textbf{Data} & \textbf{Autore} & \textbf{Verificatore} & \textbf{Descrizione} \\ \hline
+    \endhead
+    0.1.0 & 2026/11/24 & Davide Colabove & / & Prima stesura del documento: introduzione, strategia di Verifica e Validazione e obiettivi di qualità dei processi. \\ \hline
+\end{longtable}
+
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+\listoftables
+\newpage
+
+% ==============================================================================
+% CAPITOLO 1: INTRODUZIONE
+% ==============================================================================
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Il presente documento costituisce il \textbf{Piano di Qualifica} (\glossario{PdQ}) redatto dal gruppo \textbf{0x06tudio} nell'ambito del progetto \textbf{SpecCheck}, relativo al \glossario{Capitolato} d'appalto C9 proposto da \textbf{Zucchetti S.p.A.}. Esso ha il compito di dichiarare in modo esplicito e misurabile come verranno condotte le attività di \glossario{Qualifica}, ovvero di \glossario{Verifica} e \glossario{Validazione} (V\&V), lungo l'intero \glossario{ciclo di vita} del progetto e quali obiettivi di qualità il gruppo si impegna a raggiungere.
+
+In vista della prima \glossario{milestone} esterna di revisione (\glossario{RTB}), nella quale il fornitore concorda con i committenti le capacità della soluzione (\glossario{AdR}), tempi e costi (\textit{Piano di Progetto}) e gli impegni qualitativi, il Piano di Qualifica assolve alle seguenti funzioni principali:
+\begin{itemize}
+    \item \textbf{Pianificazione delle attività di V\&V}: definisce le strategie, i ruoli e le tecniche operative adottate per prevenire e individuare difetti nei processi, nella documentazione e nel codice sorgente;
+    \item \textbf{Definizione degli obiettivi di qualità}: stabilisce metriche oggettive, con relative soglie di accettabilità e di ottimalità, per controllare sia l'esecuzione dei \glossario{processi} sia le proprietà del prodotto finale;
+    \item \textbf{Monitoraggio dell'adesione al \glossario{Way of Working}}: prepara la struttura del futuro \glossario{Cruscotto di valutazione}, che raccoglierà periodicamente le misurazioni effettuate per guidare il miglioramento continuo del gruppo.
+\end{itemize}
+
+
+\subsection{Scopo del prodotto}
+Il progetto \textbf{SpecCheck} affronta il nuovo collo di bottiglia introdotto dallo sviluppo software assistito da \glossario{LLM}: mentre la generazione automatica del codice procede ad alta velocità, la verifica della sua aderenza alle intenzioni originarie resta prevalentemente manuale.
+
+Lo scopo del prodotto è realizzare un pacchetto unitario di estensioni per l'agente di \glossario{harness} \glossario{OpenCode} --- comprendente \glossario{skill}, \glossario{tool}, \glossario{comandi} e almeno un \glossario{plugin} (o componente \glossario{sidecar} deterministico), capace di verificare la \glossario{tracciabilità} end-to-end di un progetto software esterno lungo tre livelli:
+\begin{itemize}
+    \item lettura dei diagrammi dei \glossario{casi d'uso} (in formati strutturati quali \glossario{Mermaid} o \glossario{XMI} ed eventualmente tramite modelli multimodali) e della relativa documentazione testuale;
+    \item confronto tra i casi d'uso e le \glossario{specifiche dei requisiti}, segnalando mancanze, contraddizioni o scostamenti semantici;
+    \item analisi del codice sorgente per dedurne il comportamento effettivo, confronto con i requisiti e presentazione delle discrepanze tramite una \glossario{dashboard} integrata in interfaccia \glossario{TUI} (e opzionalmente grafica in HTML).
+\end{itemize}
+
+L'insieme degli artefatti sarà distribuito come un prodotto coerente, corredato di uno script unitario di installazione multipiattaforma e di una suite di test automatici idonea a verificarne l'affidabilità a ogni revisione.
+
+\subsection{Definizioni, acronimi e abbreviazioni}
+Per evitare ambiguità terminologiche tra i membri del gruppo e gli \glossario{Stakeholder} esterni, tutti i termini tecnici, gli acronimi e le definizioni di dominio sono raccolti nel documento \textbf{\glossario{Glossario}}. Nel presente documento ogni prima occorrenza rilevante di un termine censito nel Glossario è contrassegnata dal pedice \textsubscript{G} (es. \glossario{Capitolato}).
+
+\subsection{Riferimenti}
+
+\subsubsection{Riferimenti normativi}
+\begin{itemize}
+    \item \textbf{Norme di Progetto};
+    \item \textbf{Capitolato d'appalto C9 -- SpecCheck}, Zucchetti S.p.A.;
+    \item \textbf{\glossario{Verbali} interni ed esterni}:
+    \begin{itemize}
+        \item Verbale interno del 2026/11/13 (\texttt{vi\_2026\_11\_13.pdf});
+        \item Verbale esterno del 2026/11/13 (\texttt{ve\_2026\_11\_13.pdf});
+        \item Verbale interno del 2026/11/19 (\texttt{vi\_2026\_11\_19.pdf}).
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}
+    \item \textbf{Glossario};
+    \item \textbf{Dispense del corso di Ingegneria del Software -- T05: Analisi dei requisiti}, Prof. Tullio Vardanega, Università degli Studi di Padova, A.A. 2026/2027;
+    \item \textbf{Standard ISO/IEC/IEEE 12207} -- \textit{Systems and software engineering -- Software life cycle processes};
+    \item \textbf{Standard ISO/IEC 25010} -- \textit{Systems and software Quality Requirements and Evaluation (SQuaRE)};
+    \item \textbf{Standard IEEE 830-1998} -- \textit{Recommended Practice for Software Requirements Specifications}.
+\end{itemize}
+
+\newpage
+
+% ==============================================================================
+% CAPITOLO 2: STRATEGIA DI VERIFICA E VALIDAZIONE
+% ==============================================================================
+\section{Strategia di Verifica e Validazione}
+
+\subsection{Principi di Qualifica: Verifica, Validazione e Tracciamento}
+Nel contesto del progetto, la \textbf{Qualifica} coincide con l'esecuzione coordinata delle attività di \textbf{Verifica} e \textbf{Validazione} (V\&V), distinte per finalità e oggetto di osservazione:
+\begin{itemize}
+    \item \textbf{Verifica} (\textit{``Did I build the system right?''}): accerta in modo continuo che lo svolgimento delle attività di progetto non introduca errori, concentrandosi sull'aderenza al \textit{Way of Working} e sulla conformità di ciascun artefatto rispetto agli ingressi della fase che lo ha prodotto;
+    \item \textbf{Validazione} (\textit{``Did I build the right system?''}): accerta che il prodotto finale risponda effettivamente alle attese espresse dagli stakeholder e soddisfi i \glossario{requisiti} utente originati dal capitolato, fino al \glossario{collaudo} conclusivo.
+\end{itemize}
+
+Le due attività operano in modo complementare attorno al \textbf{\glossario{tracciamento dei requisiti}}: mentre la progettazione soddisfa i requisiti e il codice realizza la progettazione, la \textbf{Verifica} \textit{assicura} la correttezza di requisiti, progettazione e codice, \textit{abilitando} così la \textbf{Validazione}, la quale a sua volta \textit{accerta} il soddisfacimento dei requisiti e \textit{conferma} la rispondenza del codice. Il tracciamento bidirezionale consente di dimostrare con continuità due proprietà fondamentali:
+\begin{enumerate}
+    \item \textbf{Necessità}: ogni requisito software (lato soluzione) concorre, da solo o insieme ad altri, a soddisfare uno specifico requisito utente (lato bisogno), evitando specifiche superflue;
+    \item \textbf{Sufficienza}: ogni bisogno rilevante individuato nel capitolato o nei verbali trova corrispondenza in almeno un requisito software, garantendo che nessun vincolo venga trascurato.
+\end{enumerate}
+
+Per sostenere il miglioramento progressivo della qualità durante l'intero progetto, il gruppo applica il ciclo \textbf{\glossario{PDCA}} (\textit{Plan-Do-Check-Act}): pianificazione delle metriche e delle attività di controllo all'apertura di ciascuno sprint (\textit{Plan}), esecuzione operativa secondo le \textit{Norme di Progetto} (\textit{Do}), misurazione oggettiva degli scostamenti rispetto alle soglie fissate (\textit{Check}) e introduzione di azioni correttive mirate prima dello sprint successivo (\textit{Act}).
+
+\subsection{Attività di Verifica statica}
+La verifica statica analizza documentazione e codice sorgente senza eseguirli, con l'obiettivo di intercettare difetti il più precocemente possibile. In particolare, la verifica dell'analisi e dei documenti di progetto non ripete il lavoro di redazione, ma si accerta che esso sia stato svolto in modo conforme alle norme e alle attese.
+
+Il gruppo impiega due tecniche complementari di revisione manuale:
+\begin{itemize}
+    \item \textbf{\glossario{Walkthrough}}: lettura a largo spettro condotta nelle fasi iniziali di un artefatto (come le prime bozze di \textit{Analisi dei Requisiti} o di documenti tecnologici), utile per cogliere ambiguità, omissioni macroscopiche e incoerenze strutturali prima che il processo sia pienamente stabilizzato;
+    \item \textbf{\glossario{Ispezione}}: lettura mirata, rigorosa e sistematica guidata da apposite \textbf{\glossario{checklist}} definite nelle \textit{Norme di Progetto}. Al consolidarsi del \textit{Way of Working}, l'ispezione costituisce la tecnica prevalente per accertare completezza, assenza di ambiguità, consistenza terminologica rispetto al Glossario e correttezza della matrice delle dipendenze (necessità e sufficienza).
+\end{itemize}
+
+Sul piano organizzativo, ogni modifica a documenti o codice segue un flusso disciplinato di revisione:
+\begin{enumerate}
+    \item \textbf{Separazione dei ruoli}: l'autore di un artefatto non può mai rivestire il ruolo di \glossario{Verificatore} sullo stesso contributo;
+    \item \textbf{Continuità delle approvazioni}: come deliberato nella riunione interna del 2026/11/19, il gruppo prevede le figure di \textit{Responsabile sostitutivo} e \textit{Verificatore sostitutivo} (individuate tra i ruoli previsti per lo sprint successivo), così da evitare colli di bottiglia nelle revisioni e nelle approvazioni rapide senza compromettere l'indipendenza del controllo;
+    \item \textbf{Automazione in \glossario{CI/CD}}: i controlli ripetitivi e deterministici, tra cui compilazione \LaTeX{}, verifica ortografica, calcolo dell'\glossario{Indice di Gulpease}, formattazione e analisi statica del codice del repository \texttt{SpecCheck}, vengono delegati progressivamente a pipeline automatiche attivate su ogni \textit{Pull Request}.
+\end{enumerate}
+
+\subsection{Impostazione della Verifica dinamica e della Validazione}
+La verifica dinamica accerta il comportamento effettivo del software mediante l'esecuzione controllata del codice. In aderenza al principio di verificabilità dell'ingegneria dei requisiti, chiunque definisca un requisito di lato soluzione deve stabilire contestualmente come accertarne il soddisfacimento, quantificando gli attributi qualitativi tramite valore target, scala e metro di misura, e valutando costo e complessità della verifica. Ove applicabile ai componenti deterministici di \textit{SpecCheck} (parser di diagrammi, motore di confronto, bridge e dashboard), il gruppo guarda al \textbf{\glossario{TDD}} (\textit{Test-Driven Development}) come riferimento metodologico per legare fin dall'inizio ogni specifica alla propria verifica automatizzata.
+
+Come richiesto dal capitolato, il sistema sarà soggetto a numerose revisioni esplorative e dovrà quindi disporre di una suite di test automatizzati eseguita in integrazione continua. La strategia di testing, che verrà dettagliata con i singoli casi di test nelle versioni successive del documento in vista della \glossario{PB}, si articolerà su cinque livelli:
+\begin{itemize}
+    \item \textbf{Test di Unità}: verifica isolata delle singole funzioni e moduli deterministici;
+    \item \textbf{Test di Integrazione}: controllo dell'interazione tra \textit{skill}, \textit{tool}, \textit{plugin}, componente \textit{sidecar} e agente \textit{OpenCode};
+    \item \textbf{Test di Sistema}: verifica end-to-end del soddisfacimento di ogni requisito funzionale e di qualità censito nell'\textit{Analisi dei Requisiti};
+    \item \textbf{Test di Regressione}: riesecuzione automatizzata della suite di test in pipeline CI/CD a ogni modifica del codice sorgente, per garantire che nuovi incrementi non compromettano funzionalità già verificate;
+    \item \textbf{Test di Accettazione}: scenari di validazione eseguiti con il \glossario{Committente} per confermare l'idoneità d'uso del prodotto nel contesto reale di sviluppo.
+\end{itemize}
+
+Coerentemente con la progressione prevista dal capitolato C9, la validazione si articola in due momenti distinti:
+\begin{enumerate}
+    \item \textbf{Validazione tecnologica (\glossario{PoC})}: finalizzata alla revisione \textit{RTB}, dimostra la fattibilità delle tecnologie critiche (ingestione dei diagrammi dei casi d'uso e algoritmi di confronto con modelli LLM) su un progetto software di riferimento, consolidando i requisiti lato soluzione;
+    \item \textbf{Validazione funzionale e collaudo (\glossario{MVP})}: finalizzata al rilascio del prodotto minimo funzionante, dimostra il pieno soddisfacimento dei requisiti obbligatori concordati e costituisce la base per la valutazione positiva da parte di Zucchetti S.p.A. al termine del progetto.
+\end{enumerate}
+
+\newpage
+
+% ==============================================================================
+% CAPITOLO 3: OBIETTIVI DI QUALITÀ DEI PROCESSI
+% ==============================================================================
+\section{Obiettivi di Qualità dei Processi}
+
+La qualità del prodotto finale discende direttamente dal rigore con cui vengono governati i processi che lo realizzano. In accordo con lo standard \textbf{ISO/IEC/IEEE 12207}, le attività progettuali operano lungo la catena coordinata tra \textit{Acquisizione} (committente/proponente), \textit{Fornitura} (pianificazione, gestione dei criteri di qualità e coordinamento da parte del gruppo) e \textit{Sviluppo} (analisi, progettazione, codifica, integrazione e verifica).
+
+Al fine di misurare oggettivamente \glossario{efficacia} ed \glossario{efficienza} del nostro operato e prevenire derive di costo, tempo o qualità prima che impattino il prodotto, le metriche di processo sono organizzate nelle tre classi dello standard ISO/IEC/IEEE 12207, \textbf{Processi primari}, \textbf{Processi di supporto} e \textbf{Processi organizzativi}, e identificate univocamente tramite il codice \req{MP-XX}.
+
+\subsection{Processi primari}
+I processi primari costituiscono il nucleo operativo attraverso il quale il gruppo pianifica la fornitura e produce gli artefatti di valore per il committente.
+
+\subsubsection{Processo di Fornitura}
+Le metriche seguenti monitorano l'avanzamento economico e temporale del progetto mediante l'approccio \textit{Earned Value Management} (EVM), consentendo di verificare il rispetto del preventivo e delle scadenze fissate nel \textit{Piano di Progetto}.
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|P{1.8cm}|X|P{3.8cm}|P{3.4cm}|}
+        \hline
+        \textbf{\textcolor{primaryColor}{Codice}} & \textbf{\textcolor{primaryColor}{Nome metrica}} & \textbf{\textcolor{primaryColor}{Valore accettabile}} & \textbf{\textcolor{primaryColor}{Valore ottimo}} \\ \hline
+        \req{MP-01} & \glossario{Planned Value} (PV) & $> 0$ & $\le \text{\glossario{BAC}}$ \\ \hline
+        \req{MP-02} & \glossario{Earned Value} (EV) & $\ge 0{,}8 \cdot \text{PV}$ & $\ge \text{PV}$ \\ \hline
+        \req{MP-03} & \glossario{Actual Cost} (AC) & $\le 1{,}1 \cdot \text{EV}$ e $\le \text{BAC}$ & $\le \text{EV}$ \\ \hline
+        \req{MP-04} & \glossario{Cost Performance Index} (CPI) & $\ge 0{,}9$ & $\ge 1{,}0$ \\ \hline
+        \req{MP-05} & \glossario{Schedule Performance Index} (SPI) & $\ge 0{,}9$ & $\ge 1{,}0$ \\ \hline
+        \req{MP-06} & \glossario{Estimate at Completion} (EAC) & $\le 1{,}05 \cdot \text{BAC}$ & $\le \text{BAC}$ \\ \hline
+        \req{MP-07} & \glossario{Estimate to Complete} (ETC) & $\le 1{,}05 \cdot (\text{BAC} - \text{AC})$ & $\le \text{BAC} - \text{AC}$ \\ \hline
+        \req{MP-08} & \glossario{Time Estimate at Completion} (TEAC) & $\le 1{,}05 \cdot T_{\text{pianificato}}$ & $\le T_{\text{pianificato}}$ \\ \hline
+    \end{tabularx}
+    \caption{Obiettivi di qualità per il processo primario di Fornitura.}
+    \label{tab:proc-fornitura}
+\end{table}
+
+\subsubsection{Processo di Sviluppo}
+Le metriche di sviluppo valutano la capacità del team di portare a termine le attività pianificate nello sprint e di mantenere integro il tracciamento lungo l'intera filiera dai bisogni ai requisiti e ai relativi artefatti.
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|P{1.8cm}|X|P{3.8cm}|P{3.4cm}|}
+        \hline
+        \textbf{\textcolor{primaryColor}{Codice}} & \textbf{\textcolor{primaryColor}{Nome metrica}} & \textbf{\textcolor{primaryColor}{Valore accettabile}} & \textbf{\textcolor{primaryColor}{Valore ottimo}} \\ \hline
+        \req{MP-09} & Completamento attività di sprint & $\ge 80\%$ & $100\%$ \\ \hline
+        \req{MP-10} & Copertura di tracciamento dei requisiti & $100\%$ obbligatori & $100\%$ totali \\ \hline
+    \end{tabularx}
+    \caption{Obiettivi di qualità per il processo primario di Sviluppo.}
+    \label{tab:proc-sviluppo}
+\end{table}
+
+\subsection{Processi di supporto}
+I processi di supporto affiancano i processi primari per garantire leggibilità, consistenza formale e verificabilità di ogni artefatto prodotto dal gruppo.
+
+\subsubsection{Processo di Documentazione}
+La qualità redazionale dei documenti prodotti in \LaTeX{} viene controllata combinando leggibilità oggettiva e assenza di errori linguistici.
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|P{1.8cm}|X|P{3.8cm}|P{3.4cm}|}
+        \hline
+        \textbf{\textcolor{primaryColor}{Codice}} & \textbf{\textcolor{primaryColor}{Nome metrica}} & \textbf{\textcolor{primaryColor}{Valore accettabile}} & \textbf{\textcolor{primaryColor}{Valore ottimo}} \\ \hline
+        \req{MP-11} & Indice di Gulpease & $\ge 40$ & $\ge 60$ \\ \hline
+        \req{MP-12} & Errori ortografici e grammaticali & $0$ & $0$ \\ \hline
+    \end{tabularx}
+    \caption{Obiettivi di qualità per il processo di supporto di Documentazione.}
+    \label{tab:proc-documentazione}
+\end{table}
+
+\subsubsection{Processo di Verifica}
+Le metriche di verifica controllano l'affidabilità delle esecuzioni dei test e la stabilità delle pipeline automatiche di integrazione continua. Per il rilascio di ogni baseline esterna (RTB e PB) il valore accettabile del superamento dei test converge al $100\%$.
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|P{1.8cm}|X|P{3.8cm}|P{3.4cm}|}
+        \hline
+        \textbf{\textcolor{primaryColor}{Codice}} & \textbf{\textcolor{primaryColor}{Nome metrica}} & \textbf{\textcolor{primaryColor}{Valore accettabile}} & \textbf{\textcolor{primaryColor}{Valore ottimo}} \\ \hline
+        \req{MP-13} & Percentuale di test superati & $\ge 85\%$ ($100\%$ in rilascio) & $100\%$ \\ \hline
+        \req{MP-14} & Esito positivo della pipeline CI/CD & $\ge 95\%$ & $100\%$ \\ \hline
+    \end{tabularx}
+    \caption{Obiettivi di qualità per il processo di supporto di Verifica.}
+    \label{tab:proc-verifica}
+\end{table}
+
+\subsection{Processi organizzativi}
+I processi organizzativi governano la gestione complessiva del gruppo e l'adozione sistematica di pratiche di miglioramento continuo.
+
+\subsubsection{Gestione e miglioramento continuo}
+L'indicatore seguente sintetizza, a fine sprint, il grado di conformità complessivo del progetto rispetto agli obiettivi qualitativi stabiliti nel presente documento (considerando soddisfatta ogni metrica almeno entro la propria soglia di accettabilità).
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\textwidth}{|P{1.8cm}|X|P{3.8cm}|P{3.4cm}|}
+        \hline
+        \textbf{\textcolor{primaryColor}{Codice}} & \textbf{\textcolor{primaryColor}{Nome metrica}} & \textbf{\textcolor{primaryColor}{Valore accettabile}} & \textbf{\textcolor{primaryColor}{Valore ottimo}} \\ \hline
+        \req{MP-15} & Percentuale di metriche di qualità soddisfatte & $\ge 80\%$ & $100\%$ \\ \hline
+    \end{tabularx}
+    \caption{Obiettivi di qualità per i processi organizzativi.}
+    \label{tab:proc-organizzativi}
+\end{table}
+
+\end{document}

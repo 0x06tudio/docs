@@ -1,5 +1,9 @@
 [
   {
+    "termine": "AC (Actual Cost)",
+    "definizione": "Costo effettivamente sostenuto fino a una determinata data per lo svolgimento delle attività di progetto."
+  },
+  {
     "termine": "AdR",
     "definizione": "Analisi dei Requisiti: documento che traduce i bisogni del capitolato in casi d'uso e requisiti."
   },
@@ -22,6 +26,10 @@
   {
     "termine": "Analista",
     "definizione": "Ruolo di progetto che redige l'Analisi dei Requisiti."
+  },
+  {
+    "termine": "BAC (Budget at Completion)",
+    "definizione": "Costo totale preventivato per il completamento dell'intero progetto."
   },
   {
     "termine": "Benchmark",
@@ -52,6 +60,10 @@
     "definizione": "Descrizione di come un utente interagisce con il sistema per raggiungere un obiettivo; da esso discendono i requisiti."
   },
   {
+    "termine": "Checklist",
+    "definizione": "Lista di controllo strutturata composta da criteri espliciti, utilizzata nelle attività di ispezione per verificare la conformità di un artefatto."
+  },
+  {
     "termine": "Checksum",
     "definizione": "Valore calcolato sul contenuto di un file (es. SHA-256) per verificarne l'integrità."
   },
@@ -70,6 +82,10 @@
   {
     "termine": "CLI (Command Line Interface)",
     "definizione": "Interfaccia a riga di comando. Nel contesto del progetto, spesso riferita all'interfaccia utilizzata dall'agente o a eseguibili ausiliari esterni (Sidecar CLI) che eseguono task deterministici."
+  },
+  {
+    "termine": "Collaudo",
+    "definizione": "Attività finale di validazione in cui il fornitore dimostra al committente che il prodotto software soddisfa i requisiti utente concordati."
   },
   {
     "termine": "Comando",
@@ -92,12 +108,24 @@
     "definizione": "Quali specifiche parti della loro storia individuale ci interessa (es. l'ultima versione, quella precedente, ecc..)."
   },
   {
+    "termine": "CPI (Cost Performance Index)",
+    "definizione": "Indice di efficienza sui costi, calcolato come rapporto tra Earned Value (EV) e Actual Cost (AC); valori maggiori o uguali a 1 indicano il rispetto del budget."
+  },
+  {
+    "termine": "Cruscotto di valutazione",
+    "definizione": "Insieme di grafici e indicatori raccolti nel Piano di Qualifica per monitorare nel tempo l'andamento delle metriche di qualità e l'adesione al Way of Working."
+  },
+  {
     "termine": "Dashboard",
     "definizione": "Vista di sintesi che riporta lo stato di realizzazione rispetto a quanto previsto dalle specifiche dei requisiti; può essere testuale (TUI) o grafica (HTML)."
   },
   {
     "termine": "Deployment",
     "definizione": "Insieme delle operazioni che portano il prodotto dal repository all'ambiente dell'utente: installazione, configurazione e distribuzione."
+  },
+  {
+    "termine": "EAC (Estimate at Completion)",
+    "definizione": "Stima aggiornata del costo complessivo del progetto al suo completamento, ricalcolata in base all'andamento corrente."
   },
   {
     "termine": "Economicità",
@@ -118,6 +146,14 @@
   {
     "termine": "Engineering",
     "definizione": "Application of scientific and mathematical principles to practical ends."
+  },
+  {
+    "termine": "ETC (Estimate to Complete)",
+    "definizione": "Stima del costo residuo necessario per completare le attività di progetto ancora aperte."
+  },
+  {
+    "termine": "EV (Earned Value)",
+    "definizione": "Valore economico del lavoro effettivamente completato fino a una determinata data, calcolato rispetto al valore preventivato."
   },
   {
     "termine": "Fase",
@@ -152,8 +188,16 @@
     "definizione": "Procedere per aggiunte successive a un impianto base (scultura), solo costruttivo."
   },
   {
+    "termine": "Indice di Gulpease",
+    "definizione": "Indice di leggibilità tarato sulla lingua italiana che valuta la facilità di lettura di un testo su scala da 0 a 100 in base alla lunghezza media di parole e frasi."
+  },
+  {
     "termine": "Ingegneria del software",
     "definizione": "Approccio sistematico, disciplinato e quantificabile allo sviluppo, l'uso, la manutenzione ed il ritiro del SW. Sistematico: modo di lavorare metodico che evolve le best practice; Disciplinato: segue le regole; Quantificabile: permette di misurarne efficienza ed efficacia."
+  },
+  {
+    "termine": "Ispezione",
+    "definizione": "Tecnica di verifica statica mirata e strutturata, condotta su un documento o codice sorgente mediante l'uso di checklist per individuare difetti o non conformità."
   },
   {
     "termine": "Iterazione",
@@ -220,6 +264,18 @@
     "definizione": "Framework e flusso di lavoro per lo Spec-Driven Development che struttura l'interazione con gli agenti di codifica tramite fasi e comandi dedicati (es. /opsx-propose) prima della generazione del codice."
   },
   {
+    "termine": "PB (Product Baseline)",
+    "definizione": "Seconda revisione esterna del progetto didattico, dedicata alla valutazione dell'architettura di dettaglio e del prodotto software completo (MVP) pronto per il collaudo."
+  },
+  {
+    "termine": "PDCA (Plan-Do-Check-Act)",
+    "definizione": "Ciclo iterativo di gestione e miglioramento continuo della qualità articolato in pianificazione, esecuzione, controllo dei risultati e introduzione di azioni correttive."
+  },
+  {
+    "termine": "PdQ",
+    "definizione": "Piano di Qualifica: documento che definisce le strategie di verifica e validazione (V&V), gli obiettivi di qualità di processo e prodotto e il cruscotto di valutazione."
+  },
+  {
     "termine": "PlantUML",
     "definizione": "Strumento che genera diagrammi UML a partire da una descrizione testuale, dotato di una sintassi dedicata anche ai diagrammi dei casi d'uso."
   },
@@ -252,6 +308,14 @@
     "definizione": "Per provare e scegliere soluzioni, usa e getta o per incrementi."
   },
   {
+    "termine": "PV (Planned Value)",
+    "definizione": "Valore economico del lavoro pianificato che avrebbe dovuto essere completato entro una determinata data."
+  },
+  {
+    "termine": "Qualifica",
+    "definizione": "Insieme coordinato delle attività di Verifica e Validazione (V&V) volte ad accertare la qualità dei processi e la rispondenza del prodotto alle attese."
+  },
+  {
     "termine": "Qualità",
     "definizione": "Ha più dimensioni: riguarda i prodotti e i processi, e interessa sia il committente che la direzione aziendale."
   },
@@ -274,6 +338,10 @@
   {
     "termine": "Riuso",
     "definizione": "Copia-incolla opportunistico (occasionale: basso costo e scarso impatto) oppure Sistematico (per progetto o famiglia di prodotti: maggior costo iniziale ma maggior impatto a lungo termine)."
+  },
+  {
+    "termine": "RTB (Requirements and Technology Baseline)",
+    "definizione": "Prima milestone esterna del progetto didattico, in cui committente e fornitore si accordano su capacità della soluzione (AdR), tempi e costi (Piano di Progetto), obiettivi di qualità (PdQ) e fattibilità tecnologica (PoC)."
   },
   {
     "termine": "SARIF",
@@ -320,6 +388,10 @@
     "definizione": "Documento formale che definisce in modo dettagliato, univoco e verificabile le funzioni, i comportamenti e i vincoli del sistema software derivanti dai casi d'uso."
   },
   {
+    "termine": "SPI (Schedule Performance Index)",
+    "definizione": "Indice di rispetto della pianificazione temporale, calcolato come rapporto tra Earned Value (EV) e Planned Value (PV); valori maggiori o uguali a 1 indicano il rispetto della schedulazione."
+  },
+  {
     "termine": "SSE (Server-Sent Events)",
     "definizione": "Canale unidirezionale dal server al browser su HTTP, usato per aggiornamenti in tempo reale."
   },
@@ -334,6 +406,14 @@
   {
     "termine": "Supply chain",
     "definizione": "Insieme dei passaggi e dei componenti che portano un artefatto dal repository all'utente."
+  },
+  {
+    "termine": "TDD (Test-Driven Development)",
+    "definizione": "Pratica di sviluppo che antepone la scrittura dei test all'implementazione del codice sorgente, portando al massimo grado il principio di verificabilità dei requisiti."
+  },
+  {
+    "termine": "TEAC (Time Estimate at Completion)",
+    "definizione": "Stima aggiornata della durata complessiva necessaria per completare il progetto rispetto al tempo originariamente pianificato."
   },
   {
     "termine": "Tool",
@@ -356,12 +436,28 @@
     "definizione": "Possibilità di collegare ogni caso d'uso ai requisiti e al codice che lo realizzano, e viceversa."
   },
   {
+    "termine": "Tracciamento dei requisiti",
+    "definizione": "Tecnica che collega in modo esplicito e bidirezionale i bisogni utente ai requisiti software, alla progettazione, al codice e ai test, al fine di verificarne necessità e sufficienza."
+  },
+  {
     "termine": "TUI (Terminal User Interface)",
     "definizione": "Interfaccia testuale interattiva che usa il terminale come superficie di disegno."
   },
   {
+    "termine": "Validazione",
+    "definizione": "Attività volta ad accertare che il prodotto finale corrisponda alle attese del committente (\"Did I build the right system?\")."
+  },
+  {
     "termine": "Verbali",
     "definizione": "Breve rendiconto di riunioni ufficiali (agenda, decisioni, azioni)."
+  },
+  {
+    "termine": "Verifica",
+    "definizione": "Attività volta ad accertare che lo svolgimento delle attività di sviluppo non introduca errori (\"Did I build the system right?\"), con attenzione rivolta al Way of Working."
+  },
+  {
+    "termine": "Verificatore",
+    "definizione": "Ruolo di progetto incaricato di eseguire le attività di verifica statica e dinamica sugli artefatti prodotti, accertandone la conformità alle norme e agli obiettivi di qualità."
   },
   {
     "termine": "Vibe Coding",
@@ -370,6 +466,10 @@
   {
     "termine": "Vision Language Model (VLM)",
     "definizione": "Modello di intelligenza artificiale multimodale in grado di ricevere in ingresso un'immagine insieme a un testo e di produrre una descrizione o un output strutturato."
+  },
+  {
+    "termine": "Walkthrough",
+    "definizione": "Tecnica di verifica statica consistente in una lettura a largo spettro di un documento o artefatto per individuare inconsistenze, ambiguità o omissioni senza l'uso rigido di checklist."
   },
   {
     "termine": "Way of Working",
