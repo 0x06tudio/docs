@@ -1,0 +1,167 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+\newcommand{\linksott}[2]{\href{#1}{\uline{#2}}}
+\newcommand{\verbale}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/verbali/esterni/ve_2026_11_13.pdf}
+\newcommand{\ddb}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/diari_di_bordo/DiarioDiBordo5_ZeroSixStudio.pdf}
+
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Stato:} & Non Approvato \\
+    \textbf{Data:} & 2026/11/19 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Catalin Chirilov, Davide Colabove, Andrea Maggio, Alberto Cavalletto \\
+    \textbf{Destinatari:} & 0x06tudio \\
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Ora inizio:} & 15:30 \\
+    \textbf{Ora fine:} & 17:00 \\
+    \textbf{Durata totale:} & 90 minuti \\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Caricamento del documento verbale esterno (ve\_2026\_11\_13) firmato dal referente esterno\vspace{-0.2cm}
+    \item Aggiornamento del Way of Working (WoW)\vspace{-0.2cm}
+    \item Definizione della procedura per la redazione dell'Analisi dei Requisiti (AdR)\vspace{-0.2cm}
+    \item Pianificazione Sprint S02 e avvio della documentazione per la RTB\vspace{-0.2cm}
+    \item Creazione repository di progetto "SpecCheck", pipeline CI/CD e aggiornamenti al sito web\vspace{-0.2cm}
+    \item Pianificazione Diario di Bordo 5 e revisione ruoli per Sprint S02
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Verificatore} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/11/24 & Stesura iniziale del documento & / & Davide Colabove \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Punto 1: Caricamento del documento verbale esterno (ve\_2026\_11\_13) firmato dal referente esterno} \label{PuntoUno}
+Durante la riunione il gruppo ha provveduto al caricamento nel repository del \linksott{\verbale}{verbale esterno (ve\_2026\_11\_13)} firmato dal referente, completando così l'archiviazione della documentazione approvata dall'azienda proponente.
+
+\subsection{Punto 2: Aggiornamento del Way of Working (WoW)}
+Il gruppo ha discusso e approvato un aggiornamento del \textit{Way of Working} (WoW) al fine di rendere più agile il flusso di revisione e approvazione interna. In particolare, è stato deciso di introdurre le seguenti due figure di supporto:
+\begin{itemize}
+    \item \textbf{Responsabile sostitutivo}, dedicato a garantire approvazioni rapide in caso di indisponibilità temporanea del Responsabile di periodo.\vspace{-0.2cm}
+    \item \textbf{Verificatore sostitutivo}, a supporto delle attività di controllo e verifica dei documenti e delle modifiche.
+\end{itemize}
+È stato inoltre stabilito che entrambe le figure sostitutive verranno individuate attingendo dai ruoli già pianificati per lo sprint successivo.
+
+\subsection{Punto 3: Definizione della procedura per la redazione dell'Analisi dei Requisiti (AdR)}
+Per organizzare in modo strutturato la stesura e la validazione del documento di \textit{Analisi dei Requisiti} (AdR), il gruppo ha definito la seguente procedura operativa in quattro fasi:
+\begin{itemize}
+    \item Prima stesura del documento affidata a Catalin Chirilov (con ruolo di Analista nello sprint corrente).\vspace{-0.2cm}
+    \item Riunione interna prevista per la settimana successiva (2026/11/26) finalizzata alla revisione collettiva e alle necessarie correzioni dello stato corrente.\vspace{-0.2cm}
+    \item Riunione esterna di confronto e validazione con il referente aziendale con il referente esterno (data da definire, stimata nei primi giorni di Dicembre).\vspace{-0.2cm}
+    \item Colloquio di revisione con il prof. Cardin da svolgersi prima della milestone RTB (\textit{Requirements and Technology Baseline}).
+\end{itemize}
+
+\subsection{Punto 4: Pianificazione Sprint S02 e avvio della documentazione per la RTB}
+In vista della milestone RTB, il gruppo ha pianificato le attività dello Sprint S02 e ha aperto le relative issue sul repository documentale per avviare la prima stesura dei documenti principali:
+\begin{itemize}
+    \item Aggiornamento dello Sprint S02 sul sito web del gruppo e all'interno del documento "Piano di Progetto" (\issue{80}).\vspace{-0.2cm}
+    \item Prima stesura del documento "Piano di Progetto" (\issue{74}), con scadenza fissata al 2026/12/18.\vspace{-0.2cm}
+    \item Prima stesura del documento "Norme di Progetto" (\issue{75}), con scadenza fissata al 2026/12/18.\vspace{-0.2cm}
+    \item Prima stesura del documento "Analisi dei Requisiti" (\issue{76}), con scadenza fissata al 2026/12/18.\vspace{-0.2cm}
+    \item Prima stesura del documento "Piano di Qualifica" (\issue{77}), con scadenza fissata al 2026/12/18.
+\end{itemize}
+
+\subsection{Punto 5: Creazione repository di progetto "SpecCheck", pipeline CI/CD e aggiornamenti al sito web}
+Sul fronte tecnico e infrastrutturale, sono state pianificate le seguenti attività di supporto allo sviluppo e alla pubblicazione dei contenuti:
+\begin{itemize}
+    \item Creazione del repository di progetto denominato "SpecCheck" con priorità urgente (\issue{72}).\vspace{-0.2cm}
+    \item Implementazione della pipeline CI/CD per il repository "SpecCheck" (\issue{79}), con scadenza al 2026/12/18.\vspace{-0.2cm}
+    \item Aggiunta della visualizzazione della sezione "Studio di tecnologie" all'interno del sito web del gruppo (\issue{70}), con scadenza al 2026/11/22.
+\end{itemize}
+
+\subsection{Punto 6: Pianificazione Diario di Bordo 5 e revisione ruoli per Sprint S02}
+In conclusione della call sono state assegnate le attività periodiche di rendicontazione: la stesura e revisione del \linksott{\ddb}{Diario di Bordo 5} (\issue{71}) e la stesura e revisione del presente Verbale Interno (\issue{78}).
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} & \textbf{Motivazione} \\ \hline
+    D 8.1 & Caricamento del \linksott{\verbale}{verbale esterno (ve\_2026\_11\_13)} firmato dal referente esterno & Archiviazione della documentazione ufficialmente approvata \\ \hline
+    D 8.2 & Aggiornamento del Way of Working con Responsabile sostitutivo e Verificatore sostitutivo & Garantire approvazioni rapide e continuità operativa attingendo ai ruoli dello sprint successivo \\ \hline
+    D 8.3 & Definizione della procedura in fasi per l'Analisi dei Requisiti (AdR) & Garantire qualità e validazione progressiva tra team, referente aziendale e prof. Cardin prima della RTB \\ \hline
+    D 8.4 & Avvio prima stesura dei documenti RTB e aggiornamento Sprint S02 & Strutturare e pianificare la produzione documentale verso la milestone RTB \\ \hline
+    D 8.5 & Creazione repository di progetto "SpecCheck" e relativa pipeline CI/CD & Predisporre l'infrastruttura di sviluppo e integrazione continua \\ \hline
+    D 8.6 & Integrazione della visualizzazione "Studio di tecnologie" nel sito web & Rendere accessibili i documenti di approfondimento tecnologico prodotti dal gruppo \\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|X|c|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} & \textbf{Scadenza} & \textbf{Issue} \\ \hline
+    TD 8.1 & Aggiornare Sprint S02 su sito web e nel documento "Piano di Progetto" & Pietro Brocadello & 2026/11/26 & \issue{80} \\ \hline
+    TD 8.2 & Implementazione pipeline CI/CD per repository "SpecCheck" & Davide Colabove & 2026/12/18 & \issue{79} \\ \hline
+    TD 8.3 & Stesura e revisione Verbale Interno 2026/11/19 & Davide Colabove & 2026/11/26 & \issue{78} \\ \hline
+    TD 8.4 & Prima stesura documento "Piano di Qualifica" & Davide Colabove & 2026/12/18 & \issue{77} \\ \hline
+    TD 8.5 & Prima stesura documento "Analisi dei Requisiti" & Catalin Chirilov & 2026/12/18 & \issue{76} \\ \hline
+    TD 8.6 & Prima stesura documento "Norme di Progetto" & Andrea Maggio & 2026/12/18 & \issue{75} \\ \hline
+    TD 8.7 & Prima stesura documento "Piano di Progetto" & Pietro Broccadello & 2026/12/18 & \issue{74} \\ \hline
+    TD 8.8 & Creazione repository di progetto "SpecCheck" & Catalin Chirilov & 2026/11/26 & \issue{72} \\ \hline
+    TD 8.9 & Stesura e revisione Diario di Bordo 5 & Catalin Chirlov & 2026/11/23 & \issue{71} \\ \hline
+    TD 8.10 & Aggiungere visualizzazione "Studio di tecnologie" nel sito web & Pietro Broccadello & 2026/11/22 & \issue{70} \\ \hline
+\end{tabularx}
+
+\end{document}
