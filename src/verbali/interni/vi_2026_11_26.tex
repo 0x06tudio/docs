@@ -1,0 +1,143 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+
+% Margini
+\geometry{top=3cm, bottom=3cm, left=2.5cm, right=2.5cm}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textit{0x06tudio} -- Verbale di Riunione}
+\fancyhead[R]{\small Anno Accademico 2026/2027}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+\thispagestyle{plain}
+
+\newcommand{\issue}[1]{\href{https://github.com/0x06tudio/docs/issues/#1}{\textit{#1}}}
+\newcommand{\linksott}[2]{\href{#1}{\uline{#2}}}
+\newcommand{\verbale}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/verbali/esterni/ve_2026_11_13.pdf}
+\newcommand{\ddb}{https://raw.githubusercontent.com/0x06tudio/docs/main/out/diari_di_bordo/DiarioDiBordo5_ZeroSixStudio.pdf}
+
+
+\begin{minipage}{0.6\textwidth}
+    \vspace{-2cm}
+    {\huge \textbf{0x06tudio}} \\[0.5em]
+    {\large Progetto didattico di Ingegneria del Software} \\[0.3em]
+    {\normalsize Università degli Studi di Padova}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+    \raggedleft
+    \vspace{0pt}
+    \includegraphics[width=6cm]{../../media/logo.png}
+    \vspace{1cm}
+    \small
+    \href{mailto:0x06tudio@gmail.com}{0x06tudio@gmail.com}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\begin{center}
+    {\LARGE \textbf{Verbale Riunione}}
+\end{center}
+
+\vspace{0.5cm}
+
+
+\begin{tabularx}{\textwidth}{l X}
+    \textbf{Versione:} & 0.1.0 \\
+    \textbf{Stato:} & Bozza \\
+    \textbf{Data:} & 2026/11/19 \\
+    \textbf{Uso:} & Interno \\
+    \textbf{Partecipanti (Presenti):} & Nicolò Beltrame, Pietro Brocadello, Catalin Chirilov, Davide Colabove, Andrea Maggio, Alberto Cavalletto \\
+    \textbf{Destinatari:} & 0x06tudio \\
+    \textbf{Modalità / Luogo:} & Online / Discord \\
+    \textbf{Ora inizio:} & 15:30 \\
+    \textbf{Ora fine:} & 17:30 \\
+    \textbf{Durata totale:} & 2 ore \\
+\end{tabularx}
+\section*{Ordine del giorno}
+\begin{enumerate}
+    \item Ricerca e selezione del progetto di test per C9-SpecCheck\vspace{-0.2cm}
+    \item Pianificazione delle attività tecniche in caso di approvazione\vspace{-0.2cm}
+    \item Proseguimento della stesura dei documenti esterni
+\end{enumerate}
+\vspace{-0.5cm}
+
+\section*{Registro delle modifiche}
+\begin{tabularx}{\textwidth}{|c|c|X|c|c|}
+    \hline
+    \textbf{Versione} & \textbf{Data} & \textbf{Descrizione} & \textbf{Verificatore} & \textbf{Autore} \\ \hline
+    0.1.0 & 2026/11/26 & Stesura del verbale  & / & Catalin Chirilov \\ \hline
+\end{tabularx}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Resoconto della discussione}
+
+\subsection{Ricerca e selezione del progetto di test per C9-SpecCheck}
+Il gruppo ha svolto un'attività di ricerca finalizzata all'individuazione di un progetto software già esistente da utilizzare come caso di studio per le attività di verifica previste dal nostro progetto (\textbf{C9-SpecCheck}). In particolare:
+\begin{itemize}
+    \item Sul \linksott{http://sarec.nd.edu/coest/datasets.html}{sito COEST} è stata individuata una raccolta di progetti utilizzabili come dataset di test.\vspace{-0.2cm}
+    \item Tra i progetti disponibili nella raccolta, \textbf{eANCI} è emerso come il candidato più promettente.\vspace{-0.2cm}
+    \item Il gruppo procederà ora a richiedere conferma e approvazione per l'utilizzo di \textbf{eANCI} sia al committente sia all'azienda proponente (Zucchetti S.p.A.).
+\end{itemize}
+
+\subsection{Pianificazione delle attività tecniche in caso di approvazione}
+Subordinatamente alla conferma del progetto selezionato da parte di committente e proponente, il gruppo ha definito le seguenti fasi operative:
+\begin{itemize}
+    \item Implementazione di un flusso di conversione dei Casi d'Uso (UC) nei formati \textbf{Mermaid} e \textbf{XMI}, accompagnata dall'ampliamento delle relative specifiche dei requisiti.\vspace{-0.2cm}
+    \item Una volta verificato e approvato il corretto funzionamento di questa fase preparatoria, avvio dello sviluppo delle funzionalità di \textit{parsing} e di verifica della corrispondenza tra casi d'uso, specifiche e codice.
+\end{itemize}
+
+\subsection{Proseguimento della stesura dei documenti esterni}
+Parallelamente alle attività di esplorazione tecnica, il gruppo prosegue con la redazione dei seguenti documenti esterni:
+\begin{itemize}
+    \item \textit{Analisi dei Requisiti};\vspace{-0.2cm}
+    \item \textit{Piano di Qualifica};\vspace{-0.2cm}
+    \item \textit{Piano di Progetto};\vspace{-0.2cm}
+    \item \textit{Norme di Progetto}.
+\end{itemize}
+\newpage
+
+
+\section{Riepilogo delle decisioni e degli impegni (To-Do)}
+
+\begin{tabularx}{\textwidth}{|c|X|X|}
+    \hline
+    \textbf{ID Decisione} & \textbf{Descrizione} & \textbf{Motivazione} \\ \hline
+    D 9.1 & Caricamento della prima stesura del documento: \textit{Analisi dei Requisiti} & Archiviazione della documentazione approvata \\ \hline
+    D 9.2 & Ricerca progetto svolta in gruppo & Migliorare la qualità della ricerca e possibilità di chiarimento più efficace \\ \hline
+    D 9.3 & Attendere approvazione del proponente e del committente & Possibilità di ottenere feedback e chiarimenti\\ \hline
+\end{tabularx}
+
+\vspace{2cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|X|c|c|}
+    \hline
+    \textbf{Task ID} & \textbf{Descrizione} & \textbf{Assegnato a} & \textbf{Scadenza} & \textbf{Issue} \\ \hline
+    TD 9.1 & Aggiornare Sprint S02 su sito web e nel documento "Piano di Progetto" & Pietro Brocadello & 2026/11/26 & \issue{80} \\ \hline
+    TD 9.2 & Implementazione pipeline CI/CD per repository "SpecCheck" & Davide Colabove & 2026/12/18 & \issue{79} \\ \hline
+    TD 9.3 & Redigere Diario di bordo 6 & Davide Colabove & 2026/11/29 & \issue{86} \\ \hline
+    TD 9.4 & Proseguimento stesura documento "Piano di Qualifica" & Davide Colabove & 2026/12/18 & \issue{77} \\ \hline
+    TD 9.5 & Proseguimento stesura documento "Analisi dei Requisiti" & Catalin Chirilov & 2026/12/18 & \issue{76} \\ \hline
+    TD 9.6 & Proseguimento stesura documento "Norme di Progetto" & Andrea Maggio & 2026/12/18 & \issue{75} \\ \hline
+    TD 9.7 & Proseguimento stesura documento "Piano di Progetto" & Pietro Broccadello & 2026/12/18 & \issue{74} \\ \hline
+    TD 9.8 & Aggiungere visualizzazione "Studio tecnologie" nel sito web & Pietro Broccadello & 2026/11/29 & \issue{70} \\ \hline
+    TD 9.9 & Invio mail al referente esterno Zucchetti & Tutti i membri & 2026/12/2 & \issue{87} \\ \hline
+\end{tabularx}
+
+\end{document}
